@@ -2,42 +2,6 @@ import { DefaultTheme } from 'styled-components';
 
 export const theme: DefaultTheme = {
   colors: {
-    greenSurface: {
-      white: {
-        default: '#FFFFFF',
-        hover: '#F4F7F6',
-        active: '#DCE5E1',
-      },
-      light: {
-        default: '#F4F7F6',
-        hover: '#DCE5E1',
-        active: '#C9D6D1',
-      },
-      normal: {
-        default: '#E9EFED',
-        hover: '#CFDBD6',
-        active: '#B5C7C0',
-      },
-      dark: '#DEE6E3',
-    },
-    green: {
-      light: {
-        default: '#E6EFEC',
-        hover: '#D9E6E3',
-        active: '#B0CCC5',
-      },
-      normal: {
-        default: '#005B45',
-        hover: '#00523E',
-        active: '#004937',
-      },
-      dark: {
-        default: '#004434',
-        hover: '#003729',
-        active: '#00291F',
-      },
-      darker: '#002018',
-    },
     brownSurface: {
       white: {
         default: '#FFFFFF',
@@ -74,6 +38,42 @@ export const theme: DefaultTheme = {
       },
       darker: '#595347',
     },
+    greenSurface: {
+      white: {
+        default: '#FFFFFF',
+        hover: '#F4F7F6',
+        active: '#DCE5E1',
+      },
+      light: {
+        default: '#F4F7F6',
+        hover: '#DCE5E1',
+        active: '#C9D6D1',
+      },
+      normal: {
+        default: '#E9EFED',
+        hover: '#CFDBD6',
+        active: '#B5C7C0',
+      },
+      dark: '#DEE6E3',
+    },
+    green: {
+      light: {
+        default: '#E6EFEC',
+        hover: '#D9E6E3',
+        active: '#B0CCC5',
+      },
+      normal: {
+        default: '#005B45',
+        hover: '#00523E',
+        active: '#004937',
+      },
+      dark: {
+        default: '#004434',
+        hover: '#003729',
+        active: '#00291F',
+      },
+      darker: '#002018',
+    },
     red: {
       light: {
         default: '#FFECED',
@@ -109,6 +109,18 @@ export const theme: DefaultTheme = {
         active: '#1C3E73',
       },
       darker: '#16E059',
+    },
+    gray: {
+      10: '#FFFFFF',
+      20: '#F9F9F9',
+      30: '#EEEEEE',
+      40: '#DDDDDD',
+      50: '#999999',
+      60: '#555555',
+      70: '#343434',
+      80: '#202020',
+      90: '#121212',
+      100: '#000000',
     },
   },
 };
