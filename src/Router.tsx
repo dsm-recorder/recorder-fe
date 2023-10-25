@@ -1,13 +1,13 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
-import MainPage from './page/MainPage';
+import LandingPage from './page/LandinPage';
 
 export const Router = () => {
   return (
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path='/' element={<MainPage />} />
+        <Route path='/' element={<LandingPage />} />
       </Routes>
     </BrowserRouter>
   );
