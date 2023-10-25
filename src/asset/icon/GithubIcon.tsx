@@ -1,4 +1,4 @@
-const GithubIcon = () => {
+export const GithubIcon = () => {
   return (
     <svg
       width='28'
@@ -28,5 +28,3 @@ const GithubIcon = () => {
     </svg>
   );
 };
-
-export default GithubIcon;

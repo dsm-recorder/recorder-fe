@@ -1,4 +1,4 @@
-import GithubIcon from '../../asset/icon/GithubIcon';
+import { GithubIcon } from '../../asset/icon';
 import * as _ from './style';
 
 const index = () => {
