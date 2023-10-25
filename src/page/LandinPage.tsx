@@ -3,11 +3,22 @@ import Background from '../asset/background.png';
 import Footer from '../components/Footer';
 import BlogCard from '../components/BlogCard';
 import { HStack } from '../components/Stack';
+import { useSearchParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { PostLogin } from '../api/auth';
 
 const LandingPage = () => {
+  const [searchParams] = useSearchParams();
+  const githubLoginCode = searchParams.get('code');
+  const { mutate: loginMutate } = PostLogin();
+
+  useEffect(() => {
+    githubLoginCode && loginMutate(githubLoginCode);
+  }, [githubLoginCode]);
+
   return (
     <>
-      <Container style={{ backgroundImage: `url(${Background})` }}>
+      <Container id='main' style={{ backgroundImage: `url(${Background})` }}>
         <Description>
           포트폴리오의 모든 것 <br />
           리코더에서 쉽고 간결하게

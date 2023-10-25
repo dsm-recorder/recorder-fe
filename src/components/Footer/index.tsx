@@ -14,9 +14,11 @@ const Footer = () => {
           <_._TEXT size={14}>GET TO KNOW US</_._TEXT>
         </HStack>
         <HStack justify='space-between'>
-          <_._Logo>
-            <LogoIcon />
-          </_._Logo>
+          <a href='#main'>
+            <_._Logo>
+              <LogoIcon />
+            </_._Logo>
+          </a>
           <a target='_blank' href='https://github.com/dsm-recorder'>
             <GithubIcon />
           </a>
