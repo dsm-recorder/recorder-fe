@@ -21,7 +21,6 @@ export const ReissueToken = async (refresh_token: string) => {
 
 export const PostLogin = () => {
   const response = async (code: string) => {
-    console.log(code);
     return instance.get<IAuthorizationResponse>(`${ROUTER}/login?code=${code}`);
   };
   return useMutation(response, {
