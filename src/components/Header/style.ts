@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const _Container = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -16,7 +16,7 @@ export const Container = styled.div`
   z-index: 99;
 `;
 
-export const Logo = styled.div`
+export const _Logo = styled.div`
   cursor: pointer;
   width: 150px;
   height: 60px;
@@ -25,7 +25,7 @@ export const Logo = styled.div`
   line-height: 60px;
 `;
 
-export const LoginWrapper = styled.div`
+export const _LoginWrapper = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -39,7 +39,17 @@ export const LoginWrapper = styled.div`
   }
 `;
 
-export const Login = styled.div`
+export const _Login = styled.div`
   height: 20px;
+  font-size: 20px;
+`;
+
+export const _UserImg = styled.img`
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+`;
+
+export const _UserName = styled.div`
   font-size: 20px;
 `;
