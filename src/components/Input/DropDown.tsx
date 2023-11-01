@@ -6,8 +6,9 @@ import styled from 'styled-components';
 
 interface DropDownElementType {
   width?: string;
-  fullHeight?: string;
+  optionFullHeight?: string;
   dropDownHeight?: string;
+  optionheight?: string;
   margin?: string;
   label?: string;
 }
@@ -38,11 +39,7 @@ export const DropDown = <T extends string | number | object>({
       }}
     >
       {props.label && <InputLabelBox>{props.label}</InputLabelBox>}
-      <DropDownInner
-        height={props.fullHeight}
-        width={props.width}
-        onClick={(e) => e.preventDefault()}
-      >
+      <DropDownInner width={props.width} onClick={(e) => e.preventDefault()}>
         <DropDownWrapper
           dropDownHeight={props.dropDownHeight}
           onClick={() => setDropDown(!dropDown)}
@@ -57,7 +54,7 @@ export const DropDown = <T extends string | number | object>({
           <Arrow direction={dropDown ? 'top' : 'bottom'} />
         </DropDownWrapper>
         {dropDown && props.list && (
-          <OptionWrapper>
+          <OptionWrapper optionFullHeight={props.optionFullHeight}>
             {props?.list?.map((e, index) => {
               return (
                 <Option
@@ -80,8 +77,8 @@ export const DropDown = <T extends string | number | object>({
   );
 };
 
-const DropDownInner = styled.div<{ width?: string; height?: string }>`
-  width: 300px;
+const DropDownInner = styled.div<{ width?: string }>`
+  width: ${({ width }) => width ?? '300px'};
   display: flex;
   align-items: center;
   margin: 15px 0 0 0;
@@ -100,21 +97,21 @@ const DropDownWrapper = styled.div<{ dropDownHeight?: string }>`
   border: 1px solid #999999;
   padding: 15px;
   width: 100%;
-  height: 40px;
+  height: ${({ dropDownHeight }) => dropDownHeight ?? '40px'};
 `;
 
-const slideDown = keyframes`
-  from {
-    max-height: 0;
-  }
-  to {
-    max-height: 120px;
-  }
-`;
+const slideDown = keyframes<{ optionFullHeight?: string }>`
+    from {
+      min-height: 0;
+    }
+    to {
+      min-height: ${({ optionFullHeight }) => optionFullHeight ?? '120px'};
+    }
+  `;
 
-const OptionWrapper = styled.div`
+const OptionWrapper = styled.div<{ optionFullHeight?: string }>`
   width: 100%;
-  max-height: 120px;
+  min-height: ${({ optionFullHeight }) => optionFullHeight ?? '120px'};
   overflow-y: auto;
   display: flex;
   top: 60px;
@@ -123,7 +120,6 @@ const OptionWrapper = styled.div`
   border: 1px solid #999999;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   gap: 1px;
   position: absolute;
   background: ${({ theme }) => theme.colors.gray[10]};
@@ -138,9 +134,9 @@ const PlaceHolderValueInner = styled.div`
   color: ${({ theme }) => theme.colors.gray[50]};
 `;
 
-const Option = styled.div`
+const Option = styled.div<{ optionHeight?: string }>`
   width: 100%;
-  height: 120px;
+  height: ${({ optionHeight }) => optionHeight ?? '40px'};
   padding: 15px;
   font-size: 14px;
   font-style: normal;
