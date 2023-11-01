@@ -1,24 +1,46 @@
 import styled from 'styled-components';
-import { DropDown, Input, RadioInput } from '../components/Input';
-import { Button } from '../components/Button/Button';
-import { useState } from 'react';
-import { GetRepository, PostProject } from '../api/project';
+import {
+  DropDown,
+  Input,
+  ImageInput,
+  RadioInput,
+  TextAreaInput,
+} from '../components/Input';
+import { Button } from '../components/Button';
+import { useEffect, useState } from 'react';
+import {
+  GetIndividualRepo,
+  GetOrganization,
+  GetOrganizationRepo,
+  PostProject,
+} from '../api/project';
 import { DeleteIcon } from '../asset/icon/DeleteIcon';
 import { HStack, VStack } from '../components/Stack';
+import { IRepoResponse } from '../api/project/type';
 
 export const ProjectRegisterPage = () => {
   const [projectName, setProjectName] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
   const [skillInput, setSkillInput] = useState<string>('');
   const [skills, setSkills] = useState<string[]>([]);
   const [dropDownValue, setDropDownValue] = useState('');
+  const [selectRepos, setSelectRepos] = useState<IRepoResponse[] | undefined>(
+    []
+  );
+
   const [selectedRadio, setSelectedRadio] = useState<number>(0);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  const { data: repositories } = GetRepository();
+  const { data: organizations } = GetOrganization();
+  const { data: organizationRepos } = GetOrganizationRepo(dropDownValue);
   const { mutate: ProjectMutation } = PostProject();
+  const { data: individualRepos } = GetIndividualRepo();
 
-  const uniqueNames = repositories
-    ?.map((item) => item.name.split('/')[0])
-    ?.filter((value, index, self) => self.indexOf(value) === index);
+  const dropDownList = [
+    '개인 레포지토리',
+    'qweqwe',
+    ...(organizations ? organizations : []),
+  ];
 
   const onAddSkills = () => {
     if (skillInput.trim() !== '') {
@@ -32,40 +54,71 @@ export const ProjectRegisterPage = () => {
     setSkills(updatedSkills);
   };
 
-  const onDropDownChange = (value: string) => {
+  const onDropDownChange = async (value: string) => {
     setDropDownValue(String(value));
+    if (dropDownValue === '개인 레포지토리') {
+      setSelectRepos(individualRepos);
+    } else if (dropDownList?.includes(dropDownValue)) {
+      setSelectRepos(organizationRepos);
+    } else {
+      setSelectRepos([]);
+    }
   };
 
-  const filteredItems = repositories
-    ? repositories.filter((item) => item.name.startsWith(`${dropDownValue}/`))
-    : [];
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        if (event.target?.result) {
+          setSelectedImage(event.target.result as string);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const onProjectRegister = () => {
     if (
+      selectedImage &&
       projectName.length >= 1 &&
+      description.length >= 1 &&
       skills.length >= 1 &&
-      repositories &&
+      selectRepos &&
       selectedRadio >= 0 &&
-      selectedRadio < repositories.length
+      selectedRadio < selectRepos.length
     ) {
       ProjectMutation({
         projectName: projectName,
-        repositoryName: repositories[selectedRadio].name,
+        description: description,
+        repositoryName: selectRepos[selectedRadio].name,
         skills: skills,
       });
     } else alert('모두 입력해주세요');
   };
+
+  useEffect(() => {
+    console.log(selectRepos);
+  }, [dropDownValue]);
 
   return (
     <>
       <Container>
         <Title>프로젝트 등록</Title>
         <Box>
-          <VStack gap={30}>
+          <HStack justify="space-between">
+            <ImageInput
+              label="프로젝트 로고"
+              width="200px"
+              height="200px"
+              placeholder="프로젝트 로고를 선택해주세요"
+              value={selectedImage}
+              handleImageChange={handleImageChange}
+            />
             <Input
-              type='text'
-              label='프로젝트 이름'
-              placeholder='프로젝트 이름을 입력해주세요'
+              type="text"
+              label="프로젝트 이름"
+              placeholder="프로젝트 이름을 입력해주세요"
               value={projectName}
               onChange={(e) => {
                 setProjectName(e.target.value);
@@ -74,40 +127,49 @@ export const ProjectRegisterPage = () => {
             <DropDown
               value={dropDownValue}
               onClick={(e) => onDropDownChange(e)}
-              label='Github Repository 이름'
-              list={uniqueNames}
-              placeholder='Github Repository 위치를 선택해주세요'
+              label="Github Repository 이름"
+              list={dropDownList}
+              placeholder="Github Repository 위치를 선택해주세요"
             />
-          </VStack>
+          </HStack>
+          <TextAreaInput
+            placeholder="프로젝트 설명을 입력해주세요"
+            label="설명"
+          />
           <RepositoryBox>
-            {filteredItems.map((item, index) => {
-              const { name, description, language } = item;
-              const radioId = String(index);
-              const isRadioSelected = String(selectedRadio) === radioId;
-              return (
-                <RepositoryCard key={index}>
-                  <VStack>
-                    <Name>{name.split('/')[1]}</Name>
-                    <Description>{description}</Description>
-                    <Language>{language}</Language>
-                  </VStack>
-                  <RadioInput
-                    radioId={radioId}
-                    isRadioSelected={isRadioSelected}
-                    onClick={() => {
-                      setSelectedRadio(index);
-                    }}
-                  />
-                </RepositoryCard>
-              );
-            })}
+            {dropDownValue ? (
+              selectRepos?.map((item, index) => {
+                const { name, description, language } = item;
+                const radioId = String(index);
+                const isRadioSelected = String(selectedRadio) === radioId;
+                return (
+                  <RepositoryCard key={index}>
+                    <VStack>
+                      <Name>{name.split('/')[1]}</Name>
+                      <Description>{description}</Description>
+                      <Language>{language}</Language>
+                    </VStack>
+                    <RadioInput
+                      radioId={radioId}
+                      isRadioSelected={isRadioSelected}
+                      onClick={() => {
+                        setSelectedRadio(index);
+                      }}
+                    />
+                  </RepositoryCard>
+                );
+              })
+            ) : (
+              <p>값을 먼저 선택하세요.</p>
+            )}
           </RepositoryBox>
+
           <VStack gap={30}>
-            <HStack align='end' gap={30}>
+            <HStack align="end" gap={30}>
               <Input
-                type='text'
-                label='사용 기술'
-                placeholder='사용한 기술을 입력해주세요'
+                type="text"
+                label="사용 기술"
+                placeholder="사용한 기술을 입력해주세요"
                 value={skillInput}
                 onChange={(e) => {
                   setSkillInput(e.target.value);
@@ -179,6 +241,8 @@ const RepositoryBox = styled.div`
   overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 `;
 
 const RepositoryCard = styled.div`

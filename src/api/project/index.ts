@@ -1,15 +1,16 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { instance } from "../axios";
-import { IProjectRequest, IRepoResponse } from "./type";
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { instance } from '../axios';
+import { IOrganization, IProjectRequest, IRepoArrayResponse } from './type';
 
-const ROUTER = "projects";
+const ROUTER = 'projects';
 
-export const GetRepository = () => {
+export const GetIndividualRepo = () => {
   const response = async () => {
-    return (await instance.get<IRepoResponse[]>(`${ROUTER}/repository`)).data;
+    return (await instance.get<IRepoArrayResponse>(`${ROUTER}/repository`)).data
+      .repos;
   };
 
-  return useQuery({ queryKey: ["repo"], queryFn: response });
+  return useQuery(['repo'], response, {});
 };
 
 export const PostProject = () => {
@@ -21,10 +22,33 @@ export const PostProject = () => {
 
   return useMutation(response, {
     onSuccess: () => {
-      alert("등록 성공");
+      alert('등록 성공');
     },
     onError: (e) => {
       alert(e);
     },
+  });
+};
+
+export const GetOrganization = () => {
+  const response = async () => {
+    return (await instance.get<IOrganization>(`${ROUTER}/organization`)).data
+      .organizations;
+  };
+
+  return useQuery(['organziation'], response);
+};
+
+export const GetOrganizationRepo = (organization: string) => {
+  const response = async () => {
+    return (
+      await instance.get<IRepoArrayResponse>(
+        `${ROUTER}/organization/repository?organziation=${organization}`
+      )
+    ).data.repos;
+  };
+
+  return useQuery(['organizationRepo', organization], response, {
+    enabled: organization.length >= 1 && organization !== '개인 레포지토리',
   });
 };
