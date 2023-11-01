@@ -30,7 +30,7 @@ instance.interceptors.response.use(
       const { config } = error;
       const refreshToken = customCookie.get.refreshToken();
       if (
-        error.response.data.message === 'jwt expired' ||
+        error.response.data.message === 'jwt must be provided' ||
         error.response.data.message === 'Expired Token' ||
         error.response.data.message === 'User Not Found'
       ) {
@@ -39,7 +39,7 @@ instance.interceptors.response.use(
         if (refreshToken) {
           ReissueToken(refreshToken)
             .then((res) => {
-              customCookie.set.token(res?.accessToken, res?.refreshToken);
+              customCookie.set.token(res.accessToken, res.refreshToken);
               if (originalRequest) {
                 if (originalRequest.headers)
                   originalRequest.headers[
@@ -52,16 +52,14 @@ instance.interceptors.response.use(
               if (
                 res?.response?.data.status === 404 ||
                 res.response?.data.status === 403 ||
-                res?.response?.data.message === 'Expired Token' ||
-                res.response?.data.message === 'jwt expired'
+                res.response?.data.message === 'jwt must be provided' ||
+                res?.response?.data.message === 'Expired Token'
               ) {
                 customCookie.remove.accessToken();
                 customCookie.remove.refreshToken();
                 window.location.replace('http://localhost:3000');
               }
             });
-        } else {
-          window.location.replace('http://localhost:3000');
         }
       } else return Promise.reject(error);
     }

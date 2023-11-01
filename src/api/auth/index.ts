@@ -11,7 +11,7 @@ export const ReissueToken = async (refresh_token: string) => {
     null,
     {
       headers: {
-        'X-Refresh-Token': `${refresh_token}`,
+        'Refresh-Token': `${refresh_token}`,
       },
     }
   );
