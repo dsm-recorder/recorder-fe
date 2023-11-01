@@ -4,6 +4,8 @@ import styled from 'styled-components';
 interface ImgInputType {
   value: string | null;
   label?: string;
+  width?: string;
+  height?: string;
   placeholder?: string;
   handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -12,7 +14,9 @@ export const ImageInput = ({
   value,
   handleImageChange,
   label,
-  placeholder
+  width,
+  height,
+  placeholder,
 }: ImgInputType) => {
   const onCustomInputClick = () => {
     const fileInput = document.getElementById('imageInput');
@@ -27,14 +31,18 @@ export const ImageInput = ({
       <StyledInput
         id='imageInput'
         type='file'
-        accept='image/*'
+        accept='image/png, image/jpg, image/jpeg'
         onChange={handleImageChange}
       />
-      <CustomCircleInput onClick={onCustomInputClick}>
+      <CustomCircleInput
+        onClick={onCustomInputClick}
+        width={width}
+        height={height}
+      >
         {value ? (
-          <Img src={value} alt='Preview' />
+          <Img src={value} alt='Preview' width={width} height={height} />
         ) : (
-            <CustomCircleLabel>{ placeholder }</CustomCircleLabel>
+          <CustomCircleLabel>{placeholder}</CustomCircleLabel>
         )}
       </CustomCircleInput>
     </ImgInputContainer>
@@ -52,25 +60,25 @@ const StyledInput = styled.input`
   display: none;
 `;
 
-const CustomCircleInput = styled.label`
-  display: inline-block;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  text-align: center;
-  line-height: 200px;
-  border: 1px solid #999999;
-  cursor: pointer;
-`;
-
 const CustomCircleLabel = styled.div`
   font-size: 14px;
   color: ${({ theme }) => theme.colors.gray[50]};
 `;
 
-const Img = styled.img`
-  width: 200px;
-  height: 200px;
+const CustomCircleInput = styled.label<{ width?: string; height?: string }>`
+  display: inline-block;
+  width: ${({ width }) => width ?? '180px'};
+  height: ${({ height }) => height ?? '180px'};
+  border-radius: 50%;
+  text-align: center;
+  line-height: ${({ height }) => height ?? '180px'};
+  border: 1px solid #999999;
+  cursor: pointer;
+`;
+
+const Img = styled.img<{ width?: string; height?: string }>`
+  width: ${({ width }) => width ?? '180px'};
+  height: ${({ height }) => height ?? '180px'};
   border-radius: 50%;
 `;
 
