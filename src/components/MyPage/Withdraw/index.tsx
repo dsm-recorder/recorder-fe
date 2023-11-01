@@ -1,8 +1,16 @@
 import * as _ from './style';
 import * as Common from '../Common/style';
 import { HStack } from '../../Stack';
+import { useInput } from '../../../hook/useInput';
+import { DeleteUser } from '../../../api/users';
 
-const Withdraw = () => {
+interface IWithdrawProps {
+  accountId: string;
+}
+
+const Withdraw = ({ accountId }: IWithdrawProps) => {
+  const { form, onChange } = useInput({ accoundId: '' });
+  const { mutate: deleteUser } = DeleteUser();
   return (
     <Common.ContentWrapper>
       <Common.ContentTitle>회원탈퇴</Common.ContentTitle>
@@ -14,8 +22,19 @@ const Withdraw = () => {
         확인하려면 아이디를 입력하세요.
       </_._NoticeMessageWrapper>
       <HStack gap={30}>
-        <_._IdInput placeholder='qwerboard' />
-        <Common.Button bgColor='red'>영구적으로 계정 삭제</Common.Button>
+        <_._IdInput
+          placeholder={accountId}
+          name='accoundId'
+          value={form.accoundId}
+          onChange={onChange}
+        />
+        <Common.Button
+          bgcolor='red'
+          onClick={() => deleteUser()}
+          disabled={form.accoundId !== accountId}
+        >
+          영구적으로 계정 삭제
+        </Common.Button>
       </HStack>
     </Common.ContentWrapper>
   );
