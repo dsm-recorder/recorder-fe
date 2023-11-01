@@ -1,13 +1,12 @@
 import * as _ from './style';
 import { Link } from 'react-router-dom';
-import { Cookies } from 'react-cookie';
 import { GithubIcon } from '../../asset/icon';
 import { HStack } from '../Stack';
 import { GetUserInfo } from '../../api/users';
+import { customCookie } from '../../util/customCookie';
 
 const index = () => {
-  const cookies = new Cookies();
-  const accessToken = cookies.get('accessToken');
+  const accessToken = customCookie.get.accessToken();
   const { data } = GetUserInfo();
 
   return (
