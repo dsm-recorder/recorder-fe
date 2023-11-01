@@ -12,7 +12,7 @@ export const _ProjectImg = styled.img`
   width: 100%;
   height: 157px;
   border-radius: 10px 10px 0px 0px;
-  background-color: teal;
+  background-color: ${({ theme }) => theme.colors.gray[50]};
   object-fit: cover;
 `;
 

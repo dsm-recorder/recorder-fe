@@ -24,6 +24,7 @@ export const useTabMenu = (initialState: number, tabMenuArr: JSX.Element[]) => {
 };
 
 const _Wrapper = styled.div<{ $isActive: boolean }>`
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;

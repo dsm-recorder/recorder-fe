@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
 export const _NoticeMessageWrapper = styled.div`
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
   padding: 20px;
   border: 1px solid ${({ theme }) => theme.colors.gray[50]};
   border-radius: 10px;

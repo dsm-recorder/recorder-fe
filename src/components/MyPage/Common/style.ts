@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { ColorType } from '../../../types';
 
 export const ContentWrapper = styled.div`
   display: flex;
@@ -14,7 +15,8 @@ export const ContentTitle = styled.div`
   font-weight: 400;
 `;
 
-export const Button = styled.button<{ bgColor: string }>`
+export const Button = styled.button<{ bgcolor: ColorType }>`
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,47 +26,28 @@ export const Button = styled.button<{ bgColor: string }>`
   color: ${({ theme }) => theme.colors.gray[10]};
   font-size: 14px;
   font-weight: 400;
-  background-color: ${({ bgColor, theme }) => {
-    switch (bgColor) {
-      case 'red': {
-        return theme.colors.red.normal.default;
-      }
-      case 'green': {
-        return theme.colors.green.normal.default;
-      }
-      default: {
-        return bgColor;
-      }
+  background-color: ${({ bgcolor, theme }) =>
+    theme.colors[bgcolor].normal.default};
+  &:disabled {
+    cursor: no-drop;
+    background-color: ${({ bgcolor, theme }) =>
+      theme.colors[bgcolor].light.active};
+    &:hover {
+      background-color: ${({ bgcolor, theme }) =>
+        theme.colors[bgcolor].light.active};
     }
-  }};
+    &:active {
+      background-color: ${({ bgcolor, theme }) =>
+        theme.colors[bgcolor].light.active};
+    }
+  }
+
   &:hover {
-    background-color: ${({ bgColor, theme }) => {
-      switch (bgColor) {
-        case 'red': {
-          return theme.colors.red.normal.hover;
-        }
-        case 'green': {
-          return theme.colors.green.normal.hover;
-        }
-        default: {
-          return bgColor;
-        }
-      }
-    }};
+    background-color: ${({ bgcolor, theme }) =>
+      theme.colors[bgcolor].normal.hover};
   }
   &:active {
-    background-color: ${({ bgColor, theme }) => {
-      switch (bgColor) {
-        case 'red': {
-          return theme.colors.red.normal.active;
-        }
-        case 'green': {
-          return theme.colors.green.normal.active;
-        }
-        default: {
-          return bgColor;
-        }
-      }
-    }};
+    background-color: ${({ bgcolor, theme }) =>
+      theme.colors[bgcolor].normal.active};
   }
 `;
