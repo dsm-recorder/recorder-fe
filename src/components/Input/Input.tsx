@@ -2,7 +2,7 @@ import { ChangeEvent, HTMLAttributes } from 'react';
 import styled from 'styled-components';
 
 export interface InputPropsType extends HTMLAttributes<HTMLInputElement> {
-  //Input 요소
+  // Input 요소
   type?: 'text' | 'password' | 'number' | 'email' | 'tel' | 'date';
   value?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -10,9 +10,9 @@ export interface InputPropsType extends HTMLAttributes<HTMLInputElement> {
   placeholder?: string;
   spellCheck?: boolean;
 
-  //Input 스타일 요소
+  // Input 스타일 요소
   width?: string;
-
+  height?: string;
   label?: string;
 }
 
@@ -40,12 +40,13 @@ const InputLabelBox = styled.div`
 
 const InputBox = styled.input<InputPropsType>`
   width: ${(props) => props.width ?? '300px'};
-  height: 40px;
+  height: ${(props) => props.height ?? '40px'};
   padding: 15px;
   background: ${({ theme }) => theme.colors.gray[10]};
   border: 1px solid #999999;
   border-radius: 10px;
-  color: ${({ theme }) => theme.colors.gray[50]};
+  color: ${(props) =>
+    props.value ? props.theme.colors.gray[100] : props.theme.colors.gray[50]};
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
