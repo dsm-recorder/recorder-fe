@@ -17,9 +17,9 @@ const Withdraw = ({ accountId }: IWithdrawProps) => {
       <_._NoticeMessageWrapper>
         이 작업은 취소할 수 없습니다.
         <br />
-        이렇게 하면 모든 프로젝트와 개인정보를 포함하여 영구적으로 삭제됩니다.
+        모든 프로젝트와 개인정보를 포함하여 영구적으로 삭제됩니다.
         <br />
-        확인하려면 아이디를 입력하세요.
+        아이디를 입력한 뒤 버튼을 클릭해주세요.
       </_._NoticeMessageWrapper>
       <HStack gap={30}>
         <_._IdInput
