@@ -43,7 +43,7 @@ export const GetOrganizationRepo = (organization: string) => {
   const response = async () => {
     return (
       await instance.get<IRepoArrayResponse>(
-        `${ROUTER}/organization/repository?organziation=${organization}`
+        `${ROUTER}/organization/repository?organization=${organization}`
       )
     ).data.repos;
   };

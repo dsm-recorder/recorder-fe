@@ -17,6 +17,8 @@ import {
 import { DeleteIcon } from '../asset/icon/DeleteIcon';
 import { HStack, VStack } from '../components/Stack';
 import { IRepoResponse } from '../api/project/type';
+import { PostImage } from '../api/image';
+import { RepositoryCard } from '../components/RepositoryCard';
 
 export const ProjectRegisterPage = () => {
   const [projectName, setProjectName] = useState<string>('');
@@ -33,14 +35,39 @@ export const ProjectRegisterPage = () => {
 
   const { data: organizations } = GetOrganization();
   const { data: organizationRepos } = GetOrganizationRepo(dropDownValue);
-  const { mutate: ProjectMutation } = PostProject();
   const { data: individualRepos } = GetIndividualRepo();
+
+  const { mutate: ImageMutation, data: imgUrl } = PostImage();
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      ImageMutation(file);
+    }
+  };
+
+  useEffect(() => {
+    if (imgUrl) {
+      setSelectedImage(imgUrl);
+    }
+  }, [imgUrl]);
+
+  const { mutate: ProjectMutation } = PostProject();
 
   const dropDownList = [
     '개인 레포지토리',
-    'qweqwe',
     ...(organizations ? organizations : []),
   ];
+
+  useEffect(() => {
+    if (dropDownValue === '개인 레포지토리') {
+      setSelectRepos(individualRepos);
+    } else if (dropDownList?.includes(dropDownValue)) {
+      setSelectRepos(organizationRepos);
+    } else {
+      setSelectRepos([]);
+    }
+  }, [dropDownValue]);
 
   const onAddSkills = () => {
     if (skillInput.trim() !== '') {
@@ -56,31 +83,11 @@ export const ProjectRegisterPage = () => {
 
   const onDropDownChange = async (value: string) => {
     setDropDownValue(String(value));
-    if (dropDownValue === '개인 레포지토리') {
-      setSelectRepos(individualRepos);
-    } else if (dropDownList?.includes(dropDownValue)) {
-      setSelectRepos(organizationRepos);
-    } else {
-      setSelectRepos([]);
-    }
-  };
-
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        if (event.target?.result) {
-          setSelectedImage(event.target.result as string);
-        }
-      };
-      reader.readAsDataURL(file);
-    }
   };
 
   const onProjectRegister = () => {
     if (
-      selectedImage &&
+      selectedImage !== null && // 수정: selectedImage가 null이 아닌 경우에만 실행
       projectName.length >= 1 &&
       description.length >= 1 &&
       skills.length >= 1 &&
@@ -89,6 +96,7 @@ export const ProjectRegisterPage = () => {
       selectedRadio < selectRepos.length
     ) {
       ProjectMutation({
+        logoImageUrl: selectedImage,
         projectName: projectName,
         description: description,
         repositoryName: selectRepos[selectedRadio].name,
@@ -96,10 +104,6 @@ export const ProjectRegisterPage = () => {
       });
     } else alert('모두 입력해주세요');
   };
-
-  useEffect(() => {
-    console.log(selectRepos);
-  }, [dropDownValue]);
 
   return (
     <>
@@ -135,6 +139,10 @@ export const ProjectRegisterPage = () => {
           <TextAreaInput
             placeholder="프로젝트 설명을 입력해주세요"
             label="설명"
+            value={description}
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
           />
           <RepositoryBox>
             {dropDownValue ? (
@@ -143,20 +151,15 @@ export const ProjectRegisterPage = () => {
                 const radioId = String(index);
                 const isRadioSelected = String(selectedRadio) === radioId;
                 return (
-                  <RepositoryCard key={index}>
-                    <VStack>
-                      <Name>{name.split('/')[1]}</Name>
-                      <Description>{description}</Description>
-                      <Language>{language}</Language>
-                    </VStack>
-                    <RadioInput
-                      radioId={radioId}
-                      isRadioSelected={isRadioSelected}
-                      onClick={() => {
-                        setSelectedRadio(index);
-                      }}
-                    />
-                  </RepositoryCard>
+                  <RepositoryCard
+                    name={name}
+                    description={description}
+                    language={language}
+                    isRadioSelected={isRadioSelected}
+                    index={index}
+                    radioId={radioId}
+                    onClick={() => setSelectedRadio(index)}
+                  />
                 );
               })
             ) : (
@@ -241,31 +244,5 @@ const RepositoryBox = styled.div`
   overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   justify-content: center;
-`;
-
-const RepositoryCard = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  border: 1px solid #999999;
-  border-radius: 10px;
-  align-items: center;
-  width: 473px;
-  height: 120px;
-`;
-
-const Name = styled.p`
-  height: 21px;
-  font-size: 16px;
-`;
-
-const Description = styled.p`
-  height: 18px;
-  font-size: 16px;
-`;
-const Language = styled.p`
-  height: 18px;
-  font-size: 16px;
 `;

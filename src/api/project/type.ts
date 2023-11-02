@@ -10,6 +10,7 @@ export interface IRepoArrayResponse {
 
 
 export interface IProjectRequest {
+  logoImageUrl: string
   projectName: string;
   repositoryName: string;
   description: string;
