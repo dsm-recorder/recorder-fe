@@ -12,7 +12,7 @@ const MyPage = () => {
 
   const { TabMenuBox, TabMenuItem } = useTabMenu(0, [
     <Withdraw accountId={userInfo?.accountId ?? 'Loading...'} />,
-    <WritingProject projectList={projectList} />,
+    <WritingProject projectList={projectList?.projects ?? []} />,
   ]);
 
   return (
@@ -20,10 +20,7 @@ const MyPage = () => {
       <PageTItle>마이페이지</PageTItle>
       <PageWrapper>
         <SideBarWrapper>
-          <label>
-            <UserProfileImg src={userInfo?.profileImageUrl} alt='userImg' />
-            <input type='file' style={{ display: 'none' }} />
-          </label>
+          <UserProfileImg src={userInfo?.profileImageUrl} alt='userImg' />
           <UserProfileId>
             {!!userInfo ? userInfo.accountId : 'Loading...'}
           </UserProfileId>

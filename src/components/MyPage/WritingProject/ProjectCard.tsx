@@ -10,7 +10,7 @@ const ProjectCard = ({
 }: ProjectType) => {
   return (
     <_._Wrapper>
-      <_._ProjectImg src={logoImageUrl} alt='projectImg'/>
+      <_._ProjectImg src={logoImageUrl} alt='projectImg' />
       <VStack style={{ padding: '2px 10px 10px' }} gap={12}>
         <HStack justify='space-between'>
           <_._TEXT>{name}</_._TEXT>

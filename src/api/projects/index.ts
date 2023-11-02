@@ -6,7 +6,9 @@ const ROUTER = '/projects';
 
 export const GetMyProjectList = () => {
   const response = async () => {
-    const { data } = await instance.get<ProjectType[]>(`${ROUTER}/my`);
+    const { data } = await instance.get<{ projects: ProjectType[] }>(
+      `${ROUTER}/my`
+    );
     return data;
   };
   return useQuery(['myProject'], response);

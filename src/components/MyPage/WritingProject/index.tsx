@@ -1,11 +1,13 @@
 import * as Common from '../Common/style';
-import { HStack } from '../../Stack';
+import * as _ from './style';
+import { HStack, VStack } from '../../Stack';
 import ProjectCard from './ProjectCard';
 import AddNoteIcon from '../../../asset/icon/AddNoteIcon';
 import { ProjectType } from '../../../api/projects/type';
+import { NoticeIcon } from '../../../asset/icon';
 
 interface IWritingProjectProps {
-  projectList?: ProjectType[];
+  projectList: ProjectType[];
 }
 
 const WritingProject = ({ projectList }: IWritingProjectProps) => {
@@ -18,9 +20,21 @@ const WritingProject = ({ projectList }: IWritingProjectProps) => {
         </Common.Button>
       </HStack>
       <HStack gap={30} wrap='wrap'>
-        {projectList?.map((project) => (
-          <ProjectCard {...project} />
-        ))}
+        {projectList[0] ? (
+          projectList.map((project) => <ProjectCard {...project} />)
+        ) : (
+          <VStack
+            style={{ width: '100%', height: '100%', marginTop: '30px' }}
+            align='center'
+            gap={30}
+          >
+            <NoticeIcon size={100} />
+            <_._NoticeTitle>기록중인 프로젝트가 없습니다</_._NoticeTitle>
+            <_._NoticeSub>
+              프로젝트를 등록하여 포트폴리오를 채워보세요!
+            </_._NoticeSub>
+          </VStack>
+        )}
       </HStack>
     </Common.ContentWrapper>
   );
