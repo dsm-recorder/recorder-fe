@@ -3,7 +3,6 @@ import {
   DropDown,
   Input,
   ImageInput,
-  RadioInput,
   TextAreaInput,
 } from '../components/Input';
 import { Button } from '../components/Button';
@@ -34,8 +33,10 @@ export const ProjectRegisterPage = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const { data: organizations } = GetOrganization();
-  const { data: organizationRepos } = GetOrganizationRepo(dropDownValue);
-  const { data: individualRepos } = GetIndividualRepo();
+  const { data: organizationRepos, isLoading: isLoadingOrganization } =
+    GetOrganizationRepo(dropDownValue);
+  const { data: individualRepos, isLoading: isLoadingIndividual } =
+    GetIndividualRepo();
 
   const { mutate: ImageMutation, data: imgUrl } = PostImage();
 
@@ -60,14 +61,21 @@ export const ProjectRegisterPage = () => {
   ];
 
   useEffect(() => {
-    if (dropDownValue === '개인 레포지토리') {
+    if (!isLoadingIndividual && dropDownValue == '개인 레포지토리') {
       setSelectRepos(individualRepos);
-    } else if (dropDownList?.includes(dropDownValue)) {
+    } else if (
+      !isLoadingOrganization &&
+      dropDownList?.includes(dropDownValue)
+    ) {
       setSelectRepos(organizationRepos);
-    } else {
-      setSelectRepos([]);
     }
-  }, [dropDownValue]);
+  }, [
+    dropDownValue,
+    isLoadingIndividual,
+    individualRepos,
+    isLoadingOrganization,
+    organizationRepos,
+  ]);
 
   const onAddSkills = () => {
     if (skillInput.trim() !== '') {
@@ -87,7 +95,7 @@ export const ProjectRegisterPage = () => {
 
   const onProjectRegister = () => {
     if (
-      selectedImage !== null && // 수정: selectedImage가 null이 아닌 경우에만 실행
+      selectedImage !== null &&
       projectName.length >= 1 &&
       description.length >= 1 &&
       skills.length >= 1 &&
@@ -110,7 +118,7 @@ export const ProjectRegisterPage = () => {
       <Container>
         <Title>프로젝트 등록</Title>
         <Box>
-          <HStack justify="space-between">
+          <HStack justify="space-between" width={1068}>
             <ImageInput
               label="프로젝트 로고"
               width="200px"
@@ -139,6 +147,7 @@ export const ProjectRegisterPage = () => {
           <TextAreaInput
             placeholder="프로젝트 설명을 입력해주세요"
             label="설명"
+            width="1068px"
             value={description}
             onChange={(e) => {
               setDescription(e.target.value);
@@ -180,7 +189,7 @@ export const ProjectRegisterPage = () => {
               />
               <Button onClick={onAddSkills}>추가</Button>
             </HStack>
-            <HStack height={40} gap={30}>
+            <HStack height={40} gap={30} width={1068}>
               {skills?.map((skill, index) => (
                 <SkillCard key={index}>
                   {skill}
@@ -240,6 +249,7 @@ const RepositoryBox = styled.div`
   border-radius: 10px;
   gap: 60px;
   height: 420px;
+  width: 1068px;
   max-height: 420px;
   overflow-y: auto;
   display: flex;
