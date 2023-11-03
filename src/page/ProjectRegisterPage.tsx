@@ -161,11 +161,11 @@ export const ProjectRegisterPage = () => {
                 const isRadioSelected = String(selectedRadio) === radioId;
                 return (
                   <RepositoryCard
+                    key={index}
                     name={name}
                     description={description}
                     language={language}
                     isRadioSelected={isRadioSelected}
-                    index={index}
                     radioId={radioId}
                     onClick={() => setSelectedRadio(index)}
                   />

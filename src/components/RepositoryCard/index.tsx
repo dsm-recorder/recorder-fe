@@ -4,14 +4,12 @@ import { VStack } from '../Stack';
 import * as _ from './style';
 
 interface disabledType extends IRepoResponse {
-  index: number;
   radioId: string;
   isRadioSelected: boolean;
   onClick: () => void;
 }
 
 export const RepositoryCard = ({
-  index,
   name,
   description,
   radioId,
@@ -20,7 +18,7 @@ export const RepositoryCard = ({
   language,
 }: disabledType) => {
   return (
-    <_.RepositoryCard key={index}>
+    <_.RepositoryCard>
       <VStack>
         <_.Name>{name.split('/')[1]}</_.Name>
         <_.Description>{description}</_.Description>
