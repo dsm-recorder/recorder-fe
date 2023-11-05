@@ -117,7 +117,7 @@ export const ProjectRegisterPage = () => {
     <>
       <Container>
         <Title>프로젝트 등록</Title>
-        <Box>
+        <VStack padding='30px 30px 30px 30px' gap={30}>
           <HStack justify="space-between" width={1068}>
             <ImageInput
               label="프로젝트 로고"
@@ -199,7 +199,7 @@ export const ProjectRegisterPage = () => {
             </HStack>
           </VStack>
           <Button onClick={onProjectRegister}>프로젝트 등록</Button>
-        </Box>
+        </VStack>
       </Container>
     </>
   );
@@ -226,13 +226,6 @@ const Title = styled.div`
   color: ${({ theme }) => theme.colors.gray[100]};
 `;
 
-const Box = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  padding: 30px 30px 30px 30px;
-`;
-
 const SkillCard = styled.div`
   display: flex;
   padding: 0 15px 0 15px;
@@ -247,12 +240,12 @@ const RepositoryBox = styled.div`
   padding: 30px 30px 30px 30px;
   border: 1px solid #999999;
   border-radius: 10px;
-  gap: 60px;
+  column-gap: 60px;
+  row-gap: 30px;
   height: 420px;
   width: 1068px;
   max-height: 420px;
   overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
 `;

@@ -16,6 +16,7 @@ type WrapType = 'nowrap' | 'wrap' | 'wrap-reverse';
 export interface StackProps {
   width?: number;
   height?: number;
+  padding?: React.CSSProperties['padding'];
   direction?: DirectionType;
   align?: ItemType;
   justify?: ItemType;
@@ -34,6 +35,7 @@ export const Stack = ({
   justify,
   gap,
   margin,
+  padding,
   wrap,
   children,
   style,
@@ -42,6 +44,7 @@ export const Stack = ({
     <Container
       width={width}
       height={height}
+      padding={padding}
       direction={direction}
       align={align}
       justify={justify}
@@ -59,6 +62,7 @@ const Container = styled.div<StackProps>`
   display: flex;
   width: ${({ width }) => (width ? `${width}px` : 'auto')};
   height: ${({ height }) => height}px;
+  padding: ${({padding}) => padding};
   flex-direction: ${({ direction }) => direction};
   align-items: ${({ align }) => align};
   justify-content: ${({ justify }) => justify};

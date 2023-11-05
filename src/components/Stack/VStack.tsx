@@ -1,6 +1,6 @@
 import { Stack, StackProps } from './Stack';
 
-export const VStack = ({ width, height, align, justify, gap, margin, children }: StackProps) => {
+export const VStack = ({ width, height, align, justify, gap, margin, children, padding }: StackProps) => {
     return (
         <Stack
             direction="column"
@@ -9,6 +9,7 @@ export const VStack = ({ width, height, align, justify, gap, margin, children }:
             align={align}
             justify={justify}
             gap={gap}
+            padding={padding}
             margin={margin}>
             {children}
         </Stack>
