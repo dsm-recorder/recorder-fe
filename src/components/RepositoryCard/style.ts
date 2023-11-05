@@ -1,9 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const RepositoryCard = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding: 0 60px 0 60px;
   border: 1px solid #999999;
   border-radius: 10px;
   align-items: center;

@@ -17,6 +17,12 @@ export const RepositoryCard = ({
   onClick,
   language,
 }: disabledType) => {
+  if (description) {
+    if (description?.length > 29) {
+      description = description?.slice(0, 29).trim() + '...';
+    }
+  }
+
   return (
     <_.RepositoryCard>
       <VStack>
