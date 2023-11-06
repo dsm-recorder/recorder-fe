@@ -12,25 +12,26 @@ import {
   GetOrganization,
   GetOrganizationRepo,
   PostProject,
-} from '../api/project';
+} from '../api/projects';
 import { DeleteIcon } from '../asset/icon/DeleteIcon';
 import { HStack, VStack } from '../components/Stack';
-import { IRepoResponse } from '../api/project/type';
+import { IRepoResponse } from '../api/projects/type';
 import { PostImage } from '../api/image';
 import { RepositoryCard } from '../components/RepositoryCard';
 
 export const ProjectRegisterPage = () => {
-  const [projectName, setProjectName] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
   const [skillInput, setSkillInput] = useState<string>('');
-  const [skills, setSkills] = useState<string[]>([]);
   const [dropDownValue, setDropDownValue] = useState('');
   const [selectRepos, setSelectRepos] = useState<IRepoResponse[] | undefined>(
     []
   );
-
   const [selectedRadio, setSelectedRadio] = useState<number>(0);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [project, setProject] = useState({
+    projectName: '',
+    description: '',
+    skills: [] as string[],
+    selectedImage: '',
+  });
 
   const { data: organizations } = GetOrganization();
   const { data: organizationRepos, isLoading: isLoadingOrganization } =
@@ -49,16 +50,13 @@ export const ProjectRegisterPage = () => {
 
   useEffect(() => {
     if (imgUrl) {
-      setSelectedImage(imgUrl);
+      setProject({ ...project, selectedImage: imgUrl });
     }
   }, [imgUrl]);
 
   const { mutate: ProjectMutation } = PostProject();
 
-  const dropDownList = [
-    '개인 레포지토리',
-    ...(organizations ? organizations : []),
-  ];
+  const dropDownList = ['개인 레포지토리', ...(organizations ?? [])];
 
   useEffect(() => {
     if (!isLoadingIndividual && dropDownValue == '개인 레포지토리') {
@@ -79,14 +77,16 @@ export const ProjectRegisterPage = () => {
 
   const onAddSkills = () => {
     if (skillInput.trim() !== '') {
-      setSkills([...skills, skillInput]);
-      setSkillInput('');
+      setProject({
+        ...project,
+        skills: [...project.skills, skillInput],
+      });
     }
   };
 
   const onDeleteSkills = (value: string) => {
-    const updatedSkills = skills.filter((skill) => skill !== value);
-    setSkills(updatedSkills);
+    const updatedSkills = project.skills.filter((skill) => skill !== value);
+    setProject({ ...project, skills: updatedSkills });
   };
 
   const onDropDownChange = async (value: string) => {
@@ -94,6 +94,7 @@ export const ProjectRegisterPage = () => {
   };
 
   const onProjectRegister = () => {
+    const { selectedImage, projectName, description, skills } = project;
     if (
       selectedImage !== null &&
       projectName.length >= 1 &&
@@ -110,35 +111,37 @@ export const ProjectRegisterPage = () => {
         repositoryName: selectRepos[selectedRadio].name,
         skills: skills,
       });
-    } else alert('모두 입력해주세요');
+    } else {
+      alert('모두 입력해주세요');
+    }
   };
 
   return (
     <>
       <Container>
         <Title>프로젝트 등록</Title>
-        <VStack padding='30px 30px 30px 30px' gap={30}>
+        <VStack padding="30px 30px 30px 30px" gap={30}>
           <HStack justify="space-between" width={1068}>
             <ImageInput
               label="프로젝트 로고"
               width="200px"
               height="200px"
               placeholder="프로젝트 로고를 선택해주세요"
-              value={selectedImage}
+              value={project.selectedImage}
               handleImageChange={handleImageChange}
             />
             <Input
               type="text"
               label="프로젝트 이름"
               placeholder="프로젝트 이름을 입력해주세요"
-              value={projectName}
+              value={project.projectName}
               onChange={(e) => {
-                setProjectName(e.target.value);
+                setProject({ ...project, projectName: e.target.value });
               }}
             />
             <DropDown
               value={dropDownValue}
-              onClick={(e) => onDropDownChange(e)}
+              onClick={onDropDownChange}
               label="Github Repository 이름"
               list={dropDownList}
               placeholder="Github Repository 위치를 선택해주세요"
@@ -148,9 +151,9 @@ export const ProjectRegisterPage = () => {
             placeholder="프로젝트 설명을 입력해주세요"
             label="설명"
             width="1068px"
-            value={description}
+            value={project.description}
             onChange={(e) => {
-              setDescription(e.target.value);
+              setProject({ ...project, description: e.target.value });
             }}
           />
           <RepositoryBox>
@@ -175,7 +178,6 @@ export const ProjectRegisterPage = () => {
               <p>값을 먼저 선택하세요.</p>
             )}
           </RepositoryBox>
-
           <VStack gap={30}>
             <HStack align="end" gap={30}>
               <Input
@@ -190,7 +192,7 @@ export const ProjectRegisterPage = () => {
               <Button onClick={onAddSkills}>추가</Button>
             </HStack>
             <HStack height={40} gap={30} width={1068}>
-              {skills?.map((skill, index) => (
+              {project.skills?.map((skill, index) => (
                 <SkillCard key={index}>
                   {skill}
                   <DeleteIcon onClick={() => onDeleteSkills(skill)} />
@@ -228,7 +230,7 @@ const Title = styled.div`
 
 const SkillCard = styled.div`
   display: flex;
-  padding: 0 15px 0 15px;
+  padding: 0 15px;
   height: 40px;
   gap: 5px;
   align-items: center;
@@ -237,7 +239,7 @@ const SkillCard = styled.div`
 `;
 
 const RepositoryBox = styled.div`
-  padding: 30px 30px 30px 30px;
+  padding: 30px;
   border: 1px solid #999999;
   border-radius: 10px;
   column-gap: 60px;
