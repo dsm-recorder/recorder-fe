@@ -9,6 +9,7 @@ interface DropDownElementType {
   optionFullHeight?: string;
   dropDownHeight?: string;
   optionheight?: string;
+  top?: string;
   margin?: string;
   label?: string;
 }
@@ -54,7 +55,7 @@ export const DropDown = <T extends string | number | object>({
           <Arrow direction={dropDown ? 'top' : 'bottom'} />
         </DropDownWrapper>
         {dropDown && props.list && (
-          <OptionWrapper optionFullHeight={props.optionFullHeight}>
+          <OptionWrapper optionFullHeight={props.optionFullHeight} top={props.top}>
             {props?.list?.map((e, index) => {
               return (
                 <Option
@@ -109,12 +110,12 @@ const slideDown = keyframes<{ optionFullHeight?: string }>`
     }
   `;
 
-const OptionWrapper = styled.div<{ optionFullHeight?: string }>`
+const OptionWrapper = styled.div<{ optionFullHeight?: string; top?: string}>`
   width: 100%;
   min-height: ${({ optionFullHeight }) => optionFullHeight ?? '120px'};
   overflow-y: auto;
   display: flex;
-  top: 60px;
+  top: ${({ top }) => top ?? '60px'};
   z-index: 1;
   border-radius: 10px;
   border: 1px solid #999999;

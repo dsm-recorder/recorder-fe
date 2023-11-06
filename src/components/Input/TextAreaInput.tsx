@@ -8,7 +8,7 @@ interface TextAreaType extends HTMLAttributes<HTMLTextAreaElement> {
   rows?: number;
   width?: string;
   value?: string;
-  heigth?: string;
+  height?: string;
   maxLength?: number;
   spellCheck?: boolean;
 }
@@ -18,6 +18,7 @@ export const TextAreaInput = ({
   placeholder,
   label,
   width,
+  height,
   value,
   onChange,
   maxLength,
@@ -33,6 +34,7 @@ export const TextAreaInput = ({
         placeholder={placeholder}
         spellCheck={spellCheck}
         width={width}
+        height={height}
         maxLength={maxLength}
       />
     </TextAreaContainer>
