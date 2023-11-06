@@ -15,8 +15,13 @@ export const PostImage = () => {
       },
     };
 
-    return (await instance.post<IImgResponse>(`${ROUTER}`, formData, config))
-      .data.url;
+    const { data } = await instance.post<IImgResponse>(
+      `${ROUTER}`,
+      formData,
+      config
+    );
+
+    return data.url;
   };
 
   return useMutation(response, {

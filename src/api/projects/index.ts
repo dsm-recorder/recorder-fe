@@ -6,8 +6,10 @@ const ROUTER = 'projects';
 
 export const GetIndividualRepo = () => {
   const response = async () => {
-    return (await instance.get<IRepoArrayResponse>(`${ROUTER}/repository`)).data
-      .repos;
+    const { data } = await instance.get<IRepoArrayResponse>(
+      `${ROUTER}/repository`
+    );
+    return data.repos;
   };
 
   return useQuery(['repo'], response, {});
@@ -15,9 +17,7 @@ export const GetIndividualRepo = () => {
 
 export const PostProject = () => {
   const response = async (param: IProjectRequest) => {
-    return instance.post(`${ROUTER}`, {
-      ...param,
-    });
+    return await instance.post(`${ROUTER}`, { param });
   };
 
   return useMutation(response, {
@@ -32,20 +32,27 @@ export const PostProject = () => {
 
 export const GetOrganization = () => {
   const response = async () => {
-    return (await instance.get<IOrganization>(`${ROUTER}/organization`)).data
-      .organizations;
+    const { data } = await instance.get<IOrganization>(
+      `${ROUTER}/organization`
+    );
+    return data.organizations;
   };
 
-  return useQuery(['organziation'], response);
+  return useQuery(['organization'], response);
 };
 
 export const GetOrganizationRepo = (organization: string) => {
   const response = async () => {
-    return (
-      await instance.get<IRepoArrayResponse>(
-        `${ROUTER}/organization/repository?organization=${organization}`
-      )
-    ).data.repos;
+    if (organization.length < 1 || organization === '개인 레포지토리') {
+      // 조건에 따라 API 요청을 스킵할 수 있습니다.
+      return [];
+    }
+
+    const { data } = await instance.get<IRepoArrayResponse>(
+      `${ROUTER}/organization/repository?organization=${organization}`
+    );
+
+    return data.repos;
   };
 
   return useQuery(['organizationRepo', organization], response, {
