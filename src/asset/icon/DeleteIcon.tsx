@@ -1,5 +1,5 @@
 interface DeleteIconType {
-  onClick?: (param?: any) => void;
+  onClick?: () => void;
 }
 
 export const DeleteIcon = ({ onClick }: DeleteIconType) => {
