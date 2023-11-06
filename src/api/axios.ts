@@ -1,17 +1,15 @@
-import axios, { AxiosError } from 'axios';
-import { Cookies } from 'react-cookie';
 import { ReissueToken } from './auth';
+import axios, { AxiosError } from 'axios';
+import { customCookie } from '../util/customCookie';
 
 export const instance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   timeout: 10000,
 });
 
-const cookie = new Cookies();
-
 instance.interceptors.request.use(
   (config) => {
-    const accessToken = cookie.get('accessToken');
+    const accessToken = customCookie.get.accessToken();
     const returnConfig = {
       ...config,
     };
@@ -30,9 +28,9 @@ instance.interceptors.response.use(
   async (error: AxiosError<AxiosError>) => {
     if (axios.isAxiosError(error) && error.response) {
       const { config } = error;
-      const refreshToken = cookie.get('refreshToken');
+      const refreshToken = customCookie.get.refreshToken();
       if (
-        error.response.data.message === 'Invalid Token' ||
+        error.response.data.message === 'jwt must be provided' ||
         error.response.data.message === 'Expired Token' ||
         error.response.data.message === 'User Not Found'
       ) {
@@ -41,8 +39,7 @@ instance.interceptors.response.use(
         if (refreshToken) {
           ReissueToken(refreshToken)
             .then((res) => {
-              cookie.set('accessToken', res?.accessToken);
-              cookie.set('refreshToken', res?.refreshToken);
+              customCookie.set.token(res.accessToken, res.refreshToken);
               if (originalRequest) {
                 if (originalRequest.headers)
                   originalRequest.headers[
@@ -55,17 +52,14 @@ instance.interceptors.response.use(
               if (
                 res?.response?.data.status === 404 ||
                 res.response?.data.status === 403 ||
-                res?.response?.data.message === 'Expired Token' ||
-                res.response?.data.message === 'Invalid Token'
+                res.response?.data.message === 'jwt must be provided' ||
+                res?.response?.data.message === 'Expired Token'
               ) {
-                cookie.remove('accessToken');
-                cookie.remove('refreshToken');
+                customCookie.remove.accessToken();
+                customCookie.remove.refreshToken();
+                window.location.replace('http://localhost:3000');
               }
             });
-          // } else {
-          //   window.location.replace(
-          //     'https://auth.entrydsm.hs.kr/login?redirect_url=https://apply.entrydsm.hs.kr'
-          //   );
         }
       } else return Promise.reject(error);
     }
