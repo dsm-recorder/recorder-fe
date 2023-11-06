@@ -45,7 +45,7 @@ export const DropDown = <T extends string | number | object>({
           dropDownHeight={props.dropDownHeight}
           onClick={() => setDropDown(!dropDown)}
         >
-          <PlaceHolderValueInner>
+          <PlaceHolderValueInner style={{ color: value ? 'black' : '#999999' }}>
             {value
               ? typeof value === 'object' && props.objectKey
                 ? (value[props.objectKey as keyof typeof value] as string)
@@ -55,7 +55,10 @@ export const DropDown = <T extends string | number | object>({
           <Arrow direction={dropDown ? 'top' : 'bottom'} />
         </DropDownWrapper>
         {dropDown && props.list && (
-          <OptionWrapper optionFullHeight={props.optionFullHeight} top={props.top}>
+          <OptionWrapper
+            optionFullHeight={props.optionFullHeight}
+            top={props.top}
+          >
             {props?.list?.map((e, index) => {
               return (
                 <Option
@@ -110,7 +113,7 @@ const slideDown = keyframes<{ optionFullHeight?: string }>`
     }
   `;
 
-const OptionWrapper = styled.div<{ optionFullHeight?: string; top?: string}>`
+const OptionWrapper = styled.div<{ optionFullHeight?: string; top?: string }>`
   width: 100%;
   min-height: ${({ optionFullHeight }) => optionFullHeight ?? '120px'};
   overflow-y: auto;
@@ -132,7 +135,6 @@ const PlaceHolderValueInner = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  color: ${({ theme }) => theme.colors.gray[50]};
 `;
 
 const Option = styled.div<{ optionHeight?: string }>`
