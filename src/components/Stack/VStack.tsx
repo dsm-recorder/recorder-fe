@@ -3,7 +3,7 @@ import { Stack, StackProps } from './Stack';
 export const VStack = ({ width, height, align, justify, gap, margin, children, padding }: StackProps) => {
     return (
         <Stack
-            direction="column"
+            direction='column'
             width={width}
             height={height}
             align={align}

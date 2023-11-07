@@ -124,7 +124,8 @@ export const GlobalStyle = createGlobalStyle`
   ul {
     list-style: none;
   }
-  input, textarea{
+  input, 
+  textarea{
     outline: none;
   }
   blockquote,

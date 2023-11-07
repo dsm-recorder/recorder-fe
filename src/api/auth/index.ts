@@ -1,10 +1,9 @@
-import { Cookies } from 'react-cookie';
 import { instance } from '../axios';
 import { IAuthorizationResponse } from './types';
 import { useMutation } from '@tanstack/react-query';
+import { customCookie } from '../../util/customCookie';
 
 const ROUTER = 'auth';
-const cookies = new Cookies();
 
 export const ReissueToken = async (refresh_token: string) => {
   const response = await instance.put<IAuthorizationResponse>(
@@ -12,7 +11,7 @@ export const ReissueToken = async (refresh_token: string) => {
     null,
     {
       headers: {
-        'X-Refresh-Token': `${refresh_token}`,
+        'Refresh-Token': `${refresh_token}`,
       },
     }
   );
@@ -25,8 +24,7 @@ export const PostLogin = () => {
   };
   return useMutation(response, {
     onSuccess: (res) => {
-      cookies.set('accessToken', res.data.accessToken);
-      cookies.set('refreshToken', res.data.refreshToken);
+      customCookie.set.token(res.data.accessToken, res.data.refreshToken);
     },
     onError: () => {
       alert('로그인에 실패하였습니다.');
