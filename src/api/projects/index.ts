@@ -9,7 +9,7 @@ export const GetIndividualRepo = () => {
     const { data } = await instance.get<IRepoArrayResponse>(
       `${ROUTER}/repository`
     );
-    return data.repos;
+    return data;
   };
 
   return useQuery(['repo'], response);
@@ -35,7 +35,7 @@ export const GetOrganization = () => {
     const { data } = await instance.get<IOrganization>(
       `${ROUTER}/organization`
     );
-    return data.organizations;
+    return data;
   };
 
   return useQuery(['organization'], response);
@@ -47,7 +47,7 @@ export const GetOrganizationRepo = (organization: string) => {
       `${ROUTER}/organization/repository?organization=${organization}`
     );
 
-    return data.repos;
+    return data;
   };
 
   return useQuery(['organizationRepo', organization], response, {

@@ -21,7 +21,7 @@ export const PostImage = () => {
       config
     );
 
-    return data.url;
+    return data;
   };
 
   return useMutation(response, {

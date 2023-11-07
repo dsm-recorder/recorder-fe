@@ -50,22 +50,22 @@ export const ProjectRegisterPage = () => {
 
   useEffect(() => {
     if (imgUrl) {
-      setProject({ ...project, selectedImage: imgUrl });
+      setProject({ ...project, selectedImage: imgUrl.url });
     }
   }, [imgUrl]);
 
   const { mutate: ProjectMutation } = PostProject();
 
-  const dropDownList = ['개인 레포지토리', ...(organizations ?? [])];
+  const dropDownList = ['개인 레포지토리', ...(organizations?.organizations ?? [])];
 
   useEffect(() => {
     if (!isLoadingIndividual && dropDownValue == '개인 레포지토리') {
-      setSelectRepos(individualRepos);
+      setSelectRepos(individualRepos?.repos);
     } else if (
       !isLoadingOrganization &&
       dropDownList?.includes(dropDownValue)
     ) {
-      setSelectRepos(organizationRepos);
+      setSelectRepos(organizationRepos?.repos);
     }
   }, [
     dropDownValue,
