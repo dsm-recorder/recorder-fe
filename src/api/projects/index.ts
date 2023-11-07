@@ -1,6 +1,11 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { instance } from '../axios';
-import { IOrganization, IProjectRequest, IRepoArrayResponse, ProjectType } from './type';
+import {
+  IOrganization,
+  IProjectRequest,
+  IRepoArrayResponse,
+  ProjectType,
+} from './type';
 
 const ROUTER = 'projects';
 
@@ -17,7 +22,7 @@ export const GetIndividualRepo = () => {
 
 export const PostProject = () => {
   const response = async (param: IProjectRequest) => {
-    return await instance.post(`${ROUTER}`, { param });
+    return await instance.post(`${ROUTER}`, param);
   };
 
   return useMutation(response, {
@@ -53,13 +58,14 @@ export const GetOrganizationRepo = (organization: string) => {
   return useQuery(['organizationRepo', organization], response, {
     enabled: organization.length >= 1 && organization !== '개인 레포지토리',
   });
-  
+};
+
 export const GetMyProjectList = () => {
   const response = async () => {
     const { data } = await instance.get<{ projects: ProjectType[] }>(
       `${ROUTER}/my`
     );
-    
+
     return data;
   };
   return useQuery(['myProject'], response);
