@@ -12,7 +12,7 @@ export const GetIndividualRepo = () => {
     return data.repos;
   };
 
-  return useQuery(['repo'], response, {});
+  return useQuery(['repo'], response);
 };
 
 export const PostProject = () => {
@@ -43,11 +43,6 @@ export const GetOrganization = () => {
 
 export const GetOrganizationRepo = (organization: string) => {
   const response = async () => {
-    if (organization.length < 1 || organization === '개인 레포지토리') {
-      // 조건에 따라 API 요청을 스킵할 수 있습니다.
-      return [];
-    }
-
     const { data } = await instance.get<IRepoArrayResponse>(
       `${ROUTER}/organization/repository?organization=${organization}`
     );
