@@ -1,9 +1,9 @@
 import * as _ from './style';
 import { Link } from 'react-router-dom';
-import { GithubIcon } from '../../asset/icon';
-import { HStack } from '../Stack';
-import { GetUserInfo } from '../../api/users';
-import { customCookie } from '../../util/customCookie';
+import { GithubIcon } from '@/asset/icon';
+import { HStack } from '@/components/Stack';
+import { GetUserInfo } from '@/api/users';
+import { customCookie } from '@/util/customCookie';
 
 const index = () => {
   const accessToken = customCookie.get.accessToken();

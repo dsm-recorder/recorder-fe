@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { VStack } from '../components/Stack';
+import { VStack } from '@/components/Stack';
 import { Link } from 'react-router-dom';
 
 const NotFoundPage = () => {

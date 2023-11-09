@@ -1,6 +1,6 @@
-import { ReissueToken } from './auth';
 import axios, { AxiosError } from 'axios';
-import { customCookie } from '../util/customCookie';
+import { customCookie } from '@/util/customCookie';
+import { ReissueToken } from './auth';
 
 export const instance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,

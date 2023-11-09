@@ -1,6 +1,6 @@
-import { IRepoResponse } from '../../api/projects/type';
-import { RadioInput } from '../Input';
-import { VStack } from '../Stack';
+import { IRepoResponse } from '@/api/projects/type';
+import { RadioInput } from '@/components/Input';
+import { VStack } from '@/components/Stack';
 import * as _ from './style';
 
 interface disabledType extends IRepoResponse {

@@ -22,7 +22,7 @@ export const GetIndividualRepo = () => {
 
 export const PostProject = () => {
   const response = async (param: IProjectRequest) => {
-    return await instance.post(`${ROUTER}`, param);
+    return await instance.post(ROUTER, param);
   };
 
   return useMutation(response, {

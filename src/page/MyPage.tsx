@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { VStack } from '../components/Stack';
-import Withdraw from '../components/MyPage/Withdraw';
-import WritingProject from '../components/MyPage/WritingProject';
-import { useTabMenu } from '../hook/useTabMenu';
-import { GetUserInfo } from '../api/users';
-import { GetMyProjectList } from '../api/projects';
+import { VStack } from '@/components/Stack';
+import Withdraw from '@/components/MyPage/Withdraw';
+import WritingProject from '@/components/MyPage/WritingProject';
+import { useTabMenu } from '@/hook/useTabMenu';
+import { GetUserInfo } from '@/api/users';
+import { GetMyProjectList } from '@/api/projects';
 
 const MyPage = () => {
   const { data: userInfo } = GetUserInfo();
