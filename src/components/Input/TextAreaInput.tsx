@@ -3,6 +3,7 @@ import { ChangeEvent, HTMLAttributes } from 'react';
 
 interface TextAreaType extends HTMLAttributes<HTMLTextAreaElement> {
   label?: string;
+  name?: string;
   placeholder?: string;
   onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   rows?: number;
@@ -57,7 +58,7 @@ const TextAreaInputLabel = styled.div`
 const TextArea = styled.textarea<{ width?: string; height?: string }>`
   resize: none;
   background: ${({ theme }) => theme.colors.gray[10]};
-  border: 1px solid #999999;
+  border: 1px solid ${({theme}) => theme.colors.gray[50]};
   border-radius: 10px;
   padding: 15px;
   width: ${({ width }) => width ?? '100%'};

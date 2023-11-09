@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-export const RepositoryCard = styled.div`
+export const RepositoryCard = styled.label`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 0 60px;
-  border: 1px solid #999999;
+  padding: 0 30px;
+  border: 1px solid ${({theme}) => theme.colors.gray[50]};
   border-radius: 10px;
   align-items: center;
   width: 473px;
@@ -13,12 +13,11 @@ export const RepositoryCard = styled.div`
 `;
 
 export const Name = styled.p`
-  height: 21px;
-  font-size: 16px;
+  font-size: 20px;
+  font-weight: 500;
 `;
 
 export const Description = styled.p`
-  height: 20px;
   width: 300px;
   font-size: 16px;
   white-space: nowrap;
@@ -28,6 +27,5 @@ export const Description = styled.p`
 `;
 
 export const Language = styled.p`
-  height: 20px;
   font-size: 16px;
 `;

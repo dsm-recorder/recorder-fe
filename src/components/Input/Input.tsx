@@ -43,7 +43,7 @@ const InputBox = styled.input<InputPropsType>`
   height: ${(props) => props.height ?? '40px'};
   padding: 15px;
   background: ${({ theme }) => theme.colors.gray[10]};
-  border: 1px solid #999999;
+  border: 1px solid ${({theme}) => theme.colors.gray[50]};
   border-radius: 10px;
   color: ${(props) =>
     props.value ? props.theme.colors.gray[100] : props.theme.colors.gray[50]};

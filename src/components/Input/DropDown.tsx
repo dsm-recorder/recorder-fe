@@ -98,7 +98,7 @@ const DropDownWrapper = styled.div<{ dropDownHeight?: string }>`
   justify-content: space-between;
   background: ${({ theme }) => theme.colors.gray[10]};
   border-radius: 10px;
-  border: 1px solid #999999;
+  border: 1px solid ${({ theme }) => theme.colors.gray[50]};
   padding: 15px;
   width: 100%;
   height: ${({ dropDownHeight }) => dropDownHeight ?? '40px'};
@@ -121,7 +121,7 @@ const OptionWrapper = styled.div<{ optionFullHeight?: string; top?: string }>`
   top: ${({ top }) => top ?? '60px'};
   z-index: 1;
   border-radius: 10px;
-  border: 1px solid #999999;
+  border: 1px solid ${({ theme }) => theme.colors.gray[50]};
   flex-direction: column;
   align-items: center;
   gap: 1px;
