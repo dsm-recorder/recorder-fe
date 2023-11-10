@@ -1,6 +1,6 @@
 import * as _ from './style';
-import { HStack, VStack } from '../Stack';
-import { GithubIcon, LogoIcon } from '../../asset/icon';
+import { HStack, VStack } from '@/components/Stack';
+import { GithubIcon, LogoIcon } from '@/asset/icon';
 
 const Footer = () => {
   return (

@@ -34,7 +34,7 @@ export const Arrow = ({ direction, onClick }: DirectionType) => {
 };
 
 const Svg = styled.svg<{ direction: DirectionType['direction'] }>`
-  color: #999999;
+  color: ${({theme}) => theme.colors.gray[50]};
   transition: 0.5s;
   transform: rotate(${({ direction }) => rotateDeg[direction]});
 `;

@@ -72,7 +72,7 @@ const CustomCircleInput = styled.label<{ width?: string; height?: string }>`
   border-radius: 50%;
   text-align: center;
   line-height: ${({ height }) => height ?? '180px'};
-  border: 1px solid #999999;
+  border: 1px solid ${({theme}) => theme.colors.gray[50]};
   cursor: pointer;
 `;
 

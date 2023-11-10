@@ -1,6 +1,6 @@
 import * as _ from './ProjectCard.style';
-import { HStack, VStack } from '../../Stack';
-import { ProjectType } from '../../../api/projects/type';
+import { HStack, VStack } from '@/components/Stack';
+import { ProjectType } from '@/api/projects/type';
 
 const ProjectCard = ({
   logoImageUrl,

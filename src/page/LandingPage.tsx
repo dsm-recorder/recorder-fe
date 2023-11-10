@@ -3,9 +3,9 @@ import Background from '../asset/background.png';
 import Footer from '../components/Footer';
 import BlogCard from '../components/BlogCard';
 import { HStack } from '../components/Stack';
-import { useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { PostLogin } from '../api/auth';
+import { useSearchParams } from 'react-router-dom';
+import { PostLogin } from '@/api/auth';
 
 const LandingPage = () => {
   const [searchParams] = useSearchParams();

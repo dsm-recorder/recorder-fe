@@ -1,8 +1,8 @@
 import * as _ from './style';
-import { HStack } from '../Stack';
-import ExampleBlog from '../../asset/ExampleBlog.png';
-import ExampleUserProfile from '../../asset/ExampleUserProfile.png';
-import { HeartIcon } from '../../asset/icon';
+import { HStack } from '@/components/Stack';
+import ExampleBlog from '@/asset/ExampleBlog.png';
+import ExampleUserProfile from '@/asset/ExampleUserProfile.png';
+import { HeartIcon } from '@/asset/icon';
 
 const BlogCard = () => {
   return (

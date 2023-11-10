@@ -1,8 +1,8 @@
 import * as _ from './style';
 import * as Common from '../Common/style';
-import { HStack } from '../../Stack';
-import { useInput } from '../../../hook/useInput';
-import { DeleteUser } from '../../../api/users';
+import { HStack } from '@/components/Stack';
+import { useInput } from '@/hook/useInput';
+import { DeleteUser } from '@/api/users';
 
 interface IWithdrawProps {
   accountId: string;

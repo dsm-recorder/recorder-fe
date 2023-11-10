@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ColorType } from '../../../types';
+import { ColorType } from '@/types';
 
 export const ContentWrapper = styled.div`
   display: flex;

@@ -1,7 +1,7 @@
 import { instance } from '../axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { IGetUserInfoResponse } from './type';
-import { customCookie } from '../../util/customCookie';
+import { customCookie } from '@/util/customCookie';
 
 const ROUTER = 'users';
 

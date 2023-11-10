@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { InputType } from '../types';
+import { InputType } from '@/types';
 
 export const useInput = <T,>(initialForm: T) => {
   const [form, setForm] = useState<T>(initialForm);
