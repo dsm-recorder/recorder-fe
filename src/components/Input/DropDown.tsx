@@ -92,6 +92,7 @@ const DropDownInner = styled.div<{ width?: string }>`
 `;
 
 const DropDownWrapper = styled.div<{ dropDownHeight?: string }>`
+  cursor: pointer;
   display: flex;
   flex-direction: row;
   align-items: center;

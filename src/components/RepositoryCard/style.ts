@@ -1,15 +1,17 @@
 import styled from 'styled-components';
 
-export const RepositoryCard = styled.label`
+export const RepositoryCard = styled.label<{ isSelected: boolean }>`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding: 0 30px;
-  border: 1px solid ${({theme}) => theme.colors.gray[50]};
+  border: 1px solid ${({ theme }) => theme.colors.gray[50]};
   border-radius: 10px;
   align-items: center;
   width: 473px;
   height: 120px;
+  background-color: ${({ isSelected, theme }) =>
+    isSelected && theme.colors.green.light.hover};
 `;
 
 export const Name = styled.p`

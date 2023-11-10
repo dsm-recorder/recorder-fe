@@ -27,7 +27,7 @@ export const RadioInput = ({
           fill='none'
           xmlns='http://www.w3.org/2000/svg'
         >
-          <rect width='24' height='24' fill='white' />
+          <rect width='24' height='24' fill='transparent' />
           {isRadioSelected && <circle cx='12' cy='12' r='5' fill='#005B45' />}
           <circle cx='12' cy='12' r='8.5' stroke='#005B45' />
         </svg>
