@@ -62,7 +62,7 @@ const Container = styled.div<StackProps>`
   display: flex;
   width: ${({ width }) => (width ? `${width}px` : 'auto')};
   height: ${({ height }) => height}px;
-  padding: ${({padding}) => padding};
+  padding: ${({ padding }) => padding};
   flex-direction: ${({ direction }) => direction};
   align-items: ${({ align }) => align};
   justify-content: ${({ justify }) => justify};
