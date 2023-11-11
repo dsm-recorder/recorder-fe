@@ -1,12 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
-@font-face {
-  font-family: 'OTWelcomeRA';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/OTWelcomeRA.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-}
+  
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&family=Roboto:ital,wght@1,900&display=swap');
+  
   html,
   body,
   div,
@@ -147,10 +144,11 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
   body {
-    font-weight: 300;
+    font-weight: 500;
     color: black;
     line-height: 1.2;
-    font-family: OTWelcomeRA, sans-serif;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Roboto', sans-serif;
   }
   .normal {
     font-weight: 400;
