@@ -8,16 +8,31 @@ const BlogCard = () => {
   return (
     <_._Container>
       <_._IMG src={ExampleBlog} alt='blog image' />
-      <_._CardFooter>
-        <HStack align='center' gap={22}>
-          <_._UserProfileImg src={ExampleUserProfile} />
-          <_._TEXT>얄리얄리 얄라셩 E = mc</_._TEXT>
+      <_._CardInfo>
+        <_._TEXT size={24} weight={700}>
+          XQUARE
+        </_._TEXT>
+        <_._TEXT size={13} weight={300}>
+          2023-11-10 ~ 2023-11-10
+        </_._TEXT>
+        <HStack align='center' justify='space-between' margin='10px 0 0 0'>
+          <HStack align='center' gap={6}>
+            <_._UserProfileImg src={ExampleUserProfile} />
+            <_._TEXT size={14} weight={400}>
+              by
+            </_._TEXT>
+            <_._TEXT size={16} weight={600}>
+              얄리얄리 얄라셩 E = mc
+            </_._TEXT>
+          </HStack>
+          <HStack align='center' gap={9}>
+            <HeartIcon cursor='pointer' />
+            <_._TEXT size={14} weight={300}>
+              999
+            </_._TEXT>
+          </HStack>
         </HStack>
-        <HStack align='center' gap={9}>
-          <HeartIcon cursor='pointer' />
-          <_._TEXT>999</_._TEXT>
-        </HStack>
-      </_._CardFooter>
+      </_._CardInfo>
     </_._Container>
   );
 };

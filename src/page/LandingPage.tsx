@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import Background from '../asset/background.png';
-import Footer from '../components/Footer';
-import BlogCard from '../components/BlogCard';
-import { HStack } from '../components/Stack';
 import { useEffect } from 'react';
+import styled from 'styled-components';
 import { useSearchParams } from 'react-router-dom';
 import { PostLogin } from '@/api/auth';
+import Background from '@/asset/background.png';
+import { CrownIcon } from '@/asset/icon';
+import BlogCard from '@/components/BlogCard';
+import { HStack } from '@/components/Stack';
 
 const LandingPage = () => {
   const [searchParams] = useSearchParams();
@@ -20,19 +20,22 @@ const LandingPage = () => {
     <>
       <Container id='main' style={{ backgroundImage: `url(${Background})` }}>
         <Description>
-          포트폴리오의 모든 것 <br />
+          <strong>포트폴리오</strong>의 모든 것 <br />
           리코더에서 쉽고 간결하게
         </Description>
       </Container>
       <Container>
-        <Title>이달의 포트폴리오</Title>
+        <Title>
+          <img src={CrownIcon} alt='CrownIcon' />
+          <br />
+          이달의 포트폴리오
+        </Title>
         <HStack gap={40}>
           <BlogCard />
           <BlogCard />
           <BlogCard />
         </HStack>
       </Container>
-      <Footer />
     </>
   );
 };
@@ -54,10 +57,12 @@ const Container = styled.div`
 const Description = styled.p`
   text-align: center;
   font-size: 42px;
+  font-weight: 300;
   color: ${({ theme }) => theme.colors.brown.light.default};
 `;
 
 const Title = styled.div`
+  text-align: center;
   font-size: 36px;
-  font-weight: 400;
+  font-weight: 600;
 `;
