@@ -26,11 +26,7 @@ const WritingProject = ({ projectList }: IWritingProjectProps) => {
         {projectList[0] ? (
           projectList.map((project) => <ProjectCard {...project} />)
         ) : (
-          <VStack
-            style={{ width: '100%', height: '100%', marginTop: '30px' }}
-            align='center'
-            gap={30}
-          >
+          <VStack style={{ width: '100%' }} align='center' gap={30}>
             <NoticeIcon size={100} />
             <_._NoticeTitle>기록중인 프로젝트가 없습니다</_._NoticeTitle>
             <_._NoticeSub>

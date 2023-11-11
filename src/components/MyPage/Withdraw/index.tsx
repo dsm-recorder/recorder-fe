@@ -21,7 +21,7 @@ const Withdraw = ({ accountId }: IWithdrawProps) => {
         <br />
         아이디를 입력한 뒤 버튼을 클릭해주세요.
       </_._NoticeMessageWrapper>
-      <HStack gap={30}>
+      <HStack justify='end' gap={30}>
         <_._IdInput
           placeholder={accountId}
           name='accoundId'
