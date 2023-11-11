@@ -1,15 +1,9 @@
 import styled from 'styled-components';
-import { VStack } from '@/components/Stack';
 import { Link } from 'react-router-dom';
 
 const NotFoundPage = () => {
   return (
-    <VStack
-      style={{ width: '100vw', height: '100vh' }}
-      align='center'
-      justify='center'
-      gap={30}
-    >
+    <Container>
       <Title>404</Title>
       <Discription>
         찾을 수 없는 페이지입니다.
@@ -18,22 +12,33 @@ const NotFoundPage = () => {
       <Link to={'/'}>
         <Button>홈으로 이동</Button>
       </Link>
-    </VStack>
+    </Container>
   );
 };
 
 export default NotFoundPage;
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  width: 100%;
+  height: 100vh;
+`;
+
 const Title = styled.div`
   color: ${({ theme }) => theme.colors.green.normal.default};
   font-size: 64px;
-  font-weight: 400;
+  font-weight: 700;
 `;
 
 const Discription = styled.div`
+  text-align: center;
   color: ${({ theme }) => theme.colors.gray[100]};
   font-size: 36px;
-  font-weight: 400;
+  font-weight: 600;
 `;
 
 const Button = styled.button`

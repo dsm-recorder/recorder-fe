@@ -4,6 +4,7 @@ import LandingPage from '@/page/LandingPage';
 import ProjectRegisterPage from '@/page/ProjectRegisterPage';
 import MyPage from '@/page/MyPage';
 import NotFoundPage from '@/page/NotFoundPage';
+import Footer from '@/components/Footer';
 
 export const Router = () => {
   return (
@@ -15,6 +16,7 @@ export const Router = () => {
         <Route path='/mypage' element={<MyPage />} />
         <Route path='/*' element={<NotFoundPage />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };

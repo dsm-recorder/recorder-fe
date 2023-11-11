@@ -1,19 +1,12 @@
 import styled from 'styled-components';
-import { VStack } from '@/components/Stack';
 import Withdraw from '@/components/MyPage/Withdraw';
 import WritingProject from '@/components/MyPage/WritingProject';
-import { useTabMenu } from '@/hook/useTabMenu';
 import { GetUserInfo } from '@/api/users';
 import { GetMyProjectList } from '@/api/projects';
 
 const MyPage = () => {
   const { data: userInfo } = GetUserInfo();
   const { data: projectList } = GetMyProjectList();
-
-  const { TabMenuBox, TabMenuItem } = useTabMenu(0, [
-    <Withdraw accountId={userInfo?.accountId ?? 'Loading...'} />,
-    <WritingProject projectList={projectList?.projects ?? []} />,
-  ]);
 
   return (
     <Container>
@@ -24,12 +17,11 @@ const MyPage = () => {
           <UserProfileId>
             {!!userInfo ? userInfo.accountId : 'Loading...'}
           </UserProfileId>
-          <VStack>
-            <TabMenuBox tabMenuKey={0}>계정</TabMenuBox>
-            <TabMenuBox tabMenuKey={1}>프로젝트</TabMenuBox>
-          </VStack>
         </SideBarWrapper>
-        {TabMenuItem}
+        <MainWrapper>
+          <WritingProject projectList={projectList?.projects ?? []} />
+          <Withdraw accountId={userInfo?.accountId ?? 'Loading...'} />
+        </MainWrapper>
       </PageWrapper>
     </Container>
   );
@@ -74,4 +66,12 @@ const UserProfileId = styled.div`
   color: ${({ theme }) => theme.colors.gray[100]};
   font-size: 22px;
   font-weight: 400;
+`;
+
+const MainWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  width: 100%;
+  height: auto;
 `;

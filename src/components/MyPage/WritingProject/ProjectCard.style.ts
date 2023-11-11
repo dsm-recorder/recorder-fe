@@ -16,6 +16,11 @@ export const _ProjectImg = styled.img`
   object-fit: cover;
 `;
 
+export const _Title = styled.div`
+  font-size: 24px;
+  font-weight: 700;
+`;
+
 export const _TEXT = styled.div`
   font-size: 14px;
   font-weight: 400;

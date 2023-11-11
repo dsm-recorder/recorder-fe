@@ -20,7 +20,7 @@ const Footer = () => {
             </_._Logo>
           </a>
           <a target='_blank' href='https://github.com/dsm-recorder'>
-            <GithubIcon />
+            <GithubIcon color='white' />
           </a>
         </HStack>
       </VStack>
