@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const RepositoryCard = styled.label<{ isSelected: boolean }>`
   display: flex;
