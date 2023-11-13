@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Arrow } from '../../asset/icon/ArrowIcon';
+import { Arrow } from '@/asset/icon/ArrowIcon';
 import ReactOutSideClickHandler from 'react-outside-click-handler';
 import { keyframes } from 'styled-components';
 import styled from 'styled-components';
@@ -85,7 +85,6 @@ const DropDownInner = styled.div<{ width?: string }>`
   width: ${({ width }) => width ?? '300px'};
   display: flex;
   align-items: center;
-  margin: 15px 0 0 0;
   justify-content: space-between;
   flex-direction: column;
   position: relative;
@@ -154,4 +153,5 @@ const InputLabelBox = styled.div`
   font-size: 22px;
   color: ${({ theme }) => theme.colors.gray[100]};
   font-weight: 400;
+  margin: 0 0 15px 0;
 `;

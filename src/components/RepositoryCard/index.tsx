@@ -18,7 +18,7 @@ export const RepositoryCard = ({
   language,
 }: disabledType) => {
   return (
-    <_.RepositoryCard isSelected={isRadioSelected}>
+    <_.RepositoryCard>
       <VStack gap={10}>
         <_.Name>{name.split('/')[1]}</_.Name>
         <_.Description>{description}</_.Description>

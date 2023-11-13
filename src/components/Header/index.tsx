@@ -19,8 +19,8 @@ const index = () => {
         </Link>
         <HStack gap={80}>
           {accessToken &&
-            TabMenu.map((menu) => (
-              <Link to={menu.url}>
+            TabMenu.map((menu, index) => (
+              <Link to={menu.url} key={index}>
                 <_._TabMenuWrapper>
                   {menu.tab}
                   {location.pathname === menu.url && <_._BAR />}
@@ -35,7 +35,7 @@ const index = () => {
           <_._UserImg src={data?.profileImageUrl} />
         </HStack>
       ) : (
-        <_._LoginWrapper>
+        <_._LoginWrapper> 
           <GithubIcon />
           <_._Login
             onClick={() =>
