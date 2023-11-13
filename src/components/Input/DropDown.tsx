@@ -153,5 +153,5 @@ const InputLabelBox = styled.div`
   font-size: 22px;
   color: ${({ theme }) => theme.colors.gray[100]};
   font-weight: 400;
-  margin: 0 0 15px 0;
+  margin-bottom: 15px;
 `;

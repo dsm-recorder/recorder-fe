@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-export const RepositoryCard = styled.div`
+export const RepositoryCard = styled.label`
   display: flex;
   flex-direction: row;
   justify-content: space-between;

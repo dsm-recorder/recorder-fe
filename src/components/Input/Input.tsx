@@ -13,8 +13,6 @@ export interface InputPropsType extends HTMLAttributes<HTMLInputElement> {
   // Input 스타일 요소
   width?: string;
   height?: string;
-  border?: string;
-  backgroundColor?: string;
   label?: string;
 }
 
@@ -41,18 +39,12 @@ const InputLabelBox = styled.div`
   font-weight: 400;
 `;
 
-const InputBox = styled.input<{
-  height?: string;
-  backgroundColor?: string;
-  border?: string;
-}>`
+const InputBox = styled.input<{ height?: string }>`
   width: 100%;
   height: ${(props) => props.height ?? '40px'};
   padding: 15px;
-  background: ${(props) =>
-    props.backgroundColor ?? props.theme.colors.gray[10]};
-  border: ${(props) =>
-    props.border ?? `1px solid ${props.theme.colors.gray[50]}`};
+  background: ${({theme}) => theme.colors.gray[30]};
+  border: none;
   border-radius: 10px;
   color: ${(props) =>
     props.value ? props.theme.colors.gray[100] : props.theme.colors.gray[50]};
