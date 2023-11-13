@@ -1,7 +1,7 @@
-import { IRepoResponse } from '@/api/projects/type';
-import { RadioInput } from '@/components/Input';
-import { VStack } from '@/components/Stack';
-import * as _ from './style';
+import { IRepoResponse } from "@/api/projects/type";
+import { RadioInput } from "@/components/Input";
+import { VStack } from "@/components/Stack";
+import * as _ from "./style";
 
 interface disabledType extends IRepoResponse {
   radioId: string;
@@ -18,9 +18,9 @@ export const RepositoryCard = ({
   language,
 }: disabledType) => {
   return (
-    <_.RepositoryCard>
+    <_.RepositoryCard isSelected={isRadioSelected}>
       <VStack gap={10}>
-        <_.Name>{name.split('/')[1]}</_.Name>
+        <_.Name>{name.split("/")[1]}</_.Name>
         <_.Description>{description}</_.Description>
         <_.Language>{language}</_.Language>
       </VStack>
