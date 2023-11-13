@@ -44,7 +44,7 @@ const PageTItle = styled.div`
 
 const PageWrapper = styled.div`
   display: flex;
-  gap: 30px;
+  gap: 60px;
   margin-top: 50px;
 `;
 
