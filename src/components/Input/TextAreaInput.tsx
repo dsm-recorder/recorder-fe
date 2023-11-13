@@ -15,13 +15,13 @@ interface TextAreaType extends HTMLAttributes<HTMLTextAreaElement> {
 }
 
 export const TextAreaInput = ({
-  name,
   rows = 1,
   placeholder,
   label,
   width,
   height,
   value,
+  name,
   onChange,
   maxLength,
   spellCheck = false,
@@ -59,10 +59,11 @@ const TextAreaInputLabel = styled.div`
 
 const TextArea = styled.textarea<{ width?: string; height?: string }>`
   resize: none;
-  background: ${({ theme }) => theme.colors.gray[10]};
-  border: 1px solid ${({ theme }) => theme.colors.gray[50]};
+  color: ${({ theme }) => theme.colors.gray[100]};
+  background: ${({ theme }) => theme.colors.gray[30]};
+  border: none;
   border-radius: 10px;
   padding: 15px;
   width: ${({ width }) => width ?? '100%'};
-  height: ${({ height }) => height ?? '120px'};
+  height: ${({ height }) => height ?? '170px'};
 `;

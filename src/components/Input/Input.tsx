@@ -16,20 +16,21 @@ export interface InputPropsType extends HTMLAttributes<HTMLInputElement> {
   label?: string;
 }
 
-export const Input = ({ label, ...props }: InputPropsType) => {
+export const Input = ({ label, width, ...props }: InputPropsType) => {
   return (
-    <InputContainer>
+    <InputContainer width={width}>
       {label && <InputLabelBox>{label}</InputLabelBox>}
       <InputBox {...props} />
     </InputContainer>
   );
 };
 
-const InputContainer = styled.div`
+const InputContainer = styled.div<{ width?: string }>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 15px;
+  width: ${(props) => props.width ?? '300px'};
 `;
 
 const InputLabelBox = styled.div`
@@ -38,12 +39,12 @@ const InputLabelBox = styled.div`
   font-weight: 400;
 `;
 
-const InputBox = styled.input<InputPropsType>`
-  width: ${(props) => props.width ?? '300px'};
+const InputBox = styled.input<{ height?: string }>`
+  width: 100%;
   height: ${(props) => props.height ?? '40px'};
   padding: 15px;
-  background: ${({ theme }) => theme.colors.gray[10]};
-  border: 1px solid ${({theme}) => theme.colors.gray[50]};
+  background: ${({theme}) => theme.colors.gray[30]};
+  border: none;
   border-radius: 10px;
   color: ${(props) =>
     props.value ? props.theme.colors.gray[100] : props.theme.colors.gray[50]};

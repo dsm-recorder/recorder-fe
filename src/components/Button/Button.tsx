@@ -27,6 +27,7 @@ const ButtonContainer = styled.div`
 
 const ButtonBox = styled.button`
   cursor: pointer;
+  min-width: 90px;
   width: auto;
   height: 40px;
   border-radius: 10px;

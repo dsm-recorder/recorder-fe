@@ -22,7 +22,7 @@ export const _Logo = styled.div`
   height: 50px;
   font-size: 28px;
   text-align: center;
-  line-height: 60px;
+  line-height: 50px;
 `;
 
 export const _TabMenuWrapper = styled.div`

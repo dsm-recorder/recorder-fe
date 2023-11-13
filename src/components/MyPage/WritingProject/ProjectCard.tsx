@@ -2,7 +2,13 @@ import * as _ from './ProjectCard.style';
 import { HStack } from '@/components/Stack';
 import { ProjectType } from '@/api/projects/type';
 
-const ProjectCard = ({ logoImageUrl, name, createdAt }: ProjectType) => {
+const ProjectCard = ({
+  id,
+  logoImageUrl,
+  description,
+  name,
+  createdAt,
+}: ProjectType) => {
   return (
     <_._Wrapper>
       <_._ProjectImg src={logoImageUrl} alt='projectImg' />

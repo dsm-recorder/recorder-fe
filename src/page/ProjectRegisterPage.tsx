@@ -16,6 +16,7 @@ import { RepositoryCard } from '@/components/RepositoryCard';
 import { useInput } from '@/hook/useInput';
 
 export const ProjectRegisterPage = () => {
+  const [searchRepo, setSearchRepo] = useState('');
   const [skillInput, setSkillInput] = useState<string>('');
   const [dropDownValue, setDropDownValue] = useState('');
   const [selectRepos, setSelectRepos] = useState<IRepoResponse[] | undefined>(
@@ -40,6 +41,8 @@ export const ProjectRegisterPage = () => {
     GetIndividualRepo();
 
   const { mutate: ImageMutation, data: imgUrl } = PostImage();
+
+  const FilterRepo = selectRepos?.filter((repoName) => repoName.name.includes(searchRepo));
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -119,62 +122,76 @@ export const ProjectRegisterPage = () => {
     <>
       <Container>
         <Title>프로젝트 등록</Title>
-        <VStack padding='30px' gap={30}>
-          <HStack justify='space-between' width={1068}>
-            <ImageInput
-              label='프로젝트 로고'
-              width='200px'
-              height='200px'
-              placeholder='프로젝트 로고를 선택해주세요'
-              value={project.logoImageUrl}
-              handleImageChange={handleImageChange}
-            />
-            <Input
-              type='text'
-              name='projectName'
-              label='프로젝트 이름'
-              placeholder='프로젝트 이름을 입력해주세요'
-              value={project.projectName}
-              onChange={onChangeProject}
-            />
-            <DropDown
-              value={dropDownValue}
-              onClick={onDropDownChange}
-              label='Github Repository 이름'
-              list={dropDownList}
-              placeholder='Github Repository 위치를 선택해주세요'
-            />
-          </HStack>
+        <PageWrapper>
+          <ImageInput
+            width='200px'
+            height='200px'
+            placeholder='프로젝트 로고를 선택해주세요'
+            value={project.logoImageUrl}
+            handleImageChange={handleImageChange}
+          />
+          <Input
+            type='text'
+            label='프로젝트 명'
+            name='projectName'
+            placeholder='프로젝트 이름을 입력해주세요'
+            value={project.projectName}
+            onChange={onChangeProject}
+          />
           <TextAreaInput
             placeholder='프로젝트 설명을 입력해주세요'
             label='설명'
             name='description'
-            width='1068px'
+            width='100%'
             value={project.description}
             onChange={onChangeProject}
           />
-          <RepositoryBox>
-            {dropDownValue ? (
-              selectRepos?.map((item, index) => {
-                const { name, description, language } = item;
-                const radioId = String(index);
-                const isRadioSelected = String(selectedProject) === radioId;
-                return (
-                  <RepositoryCard
-                    key={index}
-                    name={name}
-                    description={description}
-                    language={language}
-                    isRadioSelected={isRadioSelected}
-                    radioId={radioId}
-                    onClick={() => setSelectedProject(index)}
-                  />
-                );
-              })
-            ) : (
-              <p>깃허브 레포지토리를 선택해주세요.</p>
-            )}
-          </RepositoryBox>
+          <RepositoryWrapper>
+            <HStack gap={60}>
+              <MainTitle>깃허브 Repository</MainTitle>
+              <SideTitle>
+                프로젝트를 진행할때 사용할 레포지토리를 선택해주세요
+              </SideTitle>
+            </HStack>
+            <HStack justify='space-between' width={700}>
+              <DropDown
+                value={dropDownValue}
+                onClick={onDropDownChange}
+                list={dropDownList}
+                placeholder='Github Repository 위치를 선택해주세요'
+              />
+              <Input
+                type='text'
+                placeholder='레포지토리 이름을 입력해주세요'
+                value={searchRepo}
+                onChange={(e) => {
+                  setSearchRepo(e.target.value);
+                }}
+              />
+            </HStack>
+            <RepositoryBox>
+              {dropDownValue ? (
+                FilterRepo?.map((item, index) => {
+                  const { name, description, language } = item;
+                  const radioId = String(index);
+                  const isRadioSelected = String(selectedProject) === radioId;
+                  return (
+                    <RepositoryCard
+                      key={name}
+                      name={name}
+                      description={description}
+                      language={language}
+                      isRadioSelected={isRadioSelected}
+                      radioId={radioId}
+                      onClick={() => setSelectedProject(index)}
+                    />
+                  );
+                })
+              ) : (
+                <p>값을 먼저 선택하세요.</p>
+              )}
+            </RepositoryBox>
+          </RepositoryWrapper>
           <VStack gap={30}>
             <HStack align='end' gap={30}>
               <Input
@@ -194,26 +211,13 @@ export const ProjectRegisterPage = () => {
               {project.skills?.map((skill, index) => (
                 <SkillCard key={index}>
                   {skill}
-                  <DeleteIcon
-                    cursor='pointer'
-                    onClick={() => onDeleteSkills(skill)}
-                  />
+                  <DeleteIcon onClick={() => onDeleteSkills(skill)} />
                 </SkillCard>
               ))}
             </HStack>
           </VStack>
-          <Button
-            onClick={onProjectRegister}
-            disabled={
-              Object.values(project).some((item) => !!item === false) &&
-              selectRepos &&
-              selectedProject >= 0 &&
-              selectedProject < selectRepos.length
-            }
-          >
-            프로젝트 등록
-          </Button>
-        </VStack>
+          <Button onClick={onProjectRegister}>프로젝트 등록</Button>
+        </PageWrapper>
       </Container>
     </>
   );
@@ -240,6 +244,13 @@ const Title = styled.div`
   color: ${({ theme }) => theme.colors.gray[100]};
 `;
 
+const PageWrapper = styled.div`
+  min-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+`;
+
 const SkillCard = styled.div`
   display: flex;
   padding: 0 15px;
@@ -247,18 +258,33 @@ const SkillCard = styled.div`
   gap: 5px;
   align-items: center;
   border-radius: 10px;
-  border: 1px solid ${({ theme }) => theme.colors.gray[50]};
+  border: 1px solid #999999;
 `;
 
 const RepositoryBox = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
-  width: 1068px;
-  height: 420px;
-  padding: 30px;
-  border: 1px solid ${({ theme }) => theme.colors.gray[50]};
   border-radius: 10px;
+  height: 420px;
+  width: 700px;
   max-height: 420px;
   overflow-y: auto;
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
+  flex-wrap: nowrap;
+`;
+
+const MainTitle = styled.p`
+  font-weight: 24px;
+  font-weight: 700;
+`;
+
+const SideTitle = styled.p`
+  color: #ababab;
+  font-size: 15px;
+`;
+
+const RepositoryWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 `;
