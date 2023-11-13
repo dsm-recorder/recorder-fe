@@ -16,7 +16,7 @@ import { RepositoryCard } from '@/components/RepositoryCard';
 import { useInput } from '@/hook/useInput';
 
 export const ProjectRegisterPage = () => {
-  const [filteInput, setFilterInput] = useState('');
+  const [searchRepo, setSearchRepo] = useState('');
   const [skillInput, setSkillInput] = useState<string>('');
   const [dropDownValue, setDropDownValue] = useState('');
   const [selectRepos, setSelectRepos] = useState<IRepoResponse[] | undefined>(
@@ -42,7 +42,7 @@ export const ProjectRegisterPage = () => {
 
   const { mutate: ImageMutation, data: imgUrl } = PostImage();
 
-  const FilterRepo = selectRepos?.filter((e) => e.name.includes(filteInput));
+  const FilterRepo = selectRepos?.filter((repoName) => repoName.name.includes(searchRepo));
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -136,8 +136,6 @@ export const ProjectRegisterPage = () => {
             name='projectName'
             placeholder='프로젝트 이름을 입력해주세요'
             value={project.projectName}
-            border='none'
-            backgroundColor='#EEEEEE'
             onChange={onChangeProject}
           />
           <TextAreaInput
@@ -165,9 +163,9 @@ export const ProjectRegisterPage = () => {
               <Input
                 type='text'
                 placeholder='레포지토리 이름을 입력해주세요'
-                value={filteInput}
+                value={searchRepo}
                 onChange={(e) => {
-                  setFilterInput(e.target.value);
+                  setSearchRepo(e.target.value);
                 }}
               />
             </HStack>
@@ -179,7 +177,7 @@ export const ProjectRegisterPage = () => {
                   const isRadioSelected = String(selectedProject) === radioId;
                   return (
                     <RepositoryCard
-                      key={index}
+                      key={name}
                       name={name}
                       description={description}
                       language={language}
