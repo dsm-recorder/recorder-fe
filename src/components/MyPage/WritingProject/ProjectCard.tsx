@@ -1,16 +1,25 @@
 import * as _ from './ProjectCard.style';
 import { HStack } from '@/components/Stack';
 import { ProjectType } from '@/api/projects/type';
+import { useNavigate } from 'react-router-dom';
 
 const ProjectCard = ({
   id,
   logoImageUrl,
-  description,
   name,
   createdAt,
+  description,
 }: ProjectType) => {
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    navigate(`/Project-About/${id}`, {
+      state: { id, logoImageUrl, name, createdAt, description },
+    });
+  };
+
   return (
-    <_._Wrapper>
+    <_._Wrapper onClick={handleButtonClick}>
       <_._ProjectImg src={logoImageUrl} alt='projectImg' />
       <HStack
         align='center'
