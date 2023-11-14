@@ -34,7 +34,7 @@ export const PostAddReport = (id: string) => {
   return useMutation(response);
 };
 
-export const PatchReport = (id: string) => {
+export const PatchReport = () => {
   const response = async (id: string) => {
     const { data } = await instance.patch(`${ROUTER}/${id}`);
 

@@ -28,9 +28,7 @@ const TodoList = ({ todos }: TodoListType) => {
     state.id
   );
   const { mutate: DeleteMutation } = DeleteReport();
-  const { mutate: PatchMuatation } = PatchReport(
-    state.id
-  );
+  const { mutate: PatchMuatation } = PatchReport();
 
   useEffect(() => {
     setTodos(todos);
