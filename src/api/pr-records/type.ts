@@ -15,3 +15,11 @@ export enum PRType {
   BUG_FIX = 'BUG_FIX',
   REFACTORING = 'REFACTORING',
 }
+
+export interface IPRResponseType {
+	title: string
+	content: string
+	importance: number
+	solution?: string
+	type: PRType
+}
