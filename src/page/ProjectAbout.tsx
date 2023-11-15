@@ -7,6 +7,7 @@ import { useLocation } from 'react-router-dom';
 import { GetPRReport } from '@/api/pr-records';
 import { ProjectType } from '@/api/projects/type';
 import { HStack, VStack } from '@/components/Stack';
+import { Button } from '@/components/Button';
 
 const ProjectAbout = () => {
   const location = useLocation();
@@ -19,13 +20,14 @@ const ProjectAbout = () => {
     <Container>
       <PageWrapper>
         <ProjectInfoWrapper>
-          <HStack justify='space-between'>
+          <HStack justify='space-between' gap={30}>
             <ProjectLogoImg alt='projectLogoImg' src={state.logoImageUrl} />
             <VStack>
               <ProjectName>{state.name}</ProjectName>
-              <ProjectCreateAt>{state.createdAt}</ProjectCreateAt>
+              <ProjectCreateAt>{state.createdAt} ~ </ProjectCreateAt>
             </VStack>
           </HStack>
+          <Button onClick={() => console.log('종료')}>프로젝트 종료</Button>
         </ProjectInfoWrapper>
         <ProjectDescription description={state.description} />
         <TodoList todos={todoLists?.todos ?? []} />
@@ -40,7 +42,9 @@ export default ProjectAbout;
 const ProjectInfoWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
   gap: 30px;
 `;
 
@@ -55,7 +59,7 @@ const Container = styled.div`
 const PageWrapper = styled.div`
   display: flex;
   justify-content: center;
-  min-width: 700px;
+  min-width: 800px;
   padding: 60px 120px;
   background-color: ${({ theme }) => theme.colors.gray[10]};
   align-items: flex-start;
@@ -80,6 +84,7 @@ const ProjectName = styled.div`
 `;
 
 const ProjectCreateAt = styled.div`
+  min-width: 200px;
   color: ${({ theme }) => theme.colors.gray[60]};
   font-size: 24px;
   font-weight: 600;

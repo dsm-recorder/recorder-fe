@@ -1,47 +1,36 @@
 import { IPRRecordsType, PRType } from '@/api/pr-records/type';
+import * as _ from './Modal.style'
 import { FeatModal } from './FeatModal';
+import { BugFixModal } from './BugFixModal';
+import { RefactModal } from './RefactModal';
 
 interface ModalPropsType {
   pr: IPRRecordsType | null;
   onClose: () => void;
 }
 
+export type imageState = {
+  renderer: string;
+  value: File;
+};
+
 const Modal = ({ pr, onClose }: ModalPropsType) => {
   const PRMoalSwitch = () => {
     if (pr) {
       switch (pr.type) {
         case PRType.NEW_FEATURE:
-          return <FeatModal title={pr.title} onClick={onClose} />;
-          break;
+          return <FeatModal {...pr} onClick={onClose} />;
         case PRType.BUG_FIX:
-          return <div>123</div>;
-          break;
+          return <BugFixModal {...pr} onClick={onClose} />;
         case PRType.REFACTORING:
-          return <div>123</div>;
-          break;
-        default:
-          return <div>123</div>;
+          return <RefactModal {...pr} onClick={onClose} />;
       }
     }
   };
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        overflow: 'auto',
-        backgroundColor: 'rgba(0,0,0,0.4)',
-        zIndex: 1000,
-      }}
-    >
+    <_.ModalBackground>
       <PRMoalSwitch />
-    </div>
+    </_.ModalBackground>
   );
 };
 
