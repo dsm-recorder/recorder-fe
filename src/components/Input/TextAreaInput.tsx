@@ -84,16 +84,18 @@ export const TextAreaInput = ({
         height={height}
         maxLength={maxLength}
       />
-      <ImagesContainer>
-        {images?.map((item) => (
-          <ImageWrapper key={item.renderer}>
-            <Img src={item.renderer} alt='img' />
-            <Div>
-              <DeleteIconStyled onClick={() => onClickDeleteImage(item)} />
-            </Div>
-          </ImageWrapper>
-        ))}
-      </ImagesContainer>
+      {isAddImage && (
+        <ImagesContainer>
+          {images?.map((item) => (
+            <ImageWrapper key={item.renderer}>
+              <Img src={item.renderer} alt='img' />
+              <Div>
+                <DeleteIconStyled onClick={() => onClickDeleteImage(item)} />
+              </Div>
+            </ImageWrapper>
+          ))}
+        </ImagesContainer>
+      )}
     </TextAreaContainer>
   );
 };
