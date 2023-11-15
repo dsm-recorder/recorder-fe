@@ -3,36 +3,37 @@ import * as _ from './Modal.style';
 import { useState } from 'react';
 import { TextAreaInput } from '@/components/Input';
 import { Button } from '@/components/Button';
-import { imageState } from '.';
+import { ModalPropsType, imageState } from '.';
 import { HStack } from '@/components/Stack';
 import { PatchPRContent } from '@/api/pr-records';
 
-export const BugFixModal = ({ id, title, importance, type, onClick }: any) => {
+export const BugFixModal = ({
+  pr,
+  onClose
+}: ModalPropsType) => {
   const [content, setContent] = useState('');
   const [solution, setSolution] = useState('');
 
-  const { mutate: PRConatentMutation } = PatchPRContent(id);
+  const { mutate: PRConatentMutation } = PatchPRContent(pr.id);
   const [bugImages, setBugImages] = useState<imageState[]>([]);
   const [solutionImages, setSolutionImages] = useState<imageState[]>([]);
 
-  const onPatch = () => {
-    PRConatentMutation({
-      title: title,
-      importance: importance,
-      type: type,
-      content: content,
-      solution: solution
-    });
-  };
+ const onPatch = () => {
+   PRConatentMutation({
+     ...pr,
+     content: content,
+     solution: solution
+   });
+ };
 
   return (
     <_.PRModalWrapper>
       <_.ModalHeaderWrapper>
         <HStack gap={30}>
-          <_.ModalLabel>{title}</_.ModalLabel>
+          <_.ModalLabel>{pr.title}</_.ModalLabel>
           <_.TypeBox>버그 수정</_.TypeBox>
         </HStack>
-        <DeleteIcon onClick={onClick} />
+        <DeleteIcon onClick={onClose} />
       </_.ModalHeaderWrapper>
       <_.ModalMainWrapper>
         <TextAreaInput

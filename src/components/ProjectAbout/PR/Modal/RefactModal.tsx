@@ -3,22 +3,23 @@ import * as _ from './Modal.style';
 import { useState } from 'react';
 import { TextAreaInput } from '@/components/Input';
 import { Button } from '@/components/Button';
-import { imageState } from '.';
+import { ModalPropsType, imageState } from '.';
 import { HStack } from '@/components/Stack';
 import { GetPRContent, PatchPRContent } from '@/api/pr-records';
 
-export const RefactModal = ({ id, title, importance, type, onClick }: any) => {
+export const RefactModal = ({
+  pr,
+  onClose
+}: ModalPropsType) => {
   const [content, setContent] = useState('');
   const [images, setImages] = useState<imageState[]>([]);
 
-  const { data: PRContent } = GetPRContent(id);
-  const { mutate: PRConatentMutation } = PatchPRContent(id);
+  const { data: PRContent } = GetPRContent(pr.id);
+  const { mutate: PRConatentMutation } = PatchPRContent(pr.id);
 
   const onPatch = () => {
     PRConatentMutation({
-      title: title,
-      importance: importance,
-      type: type,
+      ...pr,
       content: content,
     });
   };
@@ -27,10 +28,10 @@ export const RefactModal = ({ id, title, importance, type, onClick }: any) => {
     <_.PRModalWrapper>
       <_.ModalHeaderWrapper>
         <HStack gap={30}>
-          <_.ModalLabel>{title}</_.ModalLabel>
+          <_.ModalLabel>{pr.title}</_.ModalLabel>
           <_.TypeBox>리펙토링</_.TypeBox>
         </HStack>
-        <DeleteIcon onClick={onClick} />
+        <DeleteIcon onClick={onClose} />
       </_.ModalHeaderWrapper>
       <_.ModalMainWrapper>
         <TextAreaInput
