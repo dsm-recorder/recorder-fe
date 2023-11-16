@@ -13,7 +13,7 @@ const ProjectCard = ({
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate(`/Project-About/${id}`, {
+    navigate(`/project-writing/${id}`, {
       state: { id, logoImageUrl, name, createdAt, description },
     });
   };
