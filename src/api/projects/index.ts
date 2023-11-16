@@ -3,6 +3,7 @@ import { instance } from '../axios';
 import {
   IOrganization,
   IProjectRequest,
+  IProjectShare,
   IRepoArrayResponse,
   ProjectType,
 } from './type';
@@ -69,4 +70,20 @@ export const GetMyProjectList = () => {
     return data;
   };
   return useQuery(['myProject'], response);
+};
+
+export const PatchShareProject = (id: string) => {
+  const response = async (param: IProjectShare) => {
+    const { data } = await instance.patch(`${ROUTER}/${id}/publish`, param);
+    return data;
+  };
+
+  return useMutation(response, {
+    onSuccess: () => {
+      alert('공유되었습니다.');
+    },
+    onError: (e) => {
+      alert(e);
+    },
+  });
 };

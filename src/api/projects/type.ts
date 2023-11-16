@@ -20,10 +20,18 @@ export interface IOrganization {
   organizations: string[]
 };
 
-export type ProjectType = {
+export interface ProjectType {
   id: string;
   logoImageUrl: string;
   name: string;
   createdAt: string;
   description: string;
+  isPublished: number;
+  finishDate: string | null;
 };
+
+export interface IProjectShare {
+  role: string
+  learned: string
+  prRecordIds: string[]
+}
