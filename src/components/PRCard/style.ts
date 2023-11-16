@@ -1,7 +1,8 @@
 import { styled } from 'styled-components';
 
-export const PRCardWrapper = styled.div`
+export const PRCardWrapper = styled.label`
   padding: 15px;
+  width: 100%;
   min-width: 210px;
   height: 120px;
   border-radius: 10px;
