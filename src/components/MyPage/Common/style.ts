@@ -22,6 +22,7 @@ export const Button = styled.button<{ bgcolor: ColorType }>`
   justify-content: center;
   gap: 6px;
   padding: 8px 20px;
+  min-height: 40px;
   border-radius: 10px;
   color: ${({ theme }) => theme.colors.gray[10]};
   font-size: 14px;
