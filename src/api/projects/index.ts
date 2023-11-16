@@ -28,6 +28,7 @@ export const PostProject = () => {
   return useMutation(response, {
     onSuccess: () => {
       alert('등록 성공');
+      window.location.replace('http://localhost:3000/mypage');
     },
     onError: (e) => {
       alert(e);

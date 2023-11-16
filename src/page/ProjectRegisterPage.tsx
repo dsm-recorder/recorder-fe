@@ -42,7 +42,9 @@ export const ProjectRegisterPage = () => {
 
   const { mutate: ImageMutation, data: imgUrl } = PostImage();
 
-  const FilterRepo = selectRepos?.filter((repoName) => repoName.name.includes(searchRepo));
+  const FilterRepo = selectRepos?.filter((repoName) =>
+    repoName.name.includes(searchRepo)
+  );
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -199,6 +201,7 @@ export const ProjectRegisterPage = () => {
                 label='사용 기술'
                 placeholder='사용한 기술을 입력해주세요'
                 value={skillInput}
+                onKeyDown={(e) => e.key === 'Enter' && onAddSkills()}
                 onChange={(e) => {
                   setSkillInput(e.target.value);
                 }}
@@ -207,11 +210,14 @@ export const ProjectRegisterPage = () => {
                 추가
               </Button>
             </HStack>
-            <HStack height={40} gap={30} width={1068}>
+            <HStack gap={30} width={800} wrap='wrap'>
               {project.skills?.map((skill, index) => (
                 <SkillCard key={index}>
                   {skill}
-                  <DeleteIcon onClick={() => onDeleteSkills(skill)} />
+                  <DeleteIcon
+                    cursor='pointer'
+                    onClick={() => onDeleteSkills(skill)}
+                  />
                 </SkillCard>
               ))}
             </HStack>

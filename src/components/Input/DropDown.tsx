@@ -114,6 +114,7 @@ const slideDown = keyframes<{ optionFullHeight?: string }>`
   `;
 
 const OptionWrapper = styled.div<{ optionFullHeight?: string; top?: string }>`
+  cursor: pointer;
   width: 100%;
   min-height: ${({ optionFullHeight }) => optionFullHeight ?? '120px'};
   overflow-y: auto;
