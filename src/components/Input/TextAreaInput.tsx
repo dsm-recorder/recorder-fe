@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Download from '@/asset/icon/Download.svg';
 import { ChangeEvent, HTMLAttributes } from 'react';
-import { imageState } from '../ProjectAbout/PR/Modal';
+import { imageState } from '../ProjectWriting/PR/Modal';
 import { DeleteIcon } from '@/asset/icon/DeleteIcon';
 
 interface TextAreaType extends HTMLAttributes<HTMLTextAreaElement> {
