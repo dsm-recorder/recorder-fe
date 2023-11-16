@@ -22,8 +22,9 @@ export interface IOrganization {
 
 export type ProjectType = {
   id: string;
-  logoImageUrl: string;
   name: string;
+  logoImageUrl: string;
+  isPublished: 0 | 1;
   createdAt: string;
-  description: string;
+  finishDate: string;
 };

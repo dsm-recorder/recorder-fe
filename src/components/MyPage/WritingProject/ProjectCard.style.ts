@@ -1,11 +1,18 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const _Wrapper = styled.div`
-  flex-grow: 1;
-  max-width: 460px;
-  min-width: 210px;
+  position: relative;
+  width: 300px;
   border-radius: 10px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+`;
+
+export const _IsPublishedText = styled.div`
+  position: absolute;
+  top: 13px;
+  left: 20px;
+  font-size: 16px;
+  font-weight: 700;
 `;
 
 export const _ProjectImg = styled.img`
@@ -17,6 +24,10 @@ export const _ProjectImg = styled.img`
 `;
 
 export const _Title = styled.div`
+  width: 135px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: 24px;
   font-weight: 700;
 `;

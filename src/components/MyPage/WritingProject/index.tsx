@@ -2,7 +2,6 @@ import * as _ from './style';
 import * as Common from '../Common/style';
 import { HStack, VStack } from '@/components/Stack';
 import ProjectCard from './ProjectCard';
-import AddNoteIcon from '@/asset/icon/AddNoteIcon';
 import { ProjectType } from '@/api/projects/type';
 import { NoticeIcon } from '@/asset/icon';
 import { Link } from 'react-router-dom';
@@ -18,7 +17,7 @@ const WritingProject = ({ projectList }: IWritingProjectProps) => {
         <Common.ContentTitle>기록중인 프로젝트</Common.ContentTitle>
         <Link to='/project-register'>
           <Common.Button bgcolor='green'>
-            <AddNoteIcon /> New
+            프로젝트 추가
           </Common.Button>
         </Link>
       </HStack>
