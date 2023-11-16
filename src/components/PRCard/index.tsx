@@ -1,9 +1,11 @@
 import { IPRRecordsType, PRType } from '@/api/pr-records/type';
 import { HStack, VStack } from '@/components/Stack';
-import * as _ from './PRCard.style';
+import * as _ from './style';
+import { ReactNode } from 'react';
 
 interface PRCardPropsType extends IPRRecordsType {
   onClick?: () => void;
+  children?: ReactNode;
 }
 
 const PRCard = ({
@@ -12,6 +14,7 @@ const PRCard = ({
   type,
   date,
   onClick,
+  children,
 }: PRCardPropsType) => {
   let typeName = '';
 
@@ -42,10 +45,22 @@ const PRCard = ({
             </_.ProgressValueWrapper>
           </_.ProgressWrapper>
         </VStack>
-        <VStack style={{ height: '100%' }} justify='space-between' align='end'>
-          <_.PRType>{typeName}</_.PRType>
-          <_.PRDate>{date}</_.PRDate>
-        </VStack>
+        <HStack
+          style={{ height: '100%' }}
+          justify='space-between'
+          gap={60}
+          align='center'
+        >
+          <VStack
+            style={{ height: '100%' }}
+            justify='space-between'
+            align='end'
+          >
+            <_.PRType>{typeName}</_.PRType>
+            <_.PRDate>{date}</_.PRDate>
+          </VStack>
+          {children}
+        </HStack>
       </HStack>
     </_.PRCardWrapper>
   );

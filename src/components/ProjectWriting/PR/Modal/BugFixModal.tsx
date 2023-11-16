@@ -1,30 +1,38 @@
 import { DeleteIcon } from '@/asset/icon';
 import * as _ from './Modal.style';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TextAreaInput } from '@/components/Input';
 import { Button } from '@/components/Button';
 import { ModalPropsType, imageState } from '.';
 import { HStack } from '@/components/Stack';
-import { PatchPRContent } from '@/api/pr-records';
+import { GetPRContent, PatchPRContent } from '@/api/pr-records';
 
-export const BugFixModal = ({
-  pr,
-  onClose
-}: ModalPropsType) => {
-  const [content, setContent] = useState('');
-  const [solution, setSolution] = useState('');
+export const BugFixModal = ({ pr, onClose }: ModalPropsType) => {
+  const [content, setContent] = useState<string>('');
+  const [solution, setSolution] = useState<string | undefined>('');
 
-  const { mutate: PRConatentMutation } = PatchPRContent(pr.id);
+  const { data: PRContent, isLoading: isPRContentLoading } = GetPRContent(
+    pr.id
+  );
+  const { mutate: PRContentMutation } = PatchPRContent(pr.id);
   const [bugImages, setBugImages] = useState<imageState[]>([]);
   const [solutionImages, setSolutionImages] = useState<imageState[]>([]);
 
- const onPatch = () => {
-   PRConatentMutation({
-     ...pr,
-     content: content,
-     solution: solution
-   });
- };
+  useEffect(() => {
+    if (!isPRContentLoading && PRContent) {
+      setContent(PRContent.content);
+      setSolution(PRContent?.solution)
+      setBugImages(PRContent.attachmentUrls);
+    }
+  }, [isPRContentLoading, PRContent]);
+
+  const onPatch = () => {
+    PRContentMutation({
+      ...pr,
+      content: content,
+      solution: solution,
+    });
+  };
 
   return (
     <_.PRModalWrapper>

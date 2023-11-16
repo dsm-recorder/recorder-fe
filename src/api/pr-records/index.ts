@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { instance } from '../axios';
-import { IPRRecordsListType, IPRResponseType } from './type';
+import { IPRRecordsListType, IPRRequestType, IPRResponseType } from './type';
 
 const ROUTER = 'pr-records';
 
@@ -16,7 +16,7 @@ export const GetPRReport = (id: string) => {
 
 export const GetPRContent = (id: string) => {
   const response = async () => {
-    const { data } = await instance.get(`${ROUTER}/${id}`)
+    const { data } = await instance.get<IPRRequestType>(`${ROUTER}/details/${id}`)
     
     return data
   }

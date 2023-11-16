@@ -1,5 +1,5 @@
 import { IPRRecordsType, PRType } from '@/api/pr-records/type';
-import * as _ from './Modal.style'
+import * as _ from './Modal.style';
 import { FeatModal } from './FeatModal';
 import { BugFixModal } from './BugFixModal';
 import { RefactModal } from './RefactModal';
@@ -7,7 +7,7 @@ import { RefactModal } from './RefactModal';
 export interface ModalPropsType {
   pr: IPRRecordsType;
   onClose: () => void;
-}
+};
 
 export interface imageState {
   renderer: string;

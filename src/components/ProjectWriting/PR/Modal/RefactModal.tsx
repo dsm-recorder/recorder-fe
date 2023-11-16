@@ -1,24 +1,30 @@
 import { DeleteIcon } from '@/asset/icon';
 import * as _ from './Modal.style';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TextAreaInput } from '@/components/Input';
 import { Button } from '@/components/Button';
 import { ModalPropsType, imageState } from '.';
 import { HStack } from '@/components/Stack';
 import { GetPRContent, PatchPRContent } from '@/api/pr-records';
 
-export const RefactModal = ({
-  pr,
-  onClose
-}: ModalPropsType) => {
+export const RefactModal = ({ pr, onClose }: ModalPropsType) => {
   const [content, setContent] = useState('');
   const [images, setImages] = useState<imageState[]>([]);
 
-  const { data: PRContent } = GetPRContent(pr.id);
-  const { mutate: PRConatentMutation } = PatchPRContent(pr.id);
+  const { data: PRContent, isLoading: isPRContentLoading } = GetPRContent(
+    pr.id
+  );
+  const { mutate: PRContentMutation } = PatchPRContent(pr.id);
+
+  useEffect(() => {
+    if (!isPRContentLoading && PRContent) {
+      setContent(PRContent.content);
+      setImages(PRContent.attachmentUrls);
+    }
+  }, [isPRContentLoading, PRContent]);
 
   const onPatch = () => {
-    PRConatentMutation({
+    PRContentMutation({
       ...pr,
       content: content,
     });
@@ -42,7 +48,7 @@ export const RefactModal = ({
           onChange={(e) => setContent(e.target.value)}
           label='개선부분'
         />
-        <Button disabled={content == PRContent} onClick={onPatch}>
+        <Button disabled={content === PRContent?.content} onClick={onPatch}>
           저장
         </Button>
       </_.ModalMainWrapper>

@@ -1,20 +1,28 @@
 import styled from 'styled-components';
-import ProjectDescription from '@/components/ProjectAbout/ProjectDescription';
-import TodoList from '@/components/ProjectAbout/TodoList';
-import PRList from '@/components/ProjectAbout/PR';
+import ProjectDescription from '@/components/ProjectWriting/ProjectDescription';
+import TodoList from '@/components/ProjectWriting/TodoList';
+import PRList from '@/components/ProjectWriting/PR';
 import { GetTodayReport } from '@/api/daily-reports';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { GetPRReport } from '@/api/pr-records';
 import { ProjectType } from '@/api/projects/type';
 import { HStack, VStack } from '@/components/Stack';
 import { Button } from '@/components/Button';
 
-const ProjectAbout = () => {
+const ProjectWritingPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+
   const state = location.state as ProjectType;
 
   const { data: todoLists } = GetTodayReport(state.id);
   const { data: prLists } = GetPRReport(state.id);
+
+  const handleButtonClick = () => {
+    navigate(`/project-writing/${state.id}/sharing`, {
+      state: { id: state.id },
+    });
+  };
 
   return (
     <Container>
@@ -27,7 +35,7 @@ const ProjectAbout = () => {
               <ProjectCreateAt>{state.createdAt} ~ </ProjectCreateAt>
             </VStack>
           </HStack>
-          <Button onClick={() => console.log('종료')}>프로젝트 종료</Button>
+          <Button onClick={handleButtonClick}>프로젝트 종료</Button>
         </ProjectInfoWrapper>
         <ProjectDescription description={state.description} />
         <TodoList todos={todoLists?.todos ?? []} />
@@ -37,7 +45,7 @@ const ProjectAbout = () => {
   );
 };
 
-export default ProjectAbout;
+export default ProjectWritingPage;
 
 const ProjectInfoWrapper = styled.div`
   display: flex;
@@ -49,9 +57,7 @@ const ProjectInfoWrapper = styled.div`
 `;
 
 const Container = styled.div`
-  display: flex;
   padding: 180px 240px;
-  flex-direction: column;
   min-height: 100vh;
   background-color: ${({ theme }) => theme.colors.gray[30]};
 `;

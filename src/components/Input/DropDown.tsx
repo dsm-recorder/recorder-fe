@@ -52,7 +52,7 @@ export const DropDown = <T extends string | number | object>({
                 : String(value)
               : props.placeholder}
           </PlaceHolderValueInner>
-          <Arrow direction={dropDown ? 'top' : 'bottom'} />
+          <Arrow direction={dropDown ? 'top' : 'bottom'} size='small'/>
         </DropDownWrapper>
         {dropDown && props.list && (
           <OptionWrapper

@@ -17,9 +17,18 @@ export enum PRType {
 }
 
 export interface IPRResponseType {
-	title: string
-	content: string
-	importance: number
-	solution?: string
-	type: PRType
+  title: string;
+  content: string;
+  importance: number;
+  solution?: string;
+  type: PRType;
+}
+
+export interface IPRRequestType {
+  title: string;
+  content: string;
+  importance: number;
+  solution?: string;
+  type: PRType;
+  attachmentUrls: [];
 }
