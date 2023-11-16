@@ -29,6 +29,15 @@ export interface ProjectType {
   finishDate: string;
 };
 
+export interface ProjectDetailType {
+  id: string;
+  name: string;
+  startDate: string;
+  finishDate?: string;
+  logoUrl: string
+  description: string
+}
+
 export interface IProjectShare {
   role: string
   learned: string

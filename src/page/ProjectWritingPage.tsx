@@ -8,6 +8,7 @@ import { GetPRReport } from '@/api/pr-records';
 import { ProjectType } from '@/api/projects/type';
 import { HStack, VStack } from '@/components/Stack';
 import { Button } from '@/components/Button';
+import { GetProjectDetail } from '@/api/projects';
 
 const ProjectWritingPage = () => {
   const location = useLocation();
@@ -15,6 +16,7 @@ const ProjectWritingPage = () => {
 
   const state = location.state as ProjectType;
 
+  const { data: projectDetail } = GetProjectDetail(state.id)
   const { data: todoLists } = GetTodayReport(state.id);
   const { data: prLists } = GetPRReport(state.id);
 
@@ -29,15 +31,15 @@ const ProjectWritingPage = () => {
       <PageWrapper>
         <ProjectInfoWrapper>
           <HStack justify='space-between' gap={30}>
-            <ProjectLogoImg alt='projectLogoImg' src={state.logoImageUrl} />
+            <ProjectLogoImg alt='projectLogoImg' src={projectDetail?.logoUrl} />
             <VStack>
-              <ProjectName>{state.name}</ProjectName>
-              <ProjectCreateAt>{state.createdAt} ~ </ProjectCreateAt>
+              <ProjectName>{projectDetail?.name}</ProjectName>
+              <ProjectCreateAt>{projectDetail?.startDate} ~ </ProjectCreateAt>
             </VStack>
           </HStack>
           <Button onClick={handleButtonClick}>프로젝트 종료</Button>
         </ProjectInfoWrapper>
-        <ProjectDescription description={state.description} />
+        <ProjectDescription description={projectDetail?.description ?? ''} />
         <TodoList todos={todoLists?.todos ?? []} />
         <PRList prRecords={prLists?.prRecords ?? []} />
       </PageWrapper>

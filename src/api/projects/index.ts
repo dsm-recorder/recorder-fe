@@ -5,6 +5,7 @@ import {
   IProjectRequest,
   IProjectShare,
   IRepoArrayResponse,
+  ProjectDetailType,
   ProjectType,
 } from './type';
 
@@ -71,6 +72,17 @@ export const GetMyProjectList = () => {
   };
   return useQuery(['myProject'], response);
 };
+
+export const GetProjectDetail = (id: string) => {
+  const response = async () => {
+    const { data } = await instance.get<ProjectDetailType>(
+      `${ROUTER}/${id}`
+    );
+
+    return data;
+  };
+  return useQuery(['ProjectDetail'], response);
+}
 
 export const PatchShareProject = (id: string) => {
   const response = async (param: IProjectShare) => {
