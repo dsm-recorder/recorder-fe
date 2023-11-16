@@ -2,15 +2,22 @@ import { useState } from 'react';
 import {
   IPRRecordsListType,
   IPRRecordsType,
+  PRType,
 } from '@/api/pr-records/type';
 import * as Common from '../Common/style';
-import PRCard from './PRCard';
+import PRCard from '../../PRCard';
 import * as _ from './style';
 import Modal from './Modal';
 
 const PRList = ({ prRecords }: IPRRecordsListType) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [currentPR, setCurrentPR] = useState<IPRRecordsType | null>(null);
+  const [currentPR, setCurrentPR] = useState<IPRRecordsType>({
+    id: '',
+    title: '',
+    type: PRType.NEW_FEATURE,
+    importance: 0,
+    date: '',
+  });
 
   const handleClick = (pr: IPRRecordsType) => {
     setCurrentPR(pr);
