@@ -19,7 +19,11 @@ export const HeartIcon = ({ ...props }: IIconType) => {
         width='24'
         height='24'
       >
-        <rect width='24' height='24' fill='#D9D9D9' />
+        <rect
+          width='24'
+          height='24'
+          fill={props.isClicked ? 'red' : '#D9D9D9'}
+        />
       </mask>
       <g mask='url(#mask0_759_30)'>
         <path

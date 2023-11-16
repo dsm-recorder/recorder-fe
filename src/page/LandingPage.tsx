@@ -6,11 +6,13 @@ import Background from '@/asset/background.png';
 import { CrownIcon } from '@/asset/icon';
 import BlogCard from '@/components/BlogCard';
 import { HStack } from '@/components/Stack';
+import { GetMonthlyProject } from '@/api/projects';
 
 const LandingPage = () => {
   const [searchParams] = useSearchParams();
   const githubLoginCode = searchParams.get('code');
   const { mutate: loginMutate } = PostLogin();
+  const { data: monthlyProject } = GetMonthlyProject();
 
   useEffect(() => {
     githubLoginCode && loginMutate(githubLoginCode);
@@ -31,9 +33,9 @@ const LandingPage = () => {
           이달의 포트폴리오
         </Title>
         <HStack gap={40}>
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
+          {monthlyProject?.projects?.map((project) => (
+            <BlogCard {...project} />
+          ))}
         </HStack>
       </Container>
     </>

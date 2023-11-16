@@ -1,13 +1,14 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { instance } from '../axios';
 import {
+  GetMonthlyProjectsResponse,
   IOrganization,
   IProjectRequest,
   IRepoArrayResponse,
   ProjectType,
 } from './type';
 
-const ROUTER = 'projects';
+const ROUTER = '/projects';
 
 export const GetIndividualRepo = () => {
   const response = async () => {
@@ -70,4 +71,14 @@ export const GetMyProjectList = () => {
     return data;
   };
   return useQuery(['myProject'], response);
+};
+
+export const GetMonthlyProject = () => {
+  const response = async () => {
+    const { data } = await instance.get<GetMonthlyProjectsResponse>(
+      `${ROUTER}/monthly`
+    );
+    return data;
+  };
+  return useQuery(['monthlyProjects'], response);
 };

@@ -28,3 +28,18 @@ export type ProjectType = {
   createdAt: string;
   finishDate: string;
 };
+
+export type MonthlyProjectType = {
+  id: string;
+  name: string;
+  startDate: string;
+  finishDate: string;
+  userProfileUrl: string;
+  userAccountId: string;
+  likeCount: number;
+  isLiked: boolean;
+};
+
+export interface GetMonthlyProjectsResponse {
+  projects: MonthlyProjectType[];
+}
