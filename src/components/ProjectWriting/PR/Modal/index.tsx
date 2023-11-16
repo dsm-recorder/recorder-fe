@@ -9,11 +9,6 @@ export interface ModalPropsType {
   onClose: () => void;
 };
 
-export interface imageState {
-  renderer: string;
-  value: File;
-};
-
 const Modal = ({ pr, onClose }: ModalPropsType) => {
   const PRMoalSwitch = () => {
     if (pr) {

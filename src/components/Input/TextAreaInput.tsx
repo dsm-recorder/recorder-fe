@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import Download from '@/asset/icon/Download.svg';
-import { ChangeEvent, HTMLAttributes } from 'react';
-import { imageState } from '../ProjectWriting/PR/Modal';
+import { ChangeEvent, HTMLAttributes, useEffect } from 'react';
 import { DeleteIcon } from '@/asset/icon/DeleteIcon';
+import { PostImage } from '@/api/images';
 
 interface TextAreaType extends HTMLAttributes<HTMLTextAreaElement> {
   label?: string;
@@ -14,8 +14,8 @@ interface TextAreaType extends HTMLAttributes<HTMLTextAreaElement> {
   value?: string;
   height?: string;
   isAddImage?: boolean;
-  images?: imageState[];
-  setImages?: React.Dispatch<React.SetStateAction<imageState[]>>;
+  images?: string[];
+  setImages?: React.Dispatch<React.SetStateAction<string[]>>;
   maxLength?: number;
   spellCheck?: boolean;
 }
@@ -35,28 +35,25 @@ export const TextAreaInput = ({
   setImages,
   spellCheck = false,
 }: TextAreaType) => {
+  const { mutate: ImageMutation, data: imgUrl } = PostImage();
+
   const onChangeAddImages = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = e.target;
-    if (files && setImages) {
-      if (files.length === 0) {
-        return;
-      } else {
-        const reader = new FileReader();
-        reader.readAsDataURL(files[0]);
-        reader.onload = () => {
-          setImages([
-            ...images!,
-            { renderer: reader.result as string, value: files[0] },
-          ]);
-        };
-      }
+    const file = e.target.files?.[0];
+    if (file) {
+      ImageMutation(file);
     }
   };
 
-  const onClickDeleteImage = (item: imageState) => {
-    const replaceImages = images?.filter((element) => element !== item);
+  const onClickDeleteImage = (item: string) => {
+    const replaceImages = images?.filter((element: string) => element !== item);
     setImages && setImages(replaceImages!);
   };
+
+  useEffect(() => {
+    if (images && imgUrl && setImages) {
+      setImages([...images, imgUrl.url]);
+    } else if (imgUrl && setImages) setImages([imgUrl.url]);
+  }, [imgUrl]);
 
   return (
     <TextAreaContainer>
@@ -87,8 +84,8 @@ export const TextAreaInput = ({
       {isAddImage && (
         <ImagesContainer>
           {images?.map((item) => (
-            <ImageWrapper key={item.renderer}>
-              <Img src={item.renderer} alt='img' />
+            <ImageWrapper key={item}>
+              <Img src={item} alt='img' />
               <Div>
                 <DeleteIconStyled onClick={() => onClickDeleteImage(item)} />
               </Div>

@@ -3,7 +3,7 @@ import * as _ from './Modal.style';
 import { useEffect, useState } from 'react';
 import { TextAreaInput } from '@/components/Input';
 import { Button } from '@/components/Button';
-import { ModalPropsType, imageState } from '.';
+import { ModalPropsType } from '.';
 import { HStack } from '@/components/Stack';
 import { GetPRContent, PatchPRContent } from '@/api/pr-records';
 
@@ -15,14 +15,13 @@ export const BugFixModal = ({ pr, onClose }: ModalPropsType) => {
     pr.id
   );
   const { mutate: PRContentMutation } = PatchPRContent(pr.id);
-  const [bugImages, setBugImages] = useState<imageState[]>([]);
-  const [solutionImages, setSolutionImages] = useState<imageState[]>([]);
+  const [images, setImages] = useState<string[]>([]);
 
   useEffect(() => {
     if (!isPRContentLoading && PRContent) {
       setContent(PRContent.content);
       setSolution(PRContent?.solution)
-      setBugImages(PRContent.attachmentUrls);
+      setImages(PRContent.attachmentUrls);
     }
   }, [isPRContentLoading, PRContent]);
 
@@ -45,17 +44,14 @@ export const BugFixModal = ({ pr, onClose }: ModalPropsType) => {
       </_.ModalHeaderWrapper>
       <_.ModalMainWrapper>
         <TextAreaInput
-          isAddImage={true}
-          images={bugImages}
-          setImages={setBugImages}
           value={content}
           onChange={(e) => setContent(e.target.value)}
           label='버그 설명'
         />
         <TextAreaInput
           isAddImage={true}
-          images={solutionImages}
-          setImages={setSolutionImages}
+          images={images}
+          setImages={setImages}
           value={solution}
           onChange={(e) => setSolution(e.target.value)}
           label='버그 해결 방법'

@@ -3,13 +3,13 @@ import * as _ from './Modal.style';
 import { useEffect, useState } from 'react';
 import { TextAreaInput } from '@/components/Input';
 import { Button } from '@/components/Button';
-import { ModalPropsType, imageState } from '.';
+import { ModalPropsType } from '.';
 import { HStack } from '@/components/Stack';
 import { GetPRContent, PatchPRContent } from '@/api/pr-records';
 
 export const RefactModal = ({ pr, onClose }: ModalPropsType) => {
   const [content, setContent] = useState('');
-  const [images, setImages] = useState<imageState[]>([]);
+  const [images, setImages] = useState<string[]>([]);
 
   const { data: PRContent, isLoading: isPRContentLoading } = GetPRContent(
     pr.id
