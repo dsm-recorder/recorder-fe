@@ -26,7 +26,7 @@ export const GetPRContent = (id: string) => {
 
 export const PatchPRContent = (id: string) => {
   const response = async (param: IPRResponseType) => {
-    const { data } = await instance.patch(`${ROUTER}/${id}/`, param)
+    const { data } = await instance.patch(`${ROUTER}/${id}`, param)
     
     return data
   }
