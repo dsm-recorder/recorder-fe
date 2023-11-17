@@ -15,7 +15,7 @@ const ProjectCard = ({
   const navigate = useNavigate();
 
   const handlePageMove = () => {
-      if (isPublished == 1 && finishDate) {
+      if (isPublished == 1) {
         navigate(`/project/${name}`, {
           state: { id },
         });
