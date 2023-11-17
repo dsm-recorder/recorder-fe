@@ -1,9 +1,9 @@
-import { IPRRecordsType, PRType } from '@/api/pr-records/type';
+import { IPRRecords, PRType } from '@/api/pr-records/type';
 import { HStack, VStack } from '@/components/Stack';
 import * as _ from './style';
 import { ReactNode } from 'react';
 
-interface PRCardPropsType extends IPRRecordsType {
+interface IPRCardProps extends IPRRecords {
   onClick?: () => void;
   children?: ReactNode;
 }
@@ -15,7 +15,7 @@ const PRCard = ({
   date,
   onClick,
   children,
-}: PRCardPropsType) => {
+}: IPRCardProps) => {
   let typeName = '';
 
   switch (type) {
@@ -39,7 +39,7 @@ const PRCard = ({
             <_.ProgressTitle>중요도</_.ProgressTitle>
             <_.ProgressValueWrapper>
               <_.PRProgressBar>
-                <_.PRImport barvalue={importance} />
+                <_.PRImport percent={importance} />
               </_.PRProgressBar>
               <_.ProgressTitle>{importance}</_.ProgressTitle>
             </_.ProgressValueWrapper>

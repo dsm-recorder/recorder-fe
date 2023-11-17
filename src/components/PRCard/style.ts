@@ -41,8 +41,8 @@ export const PRProgressBar = styled.div`
   background-color: ${({ theme }) => theme.colors.gray[50]};
 `;
 
-export const PRImport = styled.div<{ barvalue?: number }>`
-  width: ${({ barvalue }) => (barvalue ? `${barvalue}%` : '0px')};
+export const PRImport = styled.div<{ percent: number}>`
+  width: ${({percent}) =>  `${percent}%`};
   height: 15px;
   border-radius: 20px;
   background-color: ${({ theme }) => theme.colors.gray[20]};
