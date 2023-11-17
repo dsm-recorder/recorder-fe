@@ -1,14 +1,12 @@
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { HStack, VStack } from '@/components/Stack';
-import ProjectLearned from '@/components/ProjectAbout/ProjectLearned';
-import ProjectRole from '@/components/ProjectAbout/ProjectRole';
-import ProjectDescription from '@/components/ProjectAbout/ProjectDescription';
 import PRList from '@/components/ProjectAbout/Issue';
 import { Button } from '@/components/Button';
 import { HeartIcon } from '@/asset/icon';
 import { GetSharedProjectDetail } from '@/api/projects';
 import { GetSharedPR } from '@/api/pr-records';
+import ProjectDescription from '@/components/DescriptionBox';
 
 const ProjectAboutPage = () => {
   const location = useLocation();
@@ -45,10 +43,19 @@ const ProjectAboutPage = () => {
             </VStack>
           </HStack>
         </ProjectInfoWrapper>
-        <ProjectDescription description={SharedProject?.about ?? ''} />
-        <ProjectRole role={SharedProject?.role ?? ''} />
+        <ProjectDescription
+          description={SharedProject?.about}
+          label='프로젝트 설명'
+        />
+        <ProjectDescription
+          description={SharedProject?.role}
+          label='프로젝트에서 한 역할'
+        />
         <PRList prRecords={SharedPR?.prRecords ?? []} />
-        <ProjectLearned learned={SharedProject?.learned ?? ''} />
+        <ProjectDescription
+          description={SharedProject?.learned}
+          label='프로젝트에서 배운점'
+        />
         <Button onClick={() => history.back()}>돌아가기</Button>
       </PageWrapper>
     </Container>

@@ -1,19 +1,19 @@
 import styled from 'styled-components';
-import ProjectDescription from '@/components/ProjectWriting/ProjectDescription';
 import TodoList from '@/components/ProjectWriting/TodoList';
-import PRList from '@/components/ProjectWriting/PR';
 import { GetTodayReport } from '@/api/daily-reports';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { GetPRReport } from '@/api/pr-records';
-import { ProjectType } from '@/api/projects/type';
+import { IProject } from '@/api/projects/type';
 import { HStack, VStack } from '@/components/Stack';
 import { Button } from '@/components/Button';
+import PRList from '@/components/ProjectWriting/PR';
+import ProjectDescription from '@/components/DescriptionBox';
 
 const ProjectWritingPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const state = location.state as ProjectType;
+  const state = location.state as IProject;
 
   const { data: todoLists } = GetTodayReport(state.id);
   const { data: prLists } = GetPRReport(state.id);
@@ -37,13 +37,9 @@ const ProjectWritingPage = () => {
           </HStack>
           <Button onClick={handleButtonClick}>프로젝트 종료</Button>
         </ProjectInfoWrapper>
-        <ProjectDescription description={state.description} />
+        <ProjectDescription description={state.description} label='프로젝트 설명'/>
         <TodoList todos={todoLists?.todos ?? []} />
-        <PRList
-          prRecords={
-            prLists?.prRecords ?? []
-          }
-        />
+        <PRList prRecords={prLists?.prRecords ?? []} />
       </PageWrapper>
     </Container>
   );
