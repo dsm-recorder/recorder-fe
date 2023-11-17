@@ -19,7 +19,7 @@ import { ProjectType } from '@/api/projects/type';
 
 const TodoList = ({ todos }: TodoListType) => {
   const [todoLists, setTodos] = useState<TodoType[]>(todos);
-  const [value, setValue] = useState<string>('');
+  const [content, setContent] = useState<string>('');
 
   const location = useLocation();
   const state = location.state as ProjectType;
@@ -49,17 +49,17 @@ const TodoList = ({ todos }: TodoListType) => {
     };
 
   const addTodo = () => {
-    if (value.trim().length > 0) {
+    if (content.trim().length > 0) {
       setTodos([
         ...todoLists,
         {
           id: String(todoLists.length + 1),
-          content: value,
+          content,
           complete: false,
         },
       ]);
-      ReportMutation({ content: value });
-      setValue('');
+      ReportMutation({ content });
+      setContent('');
     }
   };
 
@@ -75,8 +75,8 @@ const TodoList = ({ todos }: TodoListType) => {
         <Input
           placeholder='해야 할 일을 입력해주세요'
           width='100%'
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
         />
         <Button onClick={() => addTodo()}>추가</Button>
       </HStack>
