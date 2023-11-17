@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const RepositoryCard = styled.label<{ isSelected: boolean }>`
+  cursor: pointer;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -9,7 +10,7 @@ export const RepositoryCard = styled.label<{ isSelected: boolean }>`
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   align-items: center;
-  width: 700px;
+  width: 100%;
   min-height: 120px;
   background-color: ${({ isSelected, theme }) =>
     isSelected && theme.colors.green.light.hover};
@@ -22,7 +23,7 @@ export const Name = styled.p`
 `;
 
 export const Description = styled.p`
-  width: 600px;
+  width: 520px;
   color: #8f8e8e;
   font-size: 12px;
   font-weight: 600;

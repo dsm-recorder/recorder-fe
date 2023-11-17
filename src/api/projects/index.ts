@@ -1,13 +1,14 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { instance } from '../axios';
 import {
+  GetProjectsResponse,
   IOrganization,
   IProjectRequest,
   IRepoArrayResponse,
-  ProjectType,
+  myProjectResponseType,
 } from './type';
 
-const ROUTER = 'projects';
+const ROUTER = '/projects';
 
 export const GetIndividualRepo = () => {
   const response = async () => {
@@ -28,6 +29,7 @@ export const PostProject = () => {
   return useMutation(response, {
     onSuccess: () => {
       alert('등록 성공');
+      window.location.replace('http://localhost:3000/mypage');
     },
     onError: (e) => {
       alert(e);
@@ -62,11 +64,39 @@ export const GetOrganizationRepo = (organization: string) => {
 
 export const GetMyProjectList = () => {
   const response = async () => {
-    const { data } = await instance.get<{ projects: ProjectType[] }>(
-      `${ROUTER}/my`
-    );
+    const { data } = await instance.get<{
+      projects: myProjectResponseType[];
+    }>(`${ROUTER}/my`);
 
     return data;
   };
   return useQuery(['myProject'], response);
+};
+
+export const GetMonthlyProject = () => {
+  const response = async () => {
+    const { data } = await instance.get<GetProjectsResponse>(
+      `${ROUTER}/monthly`
+    );
+    return data;
+  };
+  return useQuery(['monthlyProjects'], response);
+};
+
+export const GetPublishedProjects = () => {
+  const response = async () => {
+    const { data } = await instance.get<GetProjectsResponse>(
+      `${ROUTER}/published`
+    );
+    return data;
+  };
+  return useQuery(['publishedProjects'], response);
+};
+
+export const GetLikedProjects = () => {
+  const response = async () => {
+    const { data } = await instance.get<GetProjectsResponse>(`${ROUTER}/like`);
+    return data;
+  };
+  return useQuery(['likeProjects'], response);
 };

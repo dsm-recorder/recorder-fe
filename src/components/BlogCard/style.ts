@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const _Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 380px;
+  width: 350px;
   background-color: ${({ theme }) => theme.colors.gray[10]};
   border-radius: 8px;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));

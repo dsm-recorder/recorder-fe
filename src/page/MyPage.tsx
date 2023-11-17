@@ -31,7 +31,7 @@ export default MyPage;
 
 const Container = styled.div`
   min-height: calc(100vh - 120px);
-  margin: 120px 180px 0 180px;
+  margin: 120px 180px;
 `;
 
 const PageTItle = styled.div`
