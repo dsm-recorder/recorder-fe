@@ -1,7 +1,8 @@
-import { IPRRecords, PRType } from '@/api/pr-records/type';
+import { IPRRecords } from '@/api/pr-records/type';
 import { HStack, VStack } from '@/components/Stack';
 import * as _ from './style';
 import { ReactNode } from 'react';
+import { PRConstant } from '@/constant/PRType';
 
 interface IPRCardProps extends IPRRecords {
   onClick?: () => void;
@@ -16,20 +17,6 @@ const PRCard = ({
   onClick,
   children,
 }: IPRCardProps) => {
-  let typeName = '';
-
-  switch (type) {
-    case PRType.NEW_FEATURE:
-      typeName = '기능 추가';
-      break;
-    case PRType.BUG_FIX:
-      typeName = '버그 수정';
-      break;
-    case PRType.REFACTORING:
-      typeName = '리펙토링';
-      break;
-  }
-
   return (
     <_.PRCardWrapper onClick={onClick}>
       <HStack style={{ height: '100%' }} justify='space-between'>
@@ -56,7 +43,7 @@ const PRCard = ({
             justify='space-between'
             align='end'
           >
-            <_.PRType>{typeName}</_.PRType>
+            <_.PRType>{PRConstant[type].typeName}</_.PRType>
             <_.PRDate>{date}</_.PRDate>
           </VStack>
           {children}

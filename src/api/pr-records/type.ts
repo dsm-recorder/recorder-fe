@@ -10,11 +10,7 @@ export interface IPRRecordsList {
   prRecords: IPRRecords[];
 }
 
-export enum PRType {
-  NEW_FEATURE = 'NEW_FEATURE',
-  BUG_FIX = 'BUG_FIX',
-  REFACTORING = 'REFACTORING',
-}
+export type PRType = 'NEW_FEATURE' | 'BUG_FIX' | 'REFACTORING';
 
 export interface IPRResponse {
   title: string;
