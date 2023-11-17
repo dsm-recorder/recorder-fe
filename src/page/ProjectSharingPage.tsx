@@ -19,7 +19,7 @@ const ProjectSharingPage = () => {
     setForm: setProject,
     onChange: onChangeProject,
   } = useInput({
-    role:'',
+    role: '',
     learned: '',
     prRecordIds: [] as string[],
   });

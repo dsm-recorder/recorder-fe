@@ -45,7 +45,7 @@ export const Arrow = ({
       viewBox='0 0 13 7'
       xmlns='http://www.w3.org/2000/svg'
       direction={direction}
-      onClick={disabled ? onClick : undefined }
+      onClick={disabled ? onClick : undefined}
     >
       <path
         fillRule='evenodd'

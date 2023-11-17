@@ -37,7 +37,10 @@ const ProjectWritingPage = () => {
           </HStack>
           <Button onClick={handleButtonClick}>프로젝트 종료</Button>
         </ProjectInfoWrapper>
-        <ProjectDescription description={state.description} label='프로젝트 설명'/>
+        <ProjectDescription
+          description={state.description}
+          label='프로젝트 설명'
+        />
         <TodoList todos={todoLists?.todos ?? []} />
         <PRList prRecords={prLists?.prRecords ?? []} />
       </PageWrapper>

@@ -3,7 +3,7 @@ interface IDeleteIcon {
   onClick?: () => void;
 }
 
-export const DeleteIcon = ({ cursor ,onClick }: IDeleteIcon) => {
+export const DeleteIcon = ({ cursor, onClick }: IDeleteIcon) => {
   return (
     <svg
       onClick={onClick}
