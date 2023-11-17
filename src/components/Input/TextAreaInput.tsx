@@ -174,10 +174,9 @@ export const LabelWrapper = styled.div`
 `;
 
 export const Img = styled.img`
-  max-width: 100px;
-  max-height: 100px;
-  min-height: 100px;
-  min-width: 100px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
 `;
 
 export const Div = styled.div`
