@@ -1,5 +1,5 @@
 import { IPRRequest } from '@/api/pr-records/type';
-import * as _ from './PRCard.style';
+import * as _ from './IssueCard.style';
 import { VStack } from '@/components/Stack';
 import { PRConstant } from '@/constant/PR';
 
