@@ -4,7 +4,7 @@ import { HStack, VStack } from '@/components/Stack';
 import ProjectLearned from '@/components/ProjectAbout/ProjectLearned';
 import ProjectRole from '@/components/ProjectAbout/ProjectRole';
 import ProjectDescription from '@/components/ProjectAbout/ProjectDescription';
-import PRList from '@/components/ProjectAbout/PR';
+import PRList from '@/components/ProjectAbout/Issue';
 import { Button } from '@/components/Button';
 import { HeartIcon } from '@/asset/icon';
 import { GetSharedProjectDetail } from '@/api/projects';

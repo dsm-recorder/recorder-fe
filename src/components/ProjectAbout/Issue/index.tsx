@@ -1,7 +1,7 @@
 import {  IPRRequestList } from '@/api/pr-records/type';
 import * as Common from '../Common/style';
 import * as _ from './style';
-import PRCard from './PRCard';
+import IssueCard from './IssueCard';
 
 const PRList = ({ prRecords }: IPRRequestList) => {
   return (
@@ -10,7 +10,7 @@ const PRList = ({ prRecords }: IPRRequestList) => {
       <_.PRBoxWrapper>
         {prRecords.map((pr) => {
           return (
-            <PRCard {...pr} />
+            <IssueCard {...pr} />
           )
         })}
       </_.PRBoxWrapper>

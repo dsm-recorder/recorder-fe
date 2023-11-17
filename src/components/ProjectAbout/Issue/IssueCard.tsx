@@ -1,9 +1,9 @@
-import { IPRRequest, PRType } from '@/api/pr-records/type';
-import * as _ from './PRCard.style';
+import { IPRRequest } from '@/api/pr-records/type';
+import * as _ from './IssueCard.style';
 import { VStack } from '@/components/Stack';
 import { PRConstant } from '@/constant/PRType';
 
-const PRCard = ({
+const IssueCard = ({
   title,
   type,
   content,
@@ -36,4 +36,4 @@ const PRCard = ({
   );
 };
 
-export default PRCard;
+export default IssueCard;
