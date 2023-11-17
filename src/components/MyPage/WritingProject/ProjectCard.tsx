@@ -1,16 +1,35 @@
 import * as _ from './ProjectCard.style';
 import { HStack } from '@/components/Stack';
 import { myProjectResponseType } from '@/api/projects/type';
+import { HStack } from '@/components/Stack/HStack';
+import { useNavigate } from 'react-router-dom';
 
 const ProjectCard = ({
+  id,
   name,
   logoImageUrl,
   isPublished,
   createdAt,
   finishDate,
+  description
 }: myProjectResponseType) => {
+  const navigate = useNavigate();
+
+  const handlePageMove = () => {
+      if (isPublished == 1) {
+        navigate(`/project/${name}`, {
+          state: { id },
+        });
+      } else {
+        navigate(`/project-writing/${name}`, {
+          state: { id, name, logoImageUrl, createdAt, description },
+        });
+      }
+  };
+
   return (
     <_._Wrapper
+      onClick={handlePageMove}
       style={{ backgroundColor: isPublished ? '#4C4C4C' : '#FFFFFF' }}
     >
       {!!isPublished && <_._IsPublishedText>공유됨</_._IsPublishedText>}

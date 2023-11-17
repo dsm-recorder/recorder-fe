@@ -149,7 +149,7 @@ export const ProjectRegisterPage = () => {
             onChange={onChangeProject}
           />
           <RepositoryWrapper>
-            <HStack gap={60}>
+            <HStack gap={60} align='center'>
               <MainTitle>깃허브 Repository</MainTitle>
               <SideTitle>
                 프로젝트를 진행할때 사용할 레포지토리를 선택해주세요
@@ -280,7 +280,7 @@ const RepositoryBox = styled.div`
 `;
 
 const MainTitle = styled.p`
-  font-weight: 24px;
+  font-size: 22px;
   font-weight: 700;
 `;
 

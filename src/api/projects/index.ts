@@ -4,7 +4,9 @@ import {
   GetProjectsResponse,
   IOrganization,
   IProjectRequest,
+  IProjectShare,
   IRepoArrayResponse,
+  ISharedProjectDetail,
   myProjectResponseType,
 } from './type';
 
@@ -72,6 +74,33 @@ export const GetMyProjectList = () => {
   };
   return useQuery(['myProject'], response);
 };
+
+export const PatchShareProject = (id: string) => {
+  const response = async (param: IProjectShare) => {
+    const { data } = await instance.patch(`${ROUTER}/${id}/publish`, param);
+    return data;
+  };
+
+  return useMutation(response, {
+    onSuccess: () => {
+      alert('공유되었습니다.');
+    },
+    onError: (e) => {
+      alert(e);
+    },
+  });
+};
+
+export const GetSharedProjectDetail = (id: string) => {
+  const response = async () => {
+    const { data } = await instance.get<ISharedProjectDetail>(
+      `${ROUTER}/published/${id}`
+    );
+    return data;
+  };
+
+  return useQuery(['SharedProjectDetail'], response);
+}
 
 export const GetMonthlyProject = () => {
   const response = async () => {
