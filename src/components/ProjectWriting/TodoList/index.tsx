@@ -9,24 +9,22 @@ import { DndProvider } from 'react-dnd';
 import DropZone from './DropZone';
 import DraggableTodo from './DropCard';
 import { TodoListType, TodoType } from '@/api/daily-reports/type';
-import {
-  DeleteReport,
-  PatchReport,
-  PostAddReport,
-} from '@/api/daily-reports';
+import { DeleteReport, PatchReport, PostAddReport } from '@/api/daily-reports';
 import { useLocation } from 'react-router-dom';
 import { ProjectType } from '@/api/projects/type';
+import { useInput } from '@/hook/useInput';
 
 const TodoList = ({ todos }: TodoListType) => {
   const [todoLists, setTodos] = useState<TodoType[]>(todos);
-  const [content, setContent] = useState<string>('');
-
+  const {
+    form: content,
+    setForm: setContent,
+    onChange: onChangeContent,
+  } = useInput('');
   const location = useLocation();
   const state = location.state as ProjectType;
 
-  const { mutate: ReportMutation } = PostAddReport(
-    state.id
-  );
+  const { mutate: ReportMutation } = PostAddReport(state.id);
   const { mutate: DeleteMutation } = DeleteReport();
   const { mutate: PatchMuatation } = PatchReport();
 
@@ -76,9 +74,9 @@ const TodoList = ({ todos }: TodoListType) => {
           placeholder='해야 할 일을 입력해주세요'
           width='100%'
           value={content}
-          onChange={(e) => setContent(e.target.value)}
+          onChange={onChangeContent}
         />
-        <Button onClick={() => addTodo()}>추가</Button>
+        <Button onClick={addTodo}>추가</Button>
       </HStack>
       <HStack gap={60}>
         <DndProvider backend={HTML5Backend}>
