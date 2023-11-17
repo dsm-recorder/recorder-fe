@@ -21,14 +21,18 @@ export interface IPRResponseType {
   content: string;
   importance: number;
   solution?: string;
+  attachmentUrls: string[];
   type: PRType;
 }
 
 export interface IPRRequestType {
   title: string;
   content: string;
-  importance: number;
   solution?: string;
   type: PRType;
-  attachmentUrls: [];
+  attachmentUrls: string[];
+}
+
+export interface IPRRequestListType {
+  prRecords: IPRRequestType[]
 }

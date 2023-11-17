@@ -5,8 +5,8 @@ import {
   IProjectRequest,
   IProjectShare,
   IRepoArrayResponse,
-  ProjectDetailType,
   ProjectType,
+  SharedPrjoectType,
 } from './type';
 
 const ROUTER = 'projects';
@@ -73,17 +73,6 @@ export const GetMyProjectList = () => {
   return useQuery(['myProject'], response);
 };
 
-export const GetProjectDetail = (id: string) => {
-  const response = async () => {
-    const { data } = await instance.get<ProjectDetailType>(
-      `${ROUTER}/${id}`
-    );
-
-    return data;
-  };
-  return useQuery(['ProjectDetail'], response);
-}
-
 export const PatchShareProject = (id: string) => {
   const response = async (param: IProjectShare) => {
     const { data } = await instance.patch(`${ROUTER}/${id}/publish`, param);
@@ -98,4 +87,15 @@ export const PatchShareProject = (id: string) => {
       alert(e);
     },
   });
+};
+
+export const GetSharedProjectDetail = (id: string) => {
+  const response = async () => {
+    const { data } = await instance.get<SharedPrjoectType>(
+      `${ROUTER}/published/${id}`
+    );
+    return data;
+  };
+
+  return useQuery(['SharedProjectDetail'], response);
 };

@@ -2,23 +2,23 @@ export interface IRepoResponse {
   name: string;
   description?: string;
   language?: string;
-};
+}
 
 export interface IRepoArrayResponse {
-  repos: IRepoResponse[]
-};
+  repos: IRepoResponse[];
+}
 
 export interface IProjectRequest {
-  logoImageUrl: string
+  logoImageUrl: string;
   projectName: string;
   repositoryName: string;
   description: string;
   skills: string[];
-};
+}
 
 export interface IOrganization {
-  organizations: string[]
-};
+  organizations: string[];
+}
 
 export interface ProjectType {
   id: string;
@@ -26,20 +26,25 @@ export interface ProjectType {
   logoImageUrl: string;
   isPublished: 0 | 1;
   createdAt: string;
-  finishDate: string;
-};
-
-export interface ProjectDetailType {
-  id: string;
-  name: string;
-  startDate: string;
-  finishDate?: string;
-  logoUrl: string
+  finishDate: string | null;
   description: string
 }
 
 export interface IProjectShare {
-  role: string
-  learned: string
-  prRecordIds: string[]
+  role: string;
+  learned: string;
+  prRecordIds: string[];
+}
+
+export interface SharedPrjoectType {
+  name: string;
+  logoImageUrl: string;
+  startDate: string;
+  finishDate: string;
+  likeCount: number
+  skills: string[]
+  about:string
+  role:string
+  learned:string
+  isLiked:boolean
 }
