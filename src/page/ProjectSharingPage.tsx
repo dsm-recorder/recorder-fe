@@ -13,7 +13,7 @@ import PRCard from '@/components/PRCard';
 const ProjectSharingPage = () => {
   const location = useLocation();
   const state = location.state as { id: string };
-  const [length, setLength] = useState(0);
+  const [slideIdx, setSlideIdx] = useState(0);
   const {
     form: project,
     setForm: setProject,
@@ -28,11 +28,11 @@ const ProjectSharingPage = () => {
   const { mutate: ShareProject } = PatchShareProject(state.id);
 
   const onClickRightSLide = () => {
-    setLength(length + 1);
+    setSlideIdx(slideIdx + 1);
   };
 
   const onClickLeftSLide = () => {
-    setLength(length - 1);
+    setSlideIdx(slideIdx - 1);
   };
 
   const onShare = () => {
@@ -47,7 +47,7 @@ const ProjectSharingPage = () => {
   return (
     <Container>
       <PageWrapper>
-        <Slide style={{ transform: `translateX(${-length * 100}vw)` }}>
+        <Slide style={{ transform: `translateX(${-slideIdx * 100}vw)` }}>
           <SlideWrapper>
             <TextAreaInput
               name='role'
@@ -94,13 +94,13 @@ const ProjectSharingPage = () => {
             direction='left'
             size='large'
             onClick={onClickLeftSLide}
-            disabled={length != 0}
+            disabled={slideIdx != 0}
           />
           <Arrow
             direction='right'
             size='large'
             onClick={onClickRightSLide}
-            disabled={length != 2}
+            disabled={slideIdx != 2}
           />
         </ButtonWrapper>
       </PageWrapper>
