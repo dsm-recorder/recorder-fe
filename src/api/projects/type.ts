@@ -41,10 +41,10 @@ export interface ISharedProject {
   logoImageUrl: string;
   startDate: string;
   finishDate: string;
-  likeCount: number
-  skills: string[]
-  about:string
-  role:string
-  learned:string
-  isLiked:boolean
+  likeCount: number;
+  skills: string[];
+  about: string;
+  role: string;
+  learned: string;
+  isLiked: boolean;
 }
