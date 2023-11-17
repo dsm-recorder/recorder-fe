@@ -1,7 +1,7 @@
 import { IPRRequest } from '@/api/pr-records/type';
-import * as _ from './IssueCard.style';
+import * as _ from './PRCard.style';
 import { VStack } from '@/components/Stack';
-import { PRConstant } from '@/constant/PRType';
+import { PRConstant } from '@/constant/PR';
 
 const IssueCard = ({
   title,
@@ -10,7 +10,6 @@ const IssueCard = ({
   solution,
   attachmentUrls,
 }: IPRRequest) => {
-
   return (
     <_.PRCardWrapper>
       <_.PRTitle>{title}</_.PRTitle>
