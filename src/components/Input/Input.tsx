@@ -14,6 +14,7 @@ export interface InputPropsType extends HTMLAttributes<HTMLInputElement> {
   width?: string;
   height?: string;
   label?: string;
+  style?: React.CSSProperties;
 }
 
 export const Input = ({ label, width, ...props }: InputPropsType) => {
@@ -43,7 +44,7 @@ const InputBox = styled.input<{ height?: string }>`
   width: 100%;
   height: ${(props) => props.height ?? '40px'};
   padding: 15px;
-  background: ${({theme}) => theme.colors.gray[30]};
+  background: ${({ theme }) => theme.colors.gray[30]};
   border: none;
   border-radius: 10px;
   color: ${(props) =>

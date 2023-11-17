@@ -7,7 +7,8 @@ import ProjectWritingPage from '@/page/ProjectWritingPage';
 import NotFoundPage from '@/page/NotFoundPage';
 import Footer from '@/components/Footer';
 import ProjectSharingPage from '@/page/ProjectSharingPage';
-import ProjectAboutPage from './page/ProjectAboutPage';
+import ProjectAboutPage from '@/page/ProjectAboutPage';
+import ProjectPage from '@/page/ProjectPage';
 
 export const Router = () => {
   return (
@@ -23,6 +24,7 @@ export const Router = () => {
           path='/project-writing/:id/sharing'
           element={<ProjectSharingPage />}
         />
+        <Route path='/project' element={<ProjectPage />} />
         <Route path='/*' element={<NotFoundPage />} />
       </Routes>
       <Footer />

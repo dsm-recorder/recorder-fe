@@ -2,12 +2,12 @@ import * as _ from './style';
 import * as Common from '../Common/style';
 import { HStack, VStack } from '@/components/Stack';
 import ProjectCard from './ProjectCard';
-import { IProject} from '@/api/projects/type';
+import { myProjectResponseType } from '@/api/projects/type';
 import { NoticeIcon } from '@/asset/icon';
 import { Link } from 'react-router-dom';
 
 interface IWritingProjectProps {
-  projectList: IProject[];
+  projectList: myProjectResponseType[];
 }
 
 const WritingProject = ({ projectList }: IWritingProjectProps) => {

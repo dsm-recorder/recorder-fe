@@ -20,7 +20,7 @@ export interface IOrganization {
   organizations: string[];
 }
 
-export interface IProject {
+export type myProjectResponseType = {
   id: string;
   name: string;
   logoImageUrl: string;
@@ -36,7 +36,7 @@ export interface IProjectShare {
   prRecordIds: string[];
 }
 
-export interface ISharedProject {
+export interface ISharedProjectDetail {
   name: string;
   logoImageUrl: string;
   startDate: string;
@@ -47,4 +47,19 @@ export interface ISharedProject {
   role: string;
   learned: string;
   isLiked: boolean;
+};
+
+export type projectType = {
+  id: string;
+  name: string;
+  startDate: string;
+  finishDate: string;
+  userProfileUrl: string;
+  userAccountId: string;
+  likeCount: number;
+  isLiked: boolean;
+};
+
+export interface GetProjectsResponse {
+  projects: projectType[];
 }

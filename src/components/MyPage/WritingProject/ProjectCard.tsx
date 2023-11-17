@@ -1,5 +1,6 @@
 import * as _ from './ProjectCard.style';
-import { IProject } from '@/api/projects/type';
+import { HStack } from '@/components/Stack';
+import { myProjectResponseType } from '@/api/projects/type';
 import { HStack } from '@/components/Stack/HStack';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,7 +12,7 @@ const ProjectCard = ({
   createdAt,
   finishDate,
   description
-}: IProject) => {
+}: myProjectResponseType) => {
   const navigate = useNavigate();
 
   const handlePageMove = () => {
