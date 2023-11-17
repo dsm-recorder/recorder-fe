@@ -1,9 +1,9 @@
 import { useDrag } from 'react-dnd';
 import * as _ from './style';
 import { TrashIcon } from '@/asset/icon/TrashIcon';
-import { TodoType } from '@/api/daily-reports/type';
+import { ITodo } from '@/api/daily-reports/type';
 
-interface TodoCardPropsType extends TodoType {
+interface ITodoCardProps extends ITodo {
   onClick: () => void;
 }
 
@@ -12,7 +12,7 @@ const DraggableTodo = ({
   content,
   complete,
   onClick,
-}: TodoCardPropsType) => {
+}: ITodoCardProps) => {
   const [{ isDragging }, drag] = useDrag({
     type: 'todo',
     item: { id, content, complete },
