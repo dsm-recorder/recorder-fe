@@ -19,25 +19,18 @@ const Modal = ({ pr, onClose }: IModalProps) => {
 
   const { data: PRContent } = GetPRContent(pr.id);
   const { mutate: PRContentMutation } = PatchPRContent(pr.id);
-  const [images, setImages] = useState<string[]>([]);
+  const [attachmentUrls, setAttachmentUrls] = useState<string[]>([]);
 
   useEffect(() => {
     if (PRContent) {
       setContent(PRContent.content);
       setSolution(PRContent?.solution);
-      setImages(PRContent.attachmentUrls);
+      setAttachmentUrls(PRContent.attachmentUrls);
     }
   }, [PRContent]);
 
   const onPatch = () => {
-    PRContentMutation({
-      title: pr.title,
-      importance: pr.importance,
-      type: pr.type,
-      content: content,
-      solution: solution,
-      attachmentUrls: images,
-    });
+    PRContentMutation({ ...pr, content, solution, attachmentUrls });
   };
 
   return (
@@ -54,8 +47,8 @@ const Modal = ({ pr, onClose }: IModalProps) => {
           <TextAreaInput
             isAddImage={true}
             isMapImage={pr.type !== 'BUG_FIX'}
-            images={images}
-            setImages={setImages}
+            images={attachmentUrls}
+            setImages={setAttachmentUrls}
             value={content}
             onChange={(e) => setContent(e.target.value)}
             label={PRConstant[pr.type].label[0]}
@@ -64,8 +57,8 @@ const Modal = ({ pr, onClose }: IModalProps) => {
             <TextAreaInput
               isAddImage={true}
               isMapImage={true}
-              images={images}
-              setImages={setImages}
+              images={attachmentUrls}
+              setImages={setAttachmentUrls}
               value={solution}
               onChange={(e) => setSolution(e.target.value)}
               label={PRConstant.BUG_FIX.label[1]}
