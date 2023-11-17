@@ -5,8 +5,8 @@ import {
   IProjectRequest,
   IProjectShare,
   IRepoArrayResponse,
-  ProjectType,
-  SharedPrjoectType,
+  IProject,
+  ISharedProject,
 } from './type';
 
 const ROUTER = 'projects';
@@ -64,7 +64,7 @@ export const GetOrganizationRepo = (organization: string) => {
 
 export const GetMyProjectList = () => {
   const response = async () => {
-    const { data } = await instance.get<{ projects: ProjectType[] }>(
+    const { data } = await instance.get<{ projects: IProject[] }>(
       `${ROUTER}/my`
     );
 
@@ -91,7 +91,7 @@ export const PatchShareProject = (id: string) => {
 
 export const GetSharedProjectDetail = (id: string) => {
   const response = async () => {
-    const { data } = await instance.get<SharedPrjoectType>(
+    const { data } = await instance.get<ISharedProject>(
       `${ROUTER}/published/${id}`
     );
     return data;

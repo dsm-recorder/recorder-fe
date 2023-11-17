@@ -20,7 +20,7 @@ export interface IOrganization {
   organizations: string[];
 }
 
-export interface ProjectType {
+export interface IProject {
   id: string;
   name: string;
   logoImageUrl: string;
@@ -36,7 +36,7 @@ export interface IProjectShare {
   prRecordIds: string[];
 }
 
-export interface SharedPrjoectType {
+export interface ISharedProject {
   name: string;
   logoImageUrl: string;
   startDate: string;

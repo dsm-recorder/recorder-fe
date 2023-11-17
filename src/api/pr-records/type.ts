@@ -1,4 +1,4 @@
-export interface IPRRecordsType {
+export interface IPRRecords {
   id: string;
   title: string;
   type: PRType;
@@ -6,8 +6,8 @@ export interface IPRRecordsType {
   date: string;
 }
 
-export interface IPRRecordsListType {
-  prRecords: IPRRecordsType[];
+export interface IPRRecordsList {
+  prRecords: IPRRecords[];
 }
 
 export enum PRType {
@@ -16,7 +16,7 @@ export enum PRType {
   REFACTORING = 'REFACTORING',
 }
 
-export interface IPRResponseType {
+export interface IPRResponse {
   title: string;
   content: string;
   importance: number;
@@ -25,7 +25,7 @@ export interface IPRResponseType {
   type: PRType;
 }
 
-export interface IPRRequestType {
+export interface IPRRequest {
   title: string;
   content: string;
   solution?: string;
@@ -33,6 +33,6 @@ export interface IPRRequestType {
   attachmentUrls: string[];
 }
 
-export interface IPRRequestListType {
-  prRecords: IPRRequestType[]
+export interface IPRRequestList {
+  prRecords: IPRRequest[]
 }

@@ -8,21 +8,21 @@ import { useEffect, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import DropZone from './DropZone';
 import DraggableTodo from './DropCard';
-import { TodoListType, TodoType } from '@/api/daily-reports/type';
+import { ITodoList, ITodo } from '@/api/daily-reports/type';
 import { DeleteReport, PatchReport, PostAddReport } from '@/api/daily-reports';
 import { useLocation } from 'react-router-dom';
-import { ProjectType } from '@/api/projects/type';
+import { IProject } from '@/api/projects/type';
 import { useInput } from '@/hook/useInput';
 
-const TodoList = ({ todos }: TodoListType) => {
-  const [todoLists, setTodos] = useState<TodoType[]>(todos);
+const TodoList = ({ todos }: ITodoList) => {
+  const [todoLists, setTodos] = useState<ITodo[]>(todos);
   const {
     form: content,
     setForm: setContent,
     onChange: onChangeContent,
   } = useInput('');
   const location = useLocation();
-  const state = location.state as ProjectType;
+  const state = location.state as IProject;
 
   const { mutate: ReportMutation } = PostAddReport(state.id);
   const { mutate: DeleteMutation } = DeleteReport();
