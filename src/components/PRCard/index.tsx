@@ -2,7 +2,7 @@ import { IPRRecords } from '@/api/pr-records/type';
 import { HStack, VStack } from '@/components/Stack';
 import * as _ from './style';
 import { ReactNode } from 'react';
-import { PRConstant } from '@/constant/PRType';
+import { PRConstant } from '@/constant/PR';
 
 interface IPRCardProps extends IPRRecords {
   onClick?: () => void;
