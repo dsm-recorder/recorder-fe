@@ -1,6 +1,6 @@
-import { IPRRequestType, PRType } from "@/api/pr-records/type";
-import * as _ from "./PRCard.style";
-import { VStack } from "@/components/Stack";
+import { IPRRequestType, PRType } from '@/api/pr-records/type';
+import * as _ from './PRCard.style';
+import { VStack } from '@/components/Stack';
 
 const PRCard = ({
   title,
@@ -9,17 +9,17 @@ const PRCard = ({
   solution,
   attachmentUrls,
 }: IPRRequestType) => {
-  let labelName = "";
+  let labelName = '';
 
   switch (type) {
     case PRType.NEW_FEATURE:
-      labelName = "기능설명";
+      labelName = '기능설명';
       break;
     case PRType.BUG_FIX:
-      labelName = "문제사항";
+      labelName = '문제사항';
       break;
     case PRType.REFACTORING:
-      labelName = "개선부분";
+      labelName = '개선부분';
       break;
   }
 

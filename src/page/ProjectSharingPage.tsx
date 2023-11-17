@@ -1,14 +1,14 @@
-import { styled } from "styled-components";
-import { GetPRReport } from "@/api/pr-records";
-import { useLocation } from "react-router-dom";
-import { PatchShareProject } from "@/api/projects";
-import { useState } from "react";
-import { useInput } from "@/hook/useInput";
-import { TextAreaInput } from "@/components/Input";
-import { CheckBoxInput } from "@/components/Input/CheckBoxInput";
-import { Button } from "@/components/Button";
-import { Arrow } from "@/asset/icon";
-import PRCard from "@/components/PRCard";
+import { styled } from 'styled-components';
+import { GetPRReport } from '@/api/pr-records';
+import { useLocation } from 'react-router-dom';
+import { PatchShareProject } from '@/api/projects';
+import { useState } from 'react';
+import { useInput } from '@/hook/useInput';
+import { TextAreaInput } from '@/components/Input';
+import { CheckBoxInput } from '@/components/Input/CheckBoxInput';
+import { Button } from '@/components/Button';
+import { Arrow } from '@/asset/icon';
+import PRCard from '@/components/PRCard';
 
 const ProjectSharingPage = () => {
   const location = useLocation();
@@ -19,8 +19,8 @@ const ProjectSharingPage = () => {
     setForm: setProject,
     onChange: onChangeProject,
   } = useInput({
-    role: "",
-    learned: "",
+    role:'',
+    learned: '',
     prRecordIds: [] as string[],
   });
 
@@ -40,7 +40,7 @@ const ProjectSharingPage = () => {
     if (role.length >= 1 && learned.length >= 1 && prRecordIds[0]) {
       ShareProject({ ...project });
     } else {
-      alert("모두 입력해주세요");
+      alert('모두 입력해주세요');
     }
   };
 
@@ -50,22 +50,22 @@ const ProjectSharingPage = () => {
         <Slide style={{ transform: `translateX(${-length * 100}vw)` }}>
           <SlideWrapper>
             <TextAreaInput
-              name="role"
+              name='role'
               value={project.role}
               onChange={onChangeProject}
-              label="프로젝트에서 한 역할을 입력해주세요"
-              height="280px"
-              placeholder="프로젝트에서 한 역할을 입력해주세요"
+              label='프로젝트에서 한 역할을 입력해주세요'
+              height='280px'
+              placeholder='프로젝트에서 한 역할을 입력해주세요'
             />
           </SlideWrapper>
           <SlideWrapper>
             <TextAreaInput
-              name="learned"
+              name='learned'
               value={project.learned}
               onChange={onChangeProject}
-              label="프로젝트을 통해서 배운점을 입력해주세요"
-              height="280px"
-              placeholder="프로젝트을 통해서 배운점을 입력해주세요"
+              label='프로젝트을 통해서 배운점을 입력해주세요'
+              height='280px'
+              placeholder='프로젝트을 통해서 배운점을 입력해주세요'
             />
           </SlideWrapper>
           <SlideWrapper>
@@ -75,7 +75,7 @@ const ProjectSharingPage = () => {
                 return (
                   <PRCard key={index} {...pr}>
                     <CheckBoxInput
-                      name="prRecordIds"
+                      name='prRecordIds'
                       value={project.prRecordIds}
                       boxValue={pr.id}
                       onChange={(selectedIds) =>
@@ -91,14 +91,14 @@ const ProjectSharingPage = () => {
         </Slide>
         <ButtonWrapper>
           <Arrow
-            direction="left"
-            size="large"
+            direction='left'
+            size='large'
             onClick={onClickLeftSLide}
             disabled={length != 0}
           />
           <Arrow
-            direction="right"
-            size="large"
+            direction='right'
+            size='large'
             onClick={onClickRightSLide}
             disabled={length != 2}
           />

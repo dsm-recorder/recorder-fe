@@ -54,7 +54,7 @@ export const BugFixModal = ({ pr, onClose }: ModalPropsType) => {
           setImages={setImages}
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          label="버그 설명"
+          label='버그 설명'
         />
         <TextAreaInput
           isAddImage={true}
@@ -63,7 +63,7 @@ export const BugFixModal = ({ pr, onClose }: ModalPropsType) => {
           setImages={setImages}
           value={solution}
           onChange={(e) => setSolution(e.target.value)}
-          label="버그 해결 방법"
+          label='버그 해결 방법'
         />
         <Button onClick={onPatch}>저장</Button>
       </_.ModalMainWrapper>

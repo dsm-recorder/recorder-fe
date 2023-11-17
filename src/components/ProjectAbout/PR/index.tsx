@@ -1,7 +1,7 @@
-import {  IPRRequestListType } from "@/api/pr-records/type";
-import * as Common from "../Common/style";
-import * as _ from "./style";
-import PRCard from "./PRCard";
+import {  IPRRequestListType } from '@/api/pr-records/type';
+import * as Common from '../Common/style';
+import * as _ from './style';
+import PRCard from './PRCard';
 
 const PRList = ({ prRecords }: IPRRequestListType) => {
   return (
