@@ -10,19 +10,20 @@ const ProjectCard = ({
   isPublished,
   createdAt,
   finishDate,
+  description
 }: ProjectType) => {
   const navigate = useNavigate();
 
   const handlePageMove = () => {
-    if (isPublished == 1 && finishDate) {
-      navigate(`/project/${id}`, {
-        state: { id },
-      });
-    } else {
-      navigate(`/project-writing/${id}`, {
-        state: { id },
-      });
-    }
+      if (isPublished == 1 && finishDate) {
+        navigate(`/project/${name}`, {
+          state: { id },
+        });
+      } else {
+        navigate(`/project-writing/${name}`, {
+          state: { id, name, logoImageUrl, createdAt, description },
+        });
+      }
   };
 
   return (
