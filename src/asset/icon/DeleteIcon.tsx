@@ -1,11 +1,13 @@
-interface DeleteIconType {
+interface IDeleteIcon {
+  cursor?: React.CSSProperties['cursor'];
   onClick?: () => void;
 }
 
-export const DeleteIcon = ({ onClick }: DeleteIconType) => {
+export const DeleteIcon = ({ cursor ,onClick }: IDeleteIcon) => {
   return (
     <svg
       onClick={onClick}
+      style={{ cursor }}
       width='24'
       height='24'
       viewBox='0 0 24 24'
