@@ -8,7 +8,6 @@ import { GetPRReport } from '@/api/pr-records';
 import { ProjectType } from '@/api/projects/type';
 import { HStack, VStack } from '@/components/Stack';
 import { Button } from '@/components/Button';
-import { GetProjectDetail } from '@/api/projects';
 
 const ProjectWritingPage = () => {
   const location = useLocation();
@@ -16,12 +15,11 @@ const ProjectWritingPage = () => {
 
   const state = location.state as ProjectType;
 
-  const { data: projectDetail } = GetProjectDetail(state.id)
   const { data: todoLists } = GetTodayReport(state.id);
   const { data: prLists } = GetPRReport(state.id);
 
   const handleButtonClick = () => {
-    navigate(`/project-writing/${state.id}/sharing`, {
+    navigate(`/project-writing/${state.name}/sharing`, {
       state: { id: state.id },
     });
   };
@@ -31,17 +29,21 @@ const ProjectWritingPage = () => {
       <PageWrapper>
         <ProjectInfoWrapper>
           <HStack justify='space-between' gap={30}>
-            <ProjectLogoImg alt='projectLogoImg' src={projectDetail?.logoUrl} />
+            <ProjectLogoImg alt='projectLogoImg' src={state.logoImageUrl} />
             <VStack>
-              <ProjectName>{projectDetail?.name}</ProjectName>
-              <ProjectCreateAt>{projectDetail?.startDate} ~ </ProjectCreateAt>
+              <ProjectName>{state.name}</ProjectName>
+              <ProjectCreateAt>{state.createdAt} ~ </ProjectCreateAt>
             </VStack>
           </HStack>
           <Button onClick={handleButtonClick}>프로젝트 종료</Button>
         </ProjectInfoWrapper>
-        <ProjectDescription description={projectDetail?.description ?? ''} />
+        <ProjectDescription description={state.description} />
         <TodoList todos={todoLists?.todos ?? []} />
-        <PRList prRecords={prLists?.prRecords ?? []} />
+        <PRList
+          prRecords={
+            prLists?.prRecords ?? []
+          }
+        />
       </PageWrapper>
     </Container>
   );

@@ -7,6 +7,7 @@ import ProjectWritingPage from '@/page/ProjectWritingPage';
 import NotFoundPage from '@/page/NotFoundPage';
 import Footer from '@/components/Footer';
 import ProjectSharingPage from '@/page/ProjectSharingPage';
+import ProjectAboutPage from './page/ProjectAboutPage';
 
 export const Router = () => {
   return (
@@ -16,6 +17,7 @@ export const Router = () => {
         <Route path='/' element={<LandingPage />} />
         <Route path='/project-register' element={<ProjectRegisterPage />} />
         <Route path='/mypage' element={<MyPage />} />
+        <Route path='/project/:id' element={<ProjectAboutPage />} />
         <Route path='/project-writing/:id' element={<ProjectWritingPage />} />
         <Route
           path='/project-writing/:id/sharing'
