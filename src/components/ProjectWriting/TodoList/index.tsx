@@ -11,7 +11,7 @@ import DraggableTodo from './DropCard';
 import { ITodoList, ITodo } from '@/api/daily-reports/type';
 import { DeleteReport, PatchReport, PostAddReport } from '@/api/daily-reports';
 import { useLocation } from 'react-router-dom';
-import { IProject } from '@/api/projects/type';
+import { myProjectResponseType } from '@/api/projects/type';
 import { useInput } from '@/hook/useInput';
 
 const TodoList = ({ todos }: ITodoList) => {
@@ -22,10 +22,10 @@ const TodoList = ({ todos }: ITodoList) => {
     onChange: onChangeContent,
   } = useInput('');
   const location = useLocation();
-  const state = location.state as IProject;
+  const state = location.state as myProjectResponseType;
 
   const { mutate: ReportMutation } = PostAddReport(state.id);
-  const { mutate: DeleteMutation } = DeleteReport();
+  const { mutate: DeleteMutation } = DeleteReport(state.id);
   const { mutate: PatchMuatation } = PatchReport();
 
   useEffect(() => {
@@ -48,14 +48,6 @@ const TodoList = ({ todos }: ITodoList) => {
 
   const addTodo = () => {
     if (content.trim().length > 0) {
-      setTodos([
-        ...todoLists,
-        {
-          id: String(todoLists.length + 1),
-          content,
-          complete: false,
-        },
-      ]);
       ReportMutation({ content });
       setContent('');
     }

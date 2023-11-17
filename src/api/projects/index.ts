@@ -124,7 +124,7 @@ export const GetPublishedProjects = () => {
 
 export const GetLikedProjects = () => {
   const response = async () => {
-    const { data } = await instance.get<GetProjectsResponse>(`${ROUTER}/like`);
+    const { data } = await instance.get<GetProjectsResponse>(`${ROUTER}/liked`);
     return data;
   };
   return useQuery(['likeProjects'], response);

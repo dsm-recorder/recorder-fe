@@ -3,8 +3,10 @@ import { HStack } from '@/components/Stack';
 import ExampleBlog from '@/asset/ExampleBlog.png';
 import { HeartIcon } from '@/asset/icon';
 import { projectType } from '@/api/projects/type';
+import { useNavigate } from 'react-router-dom';
 
 const BlogCard = ({
+  id,
   name,
   startDate,
   finishDate,
@@ -13,8 +15,16 @@ const BlogCard = ({
   likeCount,
   isLiked,
 }: projectType) => {
+  const navigate = useNavigate();
+
+  const hadleMovePage = () => {
+    navigate(`/project/${name}`, {
+      state: { id },
+    });
+  }
+
   return (
-    <_._Container>
+    <_._Container onClick={hadleMovePage}>
       <_._IMG src={ExampleBlog} alt='blog image' />
       <_._CardInfo>
         <_._TEXT size={24} weight={700}>

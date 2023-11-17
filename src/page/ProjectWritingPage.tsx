@@ -3,7 +3,7 @@ import TodoList from '@/components/ProjectWriting/TodoList';
 import { GetTodayReport } from '@/api/daily-reports';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { GetPRReport } from '@/api/pr-records';
-import { IProject } from '@/api/projects/type';
+import { myProjectResponseType } from '@/api/projects/type';
 import { HStack, VStack } from '@/components/Stack';
 import { Button } from '@/components/Button';
 import PRList from '@/components/ProjectWriting/PR';
@@ -13,7 +13,7 @@ const ProjectWritingPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const state = location.state as IProject;
+  const state = location.state as myProjectResponseType;
 
   const { data: todoLists } = GetTodayReport(state.id);
   const { data: prLists } = GetPRReport(state.id);
