@@ -20,7 +20,7 @@ export interface IOrganization {
   organizations: string[];
 }
 
-export type ProjectType = {
+export type myProjectResponseType = {
   id: string;
   name: string;
   logoImageUrl: string;
@@ -29,7 +29,7 @@ export type ProjectType = {
   finishDate: string;
 };
 
-export type MonthlyProjectType = {
+export type projectType = {
   id: string;
   name: string;
   startDate: string;
@@ -40,6 +40,6 @@ export type MonthlyProjectType = {
   isLiked: boolean;
 };
 
-export interface GetMonthlyProjectsResponse {
-  projects: MonthlyProjectType[];
+export interface GetProjectsResponse {
+  projects: projectType[];
 }

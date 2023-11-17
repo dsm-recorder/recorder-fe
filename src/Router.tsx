@@ -5,6 +5,7 @@ import ProjectRegisterPage from '@/page/ProjectRegisterPage';
 import MyPage from '@/page/MyPage';
 import NotFoundPage from '@/page/NotFoundPage';
 import Footer from '@/components/Footer';
+import ProjectPage from './page/ProjectPage';
 
 export const Router = () => {
   return (
@@ -14,6 +15,7 @@ export const Router = () => {
         <Route path='/' element={<LandingPage />} />
         <Route path='/project-register' element={<ProjectRegisterPage />} />
         <Route path='/mypage' element={<MyPage />} />
+        <Route path='/project' element={<ProjectPage />} />
         <Route path='/*' element={<NotFoundPage />} />
       </Routes>
       <Footer />

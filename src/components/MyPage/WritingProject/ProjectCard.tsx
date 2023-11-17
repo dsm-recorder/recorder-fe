@@ -1,6 +1,6 @@
 import * as _ from './ProjectCard.style';
 import { HStack } from '@/components/Stack';
-import { ProjectType } from '@/api/projects/type';
+import { myProjectResponseType } from '@/api/projects/type';
 
 const ProjectCard = ({
   name,
@@ -8,7 +8,7 @@ const ProjectCard = ({
   isPublished,
   createdAt,
   finishDate,
-}: ProjectType) => {
+}: myProjectResponseType) => {
   return (
     <_._Wrapper
       style={{ backgroundColor: isPublished ? '#4C4C4C' : '#FFFFFF' }}

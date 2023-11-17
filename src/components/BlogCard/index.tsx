@@ -2,7 +2,7 @@ import * as _ from './style';
 import { HStack } from '@/components/Stack';
 import ExampleBlog from '@/asset/ExampleBlog.png';
 import { HeartIcon } from '@/asset/icon';
-import { MonthlyProjectType } from '@/api/projects/type';
+import { projectType } from '@/api/projects/type';
 
 const BlogCard = ({
   name,
@@ -12,7 +12,7 @@ const BlogCard = ({
   userAccountId,
   likeCount,
   isLiked,
-}: MonthlyProjectType) => {
+}: projectType) => {
   return (
     <_._Container>
       <_._IMG src={ExampleBlog} alt='blog image' />
