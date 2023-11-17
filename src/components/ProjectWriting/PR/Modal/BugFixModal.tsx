@@ -6,6 +6,7 @@ import { Button } from '@/components/Button';
 import { ModalPropsType } from '.';
 import { HStack } from '@/components/Stack';
 import { GetPRContent, PatchPRContent } from '@/api/pr-records';
+import { PRType } from '@/api/pr-records/type';
 
 export const BugFixModal = ({ pr, onClose }: ModalPropsType) => {
   const [content, setContent] = useState<string>('');
@@ -27,9 +28,12 @@ export const BugFixModal = ({ pr, onClose }: ModalPropsType) => {
 
   const onPatch = () => {
     PRContentMutation({
-      ...pr,
+      title: pr.title,
+      importance: pr.importance,
+      type: PRType.BUG_FIX,
       content: content,
       solution: solution,
+      attachmentUrls: images,
     });
   };
 
@@ -44,17 +48,22 @@ export const BugFixModal = ({ pr, onClose }: ModalPropsType) => {
       </_.ModalHeaderWrapper>
       <_.ModalMainWrapper>
         <TextAreaInput
+          isAddImage={true}
+          isMapImage={false}
+          images={images}
+          setImages={setImages}
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          label='버그 설명'
+          label="버그 설명"
         />
         <TextAreaInput
           isAddImage={true}
+          isMapImage={true}
           images={images}
           setImages={setImages}
           value={solution}
           onChange={(e) => setSolution(e.target.value)}
-          label='버그 해결 방법'
+          label="버그 해결 방법"
         />
         <Button onClick={onPatch}>저장</Button>
       </_.ModalMainWrapper>

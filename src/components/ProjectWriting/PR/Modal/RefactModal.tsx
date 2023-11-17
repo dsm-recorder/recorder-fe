@@ -6,6 +6,7 @@ import { Button } from '@/components/Button';
 import { ModalPropsType } from '.';
 import { HStack } from '@/components/Stack';
 import { GetPRContent, PatchPRContent } from '@/api/pr-records';
+import { PRType } from '@/api/pr-records/type';
 
 export const RefactModal = ({ pr, onClose }: ModalPropsType) => {
   const [content, setContent] = useState('');
@@ -25,8 +26,11 @@ export const RefactModal = ({ pr, onClose }: ModalPropsType) => {
 
   const onPatch = () => {
     PRContentMutation({
-      ...pr,
+      title: pr.title,
+      importance: pr.importance,
+      type: PRType.REFACTORING,
       content: content,
+      attachmentUrls: images,
     });
   };
 
@@ -42,13 +46,20 @@ export const RefactModal = ({ pr, onClose }: ModalPropsType) => {
       <_.ModalMainWrapper>
         <TextAreaInput
           isAddImage={true}
+          isMapImage={true}
           images={images}
           setImages={setImages}
           value={content}
           onChange={(e) => setContent(e.target.value)}
           label='개선부분'
         />
-        <Button disabled={content === PRContent?.content} onClick={onPatch}>
+        <Button
+          disabled={
+            content === PRContent?.content ||
+            images === PRContent?.attachmentUrls
+          }
+          onClick={onPatch}
+        >
           저장
         </Button>
       </_.ModalMainWrapper>

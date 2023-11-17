@@ -6,6 +6,7 @@ import { Button } from '@/components/Button';
 import { ModalPropsType } from '.';
 import { HStack } from '@/components/Stack';
 import { GetPRContent, PatchPRContent } from '@/api/pr-records';
+import { PRType } from '@/api/pr-records/type';
 
 export const FeatModal = ({ pr, onClose }: ModalPropsType) => {
   const [content, setContent] = useState<string>('');
@@ -25,8 +26,11 @@ export const FeatModal = ({ pr, onClose }: ModalPropsType) => {
 
   const onPatch = () => {
     PRContentMutation({
-      ...pr,
+      title: pr.title,
+      importance: pr.importance,
+      type: PRType.NEW_FEATURE,
       content: content,
+      attachmentUrls: images,
     });
   };
 
@@ -42,15 +46,14 @@ export const FeatModal = ({ pr, onClose }: ModalPropsType) => {
       <_.ModalMainWrapper>
         <TextAreaInput
           isAddImage={true}
+          isMapImage={true}
           images={images}
           setImages={setImages}
           value={content}
           onChange={(e) => setContent(e.target.value)}
           label='설명'
         />
-        <Button disabled={content === PRContent?.content} onClick={onPatch}>
-          저장
-        </Button>
+        <Button onClick={onPatch}>저장</Button>
       </_.ModalMainWrapper>
     </_.PRModalWrapper>
   );
