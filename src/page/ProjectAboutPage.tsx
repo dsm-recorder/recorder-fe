@@ -36,10 +36,12 @@ const ProjectAboutPage = () => {
                 </HStack>
               </HStack>
               <ProjectCreateAt>
-                {SharedProject?.startDate ?? ''} ~
+                {SharedProject?.finishDate && `${SharedProject.startDate} ~ `}
                 {SharedProject?.finishDate ?? ''}
               </ProjectCreateAt>
-              <ProjectSkills>{SharedProject?.skills.map((skill) => `${skill}, `)}</ProjectSkills>
+              <ProjectSkills>
+                {SharedProject?.skills.map((skill) => `${skill}, `)}
+              </ProjectSkills>
             </VStack>
           </HStack>
         </ProjectInfoWrapper>
