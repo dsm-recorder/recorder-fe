@@ -14,6 +14,7 @@ interface TextAreaType extends HTMLAttributes<HTMLTextAreaElement> {
   value?: string;
   height?: string;
   isAddImage?: boolean;
+  isMapImage?: boolean;
   images?: string[];
   setImages?: React.Dispatch<React.SetStateAction<string[]>>;
   maxLength?: number;
@@ -25,6 +26,7 @@ export const TextAreaInput = ({
   placeholder,
   label,
   isAddImage,
+  isMapImage,
   width,
   height,
   value,
@@ -81,7 +83,7 @@ export const TextAreaInput = ({
         height={height}
         maxLength={maxLength}
       />
-      {isAddImage && (
+      {isMapImage && (
         <ImagesContainer>
           {images?.map((item) => (
             <ImageWrapper key={item}>
