@@ -75,6 +75,6 @@ export const ModalMainWrapper = styled.div`
   gap: 30px;
   width: 100%;
   height: 100%;
-  padding:15px;
+  padding: 15px;
   overflow-y: auto;
 `;

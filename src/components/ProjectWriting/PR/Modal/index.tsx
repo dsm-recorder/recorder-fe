@@ -6,42 +6,39 @@ import { DeleteIcon } from '@/asset/icon';
 import { GetPRContent, PatchPRContent } from '@/api/pr-records';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/Button';
-import { PRConstant } from '@/constant/PRType';
+import { PRConstant } from '@/constant/PR';
 
 export interface IModalProps {
   pr: IPRRecords;
   onClose: () => void;
-};  
+}
 
 const Modal = ({ pr, onClose }: IModalProps) => {
+  const [content, setContent] = useState<string>('');
+  const [solution, setSolution] = useState<string | undefined>('');
 
-    const [content, setContent] = useState<string>('');
-    const [solution, setSolution] = useState<string | undefined>('');
+  const { data: PRContent } = GetPRContent(pr.id);
+  const { mutate: PRContentMutation } = PatchPRContent(pr.id);
+  const [images, setImages] = useState<string[]>([]);
 
-    const { data: PRContent } = GetPRContent(
-      pr.id
-    );
-    const { mutate: PRContentMutation } = PatchPRContent(pr.id);
-    const [images, setImages] = useState<string[]>([]);
+  useEffect(() => {
+    if (PRContent) {
+      setContent(PRContent.content);
+      setSolution(PRContent?.solution);
+      setImages(PRContent.attachmentUrls);
+    }
+  }, [PRContent]);
 
-    useEffect(() => {
-      if (PRContent) {
-        setContent(PRContent.content);
-        setSolution(PRContent?.solution);
-        setImages(PRContent.attachmentUrls);
-      }
-    }, [PRContent]);
-
-    const onPatch = () => {
-      PRContentMutation({
-        title: pr.title,
-        importance: pr.importance,
-        type: pr.type,
-        content: content,
-        solution: solution,
-        attachmentUrls: images,
-      });
-    };
+  const onPatch = () => {
+    PRContentMutation({
+      title: pr.title,
+      importance: pr.importance,
+      type: pr.type,
+      content: content,
+      solution: solution,
+      attachmentUrls: images,
+    });
+  };
 
   return (
     <_.ModalBackground>
@@ -56,7 +53,7 @@ const Modal = ({ pr, onClose }: IModalProps) => {
         <_.ModalMainWrapper>
           <TextAreaInput
             isAddImage={true}
-            isMapImage={pr.type !== "BUG_FIX"}
+            isMapImage={pr.type !== 'BUG_FIX'}
             images={images}
             setImages={setImages}
             value={content}

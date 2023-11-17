@@ -1,8 +1,5 @@
 import { useState } from 'react';
-import {
-  IPRRecordsList,
-  IPRRecords,
-} from '@/api/pr-records/type';
+import { IPRRecordsList, IPRRecords } from '@/api/pr-records/type';
 import * as Common from '../Common/style';
 import PRCard from '../../PRCard';
 import * as _ from './style';
