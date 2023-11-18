@@ -14,6 +14,7 @@ import { IRepoResponse } from '@/api/projects/type';
 import { PostImage } from '@/api/images';
 import { RepositoryCard } from '@/components/RepositoryCard';
 import { useInput } from '@/hook/useInput';
+import { onKeyDownRunfFn } from '@/util/onKeyDownRunfFn';
 
 export const ProjectRegisterPage = () => {
   const [searchRepo, setSearchRepo] = useState('');
@@ -121,111 +122,109 @@ export const ProjectRegisterPage = () => {
   };
 
   return (
-    <>
-      <Container>
-        <Title>프로젝트 등록</Title>
-        <PageWrapper>
-          <ImageInput
-            width='200px'
-            height='200px'
-            placeholder='프로젝트 로고를 선택해주세요'
-            value={project.logoImageUrl}
-            handleImageChange={handleImageChange}
-          />
-          <Input
-            type='text'
-            label='프로젝트 명'
-            name='projectName'
-            placeholder='프로젝트 이름을 입력해주세요'
-            value={project.projectName}
-            onChange={onChangeProject}
-          />
-          <TextAreaInput
-            placeholder='프로젝트 설명을 입력해주세요'
-            label='설명'
-            name='description'
-            width='100%'
-            value={project.description}
-            onChange={onChangeProject}
-          />
-          <RepositoryWrapper>
-            <HStack gap={60} align='center'>
-              <MainTitle>깃허브 Repository</MainTitle>
-              <SideTitle>
-                프로젝트를 진행할때 사용할 레포지토리를 선택해주세요
-              </SideTitle>
-            </HStack>
-            <HStack justify='space-between' width={700}>
-              <DropDown
-                value={dropDownValue}
-                onClick={onDropDownChange}
-                list={dropDownList}
-                placeholder='Github Repository 위치를 선택해주세요'
-              />
-              <Input
-                type='text'
-                placeholder='레포지토리 이름을 입력해주세요'
-                value={searchRepo}
-                onChange={(e) => {
-                  setSearchRepo(e.target.value);
-                }}
-              />
-            </HStack>
-            <RepositoryBox>
-              {dropDownValue ? (
-                FilterRepo?.map((item, index) => {
-                  const { name, description, language } = item;
-                  const radioId = String(index);
-                  const isRadioSelected = String(selectedProject) === radioId;
-                  return (
-                    <RepositoryCard
-                      key={name}
-                      name={name}
-                      description={description}
-                      language={language}
-                      isRadioSelected={isRadioSelected}
-                      radioId={radioId}
-                      onClick={() => setSelectedProject(index)}
-                    />
-                  );
-                })
-              ) : (
-                <p>값을 먼저 선택하세요.</p>
-              )}
-            </RepositoryBox>
-          </RepositoryWrapper>
-          <VStack gap={30}>
-            <HStack align='end' gap={30}>
-              <Input
-                type='text'
-                label='사용 기술'
-                placeholder='사용한 기술을 입력해주세요'
-                value={skillInput}
-                onKeyDown={(e) => e.key === 'Enter' && onAddSkills()}
-                onChange={(e) => {
-                  setSkillInput(e.target.value);
-                }}
-              />
-              <Button onClick={onAddSkills} disabled={skillInput.trim() === ''}>
-                추가
-              </Button>
-            </HStack>
-            <HStack gap={30} width={800} wrap='wrap'>
-              {project.skills?.map((skill, index) => (
-                <SkillCard key={index}>
-                  {skill}
-                  <DeleteIcon
-                    cursor='pointer'
-                    onClick={() => onDeleteSkills(skill)}
+    <Container>
+      <Title>프로젝트 등록</Title>
+      <PageWrapper>
+        <ImageInput
+          width='200px'
+          height='200px'
+          placeholder='프로젝트 로고를 선택해주세요'
+          value={project.logoImageUrl}
+          handleImageChange={handleImageChange}
+        />
+        <Input
+          type='text'
+          label='프로젝트 명'
+          name='projectName'
+          placeholder='프로젝트 이름을 입력해주세요'
+          value={project.projectName}
+          onChange={onChangeProject}
+        />
+        <TextAreaInput
+          placeholder='프로젝트 설명을 입력해주세요'
+          label='설명'
+          name='description'
+          width='100%'
+          value={project.description}
+          onChange={onChangeProject}
+        />
+        <RepositoryWrapper>
+          <HStack gap={60} align='center'>
+            <MainTitle>깃허브 Repository</MainTitle>
+            <SideTitle>
+              프로젝트를 진행할때 사용할 레포지토리를 선택해주세요
+            </SideTitle>
+          </HStack>
+          <HStack justify='space-between' width={700}>
+            <DropDown
+              value={dropDownValue}
+              onClick={onDropDownChange}
+              list={dropDownList}
+              placeholder='Github Repository 위치를 선택해주세요'
+            />
+            <Input
+              type='text'
+              placeholder='레포지토리 이름을 입력해주세요'
+              value={searchRepo}
+              onChange={(e) => {
+                setSearchRepo(e.target.value);
+              }}
+            />
+          </HStack>
+          <RepositoryBox>
+            {dropDownValue ? (
+              FilterRepo?.map((item, index) => {
+                const { name, description, language } = item;
+                const radioId = String(index);
+                const isRadioSelected = String(selectedProject) === radioId;
+                return (
+                  <RepositoryCard
+                    key={name}
+                    name={name}
+                    description={description}
+                    language={language}
+                    isRadioSelected={isRadioSelected}
+                    radioId={radioId}
+                    onClick={() => setSelectedProject(index)}
                   />
-                </SkillCard>
-              ))}
-            </HStack>
-          </VStack>
-          <Button onClick={onProjectRegister}>프로젝트 등록</Button>
-        </PageWrapper>
-      </Container>
-    </>
+                );
+              })
+            ) : (
+              <p>값을 먼저 선택하세요.</p>
+            )}
+          </RepositoryBox>
+        </RepositoryWrapper>
+        <VStack gap={30}>
+          <HStack align='end' gap={30}>
+            <Input
+              type='text'
+              label='사용 기술'
+              placeholder='사용한 기술을 입력해주세요'
+              value={skillInput}
+              onKeyDown={(e) => onKeyDownRunfFn(e, onAddSkills)}
+              onChange={(e) => {
+                setSkillInput(e.target.value);
+              }}
+            />
+            <Button onClick={onAddSkills} disabled={skillInput.trim() === ''}>
+              추가
+            </Button>
+          </HStack>
+          <HStack gap={30} width={800} wrap='wrap'>
+            {project.skills?.map((skill) => (
+              <SkillCard key={skill}>
+                {skill}
+                <DeleteIcon
+                  cursor='pointer'
+                  onClick={() => onDeleteSkills(skill)}
+                />
+              </SkillCard>
+            ))}
+          </HStack>
+        </VStack>
+        <Button onClick={onProjectRegister}>프로젝트 등록</Button>
+      </PageWrapper>
+    </Container>
   );
 };
 
