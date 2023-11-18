@@ -41,7 +41,7 @@ const Modal = ({ pr, onClose }: IModalProps) => {
             <_.ModalLabel>{pr.title}</_.ModalLabel>
             <_.TypeBox>{PRConstant[pr.type].typeName}</_.TypeBox>
           </HStack>
-          <DeleteIcon onClick={onClose} />
+          <DeleteIcon cursor={'pointer'} onClick={onClose} />
         </_.ModalHeaderWrapper>
         <_.ModalMainWrapper>
           <TextAreaInput

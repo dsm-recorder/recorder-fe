@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const _Wrapper = styled.div`
+  cursor: pointer;
   position: relative;
   width: 278px;
   border-radius: 10px;

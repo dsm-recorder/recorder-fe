@@ -16,14 +16,14 @@ const WritingProject = ({ projectList }: IWritingProjectProps) => {
       <HStack justify='space-between'>
         <Common.ContentTitle>기록중인 프로젝트</Common.ContentTitle>
         <Link to='/project-register'>
-          <Common.Button bgcolor='green'>
-            프로젝트 추가
-          </Common.Button>
+          <Common.Button bgcolor='green'>프로젝트 추가</Common.Button>
         </Link>
       </HStack>
       <HStack gap={30} wrap='wrap'>
         {projectList[0] ? (
-          projectList.map((project) => <ProjectCard {...project} />)
+          projectList.map((project) => (
+            <ProjectCard key={project.id} {...project} />
+          ))
         ) : (
           <VStack style={{ width: '100%' }} align='center' gap={30}>
             <NoticeIcon size={100} />

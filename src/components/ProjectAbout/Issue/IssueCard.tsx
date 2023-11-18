@@ -26,8 +26,8 @@ const IssueCard = ({
 
       {attachmentUrls[0] && (
         <_.ImgWrapper>
-          {attachmentUrls.map((e) => (
-            <_.Img src={e} />
+          {attachmentUrls.map((imgUrl) => (
+            <_.Img key={imgUrl} src={imgUrl} />
           ))}
         </_.ImgWrapper>
       )}

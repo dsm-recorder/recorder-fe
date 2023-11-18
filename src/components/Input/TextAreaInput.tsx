@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import Download from '@/asset/icon/Download.svg';
 import { ChangeEvent, HTMLAttributes, useEffect } from 'react';
-import { DeleteIcon } from '@/asset/icon/DeleteIcon';
+import { DeleteIcon, DownloadIcon } from '@/asset/icon';
 import { PostImage } from '@/api/images';
 
 interface TextAreaType extends HTMLAttributes<HTMLTextAreaElement> {
@@ -63,7 +62,7 @@ export const TextAreaInput = ({
         {label && <TextAreaInputLabel>{label}</TextAreaInputLabel>}
         {isAddImage && (
           <LabelStyled>
-            <img src={Download} alt='DownloadIcon' />
+            <DownloadIcon />
             <InputStyled
               accept='image/*'
               type='file'

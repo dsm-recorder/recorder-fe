@@ -54,6 +54,7 @@ export type projectType = {
   name: string;
   startDate: string;
   finishDate: string;
+  logoImageUrl: string;
   userProfileUrl: string;
   userAccountId: string;
   likeCount: number;

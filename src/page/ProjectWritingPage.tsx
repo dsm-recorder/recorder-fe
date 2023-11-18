@@ -19,9 +19,13 @@ const ProjectWritingPage = () => {
   const { data: prLists } = GetPRReport(state.id);
 
   const handleButtonClick = () => {
-    navigate(`/project-writing/${state.name}/sharing`, {
-      state: { id: state.id },
-    });
+    if (prLists?.prRecords.length === 0) {
+      alert('PR을 작성한 뒤 내보내기를 해주세요');
+    } else {
+      navigate(`/project-writing/${state.name}/sharing`, {
+        state: { id: state.id },
+      });
+    }
   };
 
   return (

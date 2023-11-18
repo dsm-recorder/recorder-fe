@@ -38,7 +38,7 @@ const ProjectAboutPage = () => {
                 {SharedProject?.finishDate ?? ''}
               </ProjectCreateAt>
               <ProjectSkills>
-                {SharedProject?.skills.map((skill) => `${skill}, `)}
+                {SharedProject?.skills.map((skill) => `${skill} `)}
               </ProjectSkills>
             </VStack>
           </HStack>

@@ -78,6 +78,7 @@ export const PatchShareProject = (id: string) => {
   return useMutation(response, {
     onSuccess: () => {
       alert('공유되었습니다.');
+      window.location.href = 'http://localhost:3000/mypage';
     },
     onError: (e) => {
       alert(e);

@@ -9,7 +9,7 @@ export const PRCardWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.gray[70]};
   border-radius: 5px;
   padding: 15px;
-  gap: 20px;
+  gap: 30px;
 `;
 
 export const PRTitle = styled.p`
@@ -25,7 +25,6 @@ export const SubTitle = styled.p`
 `;
 
 export const Content = styled.p`
-  height: 180px;
   font-size: 18px;
   font-family: 400;
   color: ${({ theme }) => theme.colors.gray[10]};

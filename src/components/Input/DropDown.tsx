@@ -52,21 +52,21 @@ export const DropDown = <T extends string | number | object>({
                 : String(value)
               : props.placeholder}
           </PlaceHolderValueInner>
-          <Arrow direction={dropDown ? 'top' : 'bottom'} size='small'/>
+          <Arrow direction={dropDown ? 'top' : 'bottom'} size='small' />
         </DropDownWrapper>
         {dropDown && props.list && (
           <OptionWrapper
             optionFullHeight={props.optionFullHeight}
             top={props.top}
           >
-            {props?.list?.map((e, index) => {
+            {props?.list?.map((e) => {
               return (
                 <Option
                   onClick={() => {
                     props.onClick(e);
                     setDropDown(!dropDown);
                   }}
-                  key={index}
+                  key={e as string}
                 >
                   {typeof e === 'object' && props?.objectKey
                     ? (e[props?.objectKey as keyof T] as React.ReactNode)
