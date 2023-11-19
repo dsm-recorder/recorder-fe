@@ -59,15 +59,14 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100vh;
 `;
 const Wrpaper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
   width: 1100px;
-  height: 100vh;
-  margin-top: 300px;
+  min-height: 100vh;
+  margin: 100px 0px;
 `;
 
 const Title = styled.div`

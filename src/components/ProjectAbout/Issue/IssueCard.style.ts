@@ -5,10 +5,9 @@ export const PRCardWrapper = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  min-height: 360px;
   background-color: ${({ theme }) => theme.colors.gray[70]};
   border-radius: 5px;
-  padding: 15px;
+  padding: 20px;
   gap: 30px;
 `;
 
