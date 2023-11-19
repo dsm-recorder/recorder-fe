@@ -14,7 +14,7 @@ export const GetPRReport = (id: string) => {
     const { data } = await instance.get<IPRRecordsList>(`${ROUTER}/${id}`);
     return data;
   };
-  return useQuery(['PRReport'], response);
+  return useQuery(['PRReport', id], response);
 };
 
 export const GetPRContent = (id: string) => {
@@ -22,7 +22,7 @@ export const GetPRContent = (id: string) => {
     const { data } = await instance.get<IPRRequest>(`${ROUTER}/details/${id}`);
     return data;
   };
-  return useQuery(['PRContent'], response);
+  return useQuery(['PRContent', id], response);
 };
 
 export const PatchPRContent = (id: string) => {
@@ -40,5 +40,5 @@ export const GetSharedPR = (id: string) => {
     );
     return data;
   };
-  return useQuery(['SharedPR'], response);
+  return useQuery(['SharedPR', id], response);
 };

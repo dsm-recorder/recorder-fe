@@ -7,14 +7,15 @@ import { HeartIcon } from '@/asset/icon';
 import { GetSharedProjectDetail } from '@/api/projects';
 import { GetSharedPR } from '@/api/pr-records';
 import ProjectDescription from '@/components/DescriptionBox';
-
+import { PatchLikeProject } from '@/api/likes/indes';
 const ProjectAboutPage = () => {
   const location = useLocation();
 
   const state = location.state as { id: string };
 
-  const { data: SharedProject } = GetSharedProjectDetail(state.id);
-  const { data: SharedPR } = GetSharedPR(state.id);
+  const { data: sharedProject } = GetSharedProjectDetail(state.id);
+  const { data: sharedPR } = GetSharedPR(state.id);
+  const { mutate: projectLike } = PatchLikeProject(state.id);
 
   return (
     <Container>
@@ -23,37 +24,40 @@ const ProjectAboutPage = () => {
           <HStack justify='space-between' gap={30}>
             <ProjectLogoImg
               alt='projectLogoImg'
-              src={SharedProject?.logoImageUrl ?? ''}
+              src={sharedProject?.logoImageUrl}
             />
             <VStack justify='space-between'>
               <HStack gap={30} align='center'>
-                <ProjectName>{SharedProject?.name ?? ''}</ProjectName>
+                <ProjectName>{sharedProject?.name}</ProjectName>
                 <HStack align='center' gap={5}>
-                  <HeartIcon isClicked={SharedProject?.isLiked ?? false} />
-                  {SharedProject?.likeCount ?? 0}
+                  <HeartIcon
+                    cursor='pointer'
+                    isClicked={sharedProject?.isLiked}
+                    onClick={projectLike}
+                  />
+                  {sharedProject?.likeCount}
                 </HStack>
               </HStack>
               <ProjectCreateAt>
-                {SharedProject?.finishDate && `${SharedProject.startDate} ~ `}
-                {SharedProject?.finishDate ?? ''}
+                {sharedProject?.startDate} ~{sharedProject?.finishDate}
               </ProjectCreateAt>
               <ProjectSkills>
-                {SharedProject?.skills.map((skill) => `${skill} `)}
+                {sharedProject?.skills.map((skill) => `${skill} `)}
               </ProjectSkills>
             </VStack>
           </HStack>
         </ProjectInfoWrapper>
         <ProjectDescription
-          description={SharedProject?.about}
+          description={sharedProject?.about}
           label='프로젝트 설명'
         />
         <ProjectDescription
-          description={SharedProject?.role}
+          description={sharedProject?.role}
           label='프로젝트에서 한 역할'
         />
-        <PRList prRecords={SharedPR?.prRecords ?? []} />
+        <PRList prRecords={sharedPR?.prRecords ?? []} />
         <ProjectDescription
-          description={SharedProject?.learned}
+          description={sharedProject?.learned}
           label='프로젝트에서 배운점'
         />
         <Button onClick={() => history.back()}>돌아가기</Button>

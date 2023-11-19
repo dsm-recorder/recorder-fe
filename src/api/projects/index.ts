@@ -93,7 +93,7 @@ export const GetSharedProjectDetail = (id: string) => {
     );
     return data;
   };
-  return useQuery(['SharedProjectDetail'], response);
+  return useQuery(['SharedProjectDetail', id], response);
 };
 
 export const GetMonthlyProject = () => {
@@ -121,5 +121,5 @@ export const GetLikedProjects = () => {
     const { data } = await instance.get<GetProjectsResponse>(`${ROUTER}/liked`);
     return data;
   };
-  return useQuery(['likeProjects'], response);
+  return useQuery(['likedProjects'], response);
 };
