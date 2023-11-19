@@ -50,16 +50,18 @@ const Modal = ({ pr, onClose }: IModalProps) => {
             images={attachmentUrls}
             setImages={setAttachmentUrls}
             value={content}
+            setValue={(e) => setContent(e)}
             onChange={(e) => setContent(e.target.value)}
             label={PRConstant[pr.type].label[0]}
           />
-          {pr.type === 'BUG_FIX' && (
+          {pr.type === 'BUG_FIX' && solution && (
             <TextAreaInput
               isAddImage={true}
               isMapImage={true}
               images={attachmentUrls}
               setImages={setAttachmentUrls}
               value={solution}
+              setValue={(e) => setContent(e)}
               onChange={(e) => setSolution(e.target.value)}
               label={PRConstant.BUG_FIX.label[1]}
             />
