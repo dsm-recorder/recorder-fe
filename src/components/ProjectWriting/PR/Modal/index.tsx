@@ -47,19 +47,23 @@ const Modal = ({ pr, onClose }: IModalProps) => {
           <TextAreaInput
             isAddImage={true}
             isMapImage={pr.type !== 'BUG_FIX'}
+            isSpellCheck={true}
             images={attachmentUrls}
             setImages={setAttachmentUrls}
             value={content}
+            setValue={(e) => setContent(e)}
             onChange={(e) => setContent(e.target.value)}
             label={PRConstant[pr.type].label[0]}
           />
-          {pr.type === 'BUG_FIX' && (
+          {pr.type === 'BUG_FIX' && solution && (
             <TextAreaInput
               isAddImage={true}
               isMapImage={true}
+              isSpellCheck={true}
               images={attachmentUrls}
               setImages={setAttachmentUrls}
               value={solution}
+              setValue={(e) => setContent(e)}
               onChange={(e) => setSolution(e.target.value)}
               label={PRConstant.BUG_FIX.label[1]}
             />

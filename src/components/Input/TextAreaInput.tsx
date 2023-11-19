@@ -1,20 +1,30 @@
 import styled from 'styled-components';
 import Download from '@/asset/icon/Download.svg';
-import { ChangeEvent, HTMLAttributes, useEffect } from 'react';
+import { ChangeEvent, HTMLAttributes, useState, useEffect } from 'react';
 import { DeleteIcon } from '@/asset/icon/DeleteIcon';
 import { PostImage } from '@/api/images';
+import { ErrorDisplay } from '@/components/SpellCheck';
+import { Button } from '@/components/Button';
+
+export interface ErrorInfo {
+  help: string;
+  orgStr: string;
+  candWord: string;
+}
 
 interface TextAreaType extends HTMLAttributes<HTMLTextAreaElement> {
   label?: string;
   name?: string;
   placeholder?: string;
-  onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  setValue: (e: string) => void;
+  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   rows?: number;
   width?: string;
-  value?: string;
+  value: string;
   height?: string;
   isAddImage?: boolean;
   isMapImage?: boolean;
+  isSpellCheck?: boolean
   images?: string[];
   setImages?: React.Dispatch<React.SetStateAction<string[]>>;
   maxLength?: number;
@@ -27,16 +37,20 @@ export const TextAreaInput = ({
   label,
   isAddImage,
   isMapImage,
+  isSpellCheck,
   width,
   height,
   value,
   name,
   onChange,
+  setValue,
   maxLength,
   images,
   setImages,
   spellCheck = false,
 }: TextAreaType) => {
+  const [isClick, setIsClick] = useState<boolean>(false);
+
   const { mutate: ImageMutation, data: imgUrl } = PostImage();
 
   const onChangeAddImages = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,6 +71,14 @@ export const TextAreaInput = ({
     } else if (imgUrl && setImages) setImages([imgUrl.url]);
   }, [imgUrl]);
 
+  const handleSpellCheck = () => {
+    setIsClick(true);
+  };
+
+  const handleEnd = () => {
+    setIsClick(false);
+  };
+
   return (
     <TextAreaContainer>
       <LabelWrapper>
@@ -71,18 +93,32 @@ export const TextAreaInput = ({
             />
           </LabelStyled>
         )}
+        {isSpellCheck && (
+          <Button onClick={isClick ? handleEnd : handleSpellCheck}>
+            {isClick ? '종료' : '검사 시작'}
+          </Button>
+        )}
       </LabelWrapper>
-      <TextArea
-        name={name}
-        value={value}
-        rows={rows}
-        onChange={onChange}
-        placeholder={placeholder}
-        spellCheck={spellCheck}
-        width={width}
-        height={height}
-        maxLength={maxLength}
-      />
+      <TextAreaWrapper width={width} height={height}>
+        <TextArea
+          style={{ display: isClick ? 'none' : 'block' }}
+          name={name}
+          rows={rows}
+          onChange={onChange}
+          placeholder={placeholder}
+          spellCheck={spellCheck}
+          value={value}
+          maxLength={maxLength}
+        />
+        {isSpellCheck && (
+          <ErrorDisplay
+            value={value}
+            isClick={isClick}
+            setIsClick={setIsClick}
+            setValue={setValue}
+          />
+        )}
+      </TextAreaWrapper>
       {isMapImage && (
         <ImagesContainer>
           {images?.map((item) => (
@@ -113,15 +149,14 @@ const TextAreaInputLabel = styled.div`
   font-weight: 600;
 `;
 
-const TextArea = styled.textarea<{ width?: string; height?: string }>`
+const TextArea = styled.textarea`
   resize: none;
   color: ${({ theme }) => theme.colors.gray[100]};
-  background: ${({ theme }) => theme.colors.gray[30]};
+  background: transparent;
   border: none;
   border-radius: 10px;
-  padding: 15px;
-  width: ${({ width }) => width ?? '100%'};
-  height: ${({ height }) => height ?? '170px'};
+  width: 100%;
+  height: 100%;
 `;
 
 const LabelStyled = styled.label`
@@ -184,4 +219,13 @@ export const Div = styled.div`
   cursor: pointer;
   right: 0;
   top: 0;
+`;
+
+const TextAreaWrapper = styled.div<{ width?: string; height?: string }>`
+  background: ${({ theme }) => theme.colors.gray[30]};
+  border: none;
+  border-radius: 10px;
+  padding: 15px;
+  width: ${({ width }) => width ?? '100%'};
+  height: ${({ height }) => height ?? '170px'};
 `;

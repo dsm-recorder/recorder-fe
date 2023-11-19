@@ -99,7 +99,7 @@ export const GetSharedProjectDetail = (id: string) => {
     return data;
   };
 
-  return useQuery(['SharedProjectDetail'], response);
+  return useQuery(['SharedProjectDetail', id], response);
 }
 
 export const GetMonthlyProject = () => {
