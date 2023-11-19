@@ -9,7 +9,6 @@ const BlogCard = ({
   name,
   startDate,
   finishDate,
-  logoImageUrl,
   userProfileUrl,
   userAccountId,
   likeCount,
