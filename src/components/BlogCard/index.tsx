@@ -14,6 +14,7 @@ const BlogCard = ({
   userAccountId,
   likeCount,
   isLiked,
+  logoImageUrl,
 }: projectType) => {
   const navigate = useNavigate();
 
@@ -25,7 +26,7 @@ const BlogCard = ({
 
   return (
     <_._Container onClick={hadleMovePage}>
-      <_._IMG src={ExampleBlog} alt='blog image' />
+      <_._IMG src={logoImageUrl} alt='blog image' />
       <_._CardInfo>
         <_._TEXT size={24} weight={700}>
           {name}
