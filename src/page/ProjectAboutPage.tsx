@@ -2,12 +2,12 @@ import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { HStack, VStack } from '@/components/Stack';
 import PRList from '@/components/ProjectAbout/Issue';
-import { Button } from '@/components/Button';
 import { HeartIcon } from '@/asset/icon';
 import { GetSharedProjectDetail } from '@/api/projects';
 import { GetSharedPR } from '@/api/pr-records';
 import ProjectDescription from '@/components/DescriptionBox';
 import { PatchLikeProject } from '@/api/likes/indes';
+import CommentBox from '@/components/ProjectAbout/comment/CommentBox';
 const ProjectAboutPage = () => {
   const location = useLocation();
 
@@ -27,22 +27,24 @@ const ProjectAboutPage = () => {
               src={sharedProject?.logoImageUrl}
             />
             <VStack justify='space-between'>
-              <HStack gap={30} align='center'>
-                <ProjectName>{sharedProject?.name}</ProjectName>
-                <HStack align='center' gap={5}>
-                  <HeartIcon
-                    cursor='pointer'
-                    isClicked={sharedProject?.isLiked}
-                    onClick={projectLike}
-                  />
-                  {sharedProject?.likeCount}
+              <div>
+                <HStack gap={30} align='center'>
+                  <ProjectName>{sharedProject?.name}</ProjectName>
+                  <HStack align='center' gap={5}>
+                    <HeartIcon
+                      cursor='pointer'
+                      isClicked={sharedProject?.isLiked}
+                      onClick={projectLike}
+                    />
+                    {sharedProject?.likeCount}
+                  </HStack>
                 </HStack>
-              </HStack>
-              <ProjectCreateAt>
-                {sharedProject?.startDate} ~{sharedProject?.finishDate}
-              </ProjectCreateAt>
+                <ProjectCreateAt>
+                  {sharedProject?.startDate} ~ {sharedProject?.finishDate}
+                </ProjectCreateAt>
+              </div>
               <ProjectSkills>
-                {sharedProject?.skills.map((skill) => `${skill} `)}
+                {sharedProject?.skills.map((skill) => `${skill}, `)}
               </ProjectSkills>
             </VStack>
           </HStack>
@@ -60,7 +62,8 @@ const ProjectAboutPage = () => {
           description={sharedProject?.learned}
           label='프로젝트에서 배운점'
         />
-        <Button onClick={() => history.back()}>돌아가기</Button>
+        <hr style={{ width: '100%' }} />
+        <CommentBox projectId={state.id} />
       </PageWrapper>
     </Container>
   );
@@ -78,7 +81,7 @@ const ProjectInfoWrapper = styled.div`
 `;
 
 const Container = styled.div`
-  padding: 180px 300px;
+  padding: 80px 200px;
   min-height: 100vh;
   background-color: ${({ theme }) => theme.colors.gray[10]};
 `;
@@ -111,8 +114,8 @@ const ProjectName = styled.div`
 const ProjectCreateAt = styled.div`
   min-width: 200px;
   color: ${({ theme }) => theme.colors.gray[60]};
-  font-size: 24px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 400;
 `;
 
 const ProjectSkills = styled.div`

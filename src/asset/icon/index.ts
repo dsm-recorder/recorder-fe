@@ -6,4 +6,5 @@ export * from './HeartIcon';
 export * from './NoticeIcon';
 export * from './TrashIcon';
 export * from './DownloadIcon';
+export * from './TrashCanIcon';
 export { default as CrownIcon } from './CrownIcon.png';

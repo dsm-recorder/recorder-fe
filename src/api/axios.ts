@@ -36,28 +36,27 @@ instance.interceptors.response.use(
         error.response.data.message === 'jwt malformed' ||
         error.response.data.message === 'RefreshToken NotFound'
       ) {
-        const originalRequest = config;
         if (refreshToken) {
           ReissueToken(refreshToken)
             .then((res) => {
               customCookie.set.token(res.accessToken, res.refreshToken);
-              if (originalRequest) {
-                if (originalRequest.headers)
-                  originalRequest.headers[
+              if (config) {
+                if (config.headers)
+                  config.headers[
                     'Authorization'
                   ] = `Bearer ${res?.accessToken}`;
-                return axios(originalRequest);
+                return axios(config);
               }
             })
             .catch(() => {
               customCookie.remove.accessToken();
               customCookie.remove.refreshToken();
-              window.location.replace('http://localhost:3000');
+              // window.location.replace('http://localhost:3000');
             });
         } else {
           customCookie.remove.accessToken();
           customCookie.remove.refreshToken();
-          window.location.replace('http://localhost:3000');
+          // window.location.replace('http://localhost:3000');
         }
       } else return Promise.reject(error);
     }
