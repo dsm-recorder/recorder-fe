@@ -132,7 +132,8 @@ const HoverInfo = ({
   onClick: () => void;
 }) => (
   <_.HoverWrapper>
-    {error?.help}
+    {error?.help && <div dangerouslySetInnerHTML={{ __html: error.help }} />}
+    <hr style={{ width: '100%' }} />
     <Button onClick={onClick}>교체 : {error?.candWord}</Button>
   </_.HoverWrapper>
 );
