@@ -52,7 +52,9 @@ const ProjectSharingPage = () => {
             <TextAreaInput
               name='role'
               value={project.role}
+              setValue={(e) => setProject({ ...project, role:  e })}
               onChange={onChangeProject}
+              isSpellCheck={true}
               label='프로젝트에서 한 역할을 입력해주세요'
               height='280px'
               placeholder='프로젝트에서 한 역할을 입력해주세요'
@@ -62,7 +64,9 @@ const ProjectSharingPage = () => {
             <TextAreaInput
               name='learned'
               value={project.learned}
+              setValue={(e) => setProject({ ...project, learned: e })}
               onChange={onChangeProject}
+              isSpellCheck={true}
               label='프로젝트을 통해서 배운점을 입력해주세요'
               height='280px'
               placeholder='프로젝트을 통해서 배운점을 입력해주세요'

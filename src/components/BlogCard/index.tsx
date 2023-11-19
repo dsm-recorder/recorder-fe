@@ -14,6 +14,7 @@ const BlogCard = ({
   userAccountId,
   likeCount,
   isLiked,
+  logoImageUrl,
 }: projectType) => {
   const navigate = useNavigate();
 
