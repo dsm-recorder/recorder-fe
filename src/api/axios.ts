@@ -30,12 +30,13 @@ instance.interceptors.response.use(
       const { config } = error;
       const refreshToken = customCookie.get.refreshToken();
       if (
+        error.response.data.status === 403 ||
+        error.response.data.status === 401 ||
         error.response.data.message === 'jwt must be provided' ||
-        error.response.data.message === 'Expired Token' ||
-        error.response.data.message === 'User Not Found'
+        error.response.data.message === 'jwt malformed' ||
+        error.response.data.message === 'RefreshToken NotFound'
       ) {
         const originalRequest = config;
-
         if (refreshToken) {
           ReissueToken(refreshToken)
             .then((res) => {
@@ -48,18 +49,15 @@ instance.interceptors.response.use(
                 return axios(originalRequest);
               }
             })
-            .catch((res: AxiosError<AxiosError>) => {
-              if (
-                res?.response?.data.status === 404 ||
-                res.response?.data.status === 403 ||
-                res.response?.data.message === 'jwt must be provided' ||
-                res?.response?.data.message === 'Expired Token'
-              ) {
-                customCookie.remove.accessToken();
-                customCookie.remove.refreshToken();
-                window.location.replace('http://localhost:3000');
-              }
+            .catch(() => {
+              customCookie.remove.accessToken();
+              customCookie.remove.refreshToken();
+              window.location.replace('http://localhost:3000');
             });
+        } else {
+          customCookie.remove.accessToken();
+          customCookie.remove.refreshToken();
+          window.location.replace('http://localhost:3000');
         }
       } else return Promise.reject(error);
     }
