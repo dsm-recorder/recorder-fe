@@ -146,6 +146,7 @@ export const ProjectRegisterPage = () => {
             name='description'
             width='100%'
             value={project.description}
+            setValue={(e) => setProject({ ...project, description: e})}
             onChange={onChangeProject}
           />
           <RepositoryWrapper>

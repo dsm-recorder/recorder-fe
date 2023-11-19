@@ -1,17 +1,59 @@
 import styled from 'styled-components';
 import Download from '@/asset/icon/Download.svg';
-import { ChangeEvent, HTMLAttributes, useEffect } from 'react';
+import {
+  ChangeEvent,
+  HTMLAttributes,
+  useState,
+  useEffect,
+  Fragment,
+} from 'react';
 import { DeleteIcon } from '@/asset/icon/DeleteIcon';
 import { PostImage } from '@/api/images';
+import { Button } from '../Button/Button';
+import { GetspellCheck } from '@/api/spells/index';
+
+interface ErrorInfo {
+  help: string;
+  orgStr: string;
+  candWord: string;
+}
+
+interface ErrorSegmentProps {
+  text: string;
+  error?: ErrorInfo;
+  onClick: () => void;
+}
+
+const ErrorSegment = ({ text, error, onClick }: ErrorSegmentProps) => {
+  const [hover, setHover] = useState(false);
+
+  return (
+    <Fragment>
+      <div
+        onClick={() => setHover(!hover)}
+        style={{ backgroundColor: 'yellow' }}
+      >
+        {text}
+      </div>
+      {hover && (
+        <HoverWrapper>
+          {error?.help}
+          <Button onClick={onClick}>교체 : {error?.candWord}</Button>
+        </HoverWrapper>
+      )}
+    </Fragment>
+  );
+};
 
 interface TextAreaType extends HTMLAttributes<HTMLTextAreaElement> {
   label?: string;
   name?: string;
   placeholder?: string;
-  onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  setValue: (e: string) => void;
+  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   rows?: number;
   width?: string;
-  value?: string;
+  value: string;
   height?: string;
   isAddImage?: boolean;
   isMapImage?: boolean;
@@ -32,12 +74,45 @@ export const TextAreaInput = ({
   value,
   name,
   onChange,
+  setValue,
   maxLength,
   images,
   setImages,
   spellCheck = false,
 }: TextAreaType) => {
+  const [isClick, setIsClick] = useState<boolean>(false);
+
   const { mutate: ImageMutation, data: imgUrl } = PostImage();
+  const { data: rightSpell } = GetspellCheck(value, isClick);
+  const [segments, setSegments] = useState<
+    { text: string; error?: ErrorInfo }[]
+  >([]);
+
+  useEffect(() => {
+    if (rightSpell && rightSpell.errorInfo) {
+      const errorInfo = rightSpell.errorInfo;
+      let lastIndex = 0;
+      const newSegments: { text: string; error?: ErrorInfo }[] = [];
+
+      errorInfo.forEach((error) => {
+        const { start, end, orgStr, candWord } = error;
+        if (start > lastIndex) {
+          newSegments.push({ text: value.slice(lastIndex, start) });
+        }
+        newSegments.push({
+          text: value.slice(start, end),
+          error: { help: error.help, orgStr, candWord },
+        });
+        lastIndex = end;
+      });
+
+      if (lastIndex < value.length) {
+        newSegments.push({ text: value.slice(lastIndex) });
+      }
+
+      setSegments(newSegments);
+    }
+  }, [value, rightSpell]);
 
   const onChangeAddImages = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -57,6 +132,34 @@ export const TextAreaInput = ({
     } else if (imgUrl && setImages) setImages([imgUrl.url]);
   }, [imgUrl]);
 
+  const handleSpellCheck = () => {
+    setIsClick(true);
+  };
+
+  const handleEnd = () => {
+    const updatedSegments = segments.map((segment) =>
+      segment.error ? { text: segment.text } : { text: segment.text }
+    );
+
+    const updatedValue = updatedSegments
+      .map((segment) => segment.text)
+      .join('');
+
+    setValue(updatedValue);
+    setIsClick(false);
+  };
+
+  const handleSuggestionClick = (index: number) => {
+    const updatedSegments = segments.map((segment, i) => {
+      if (i === index && segment.error) {
+        return { text: segment.error.candWord };
+      } else {
+        return { text: segment.text, error: segment.error };
+      }
+    });
+    setSegments(updatedSegments);
+  };
+
   return (
     <TextAreaContainer>
       <LabelWrapper>
@@ -71,18 +174,39 @@ export const TextAreaInput = ({
             />
           </LabelStyled>
         )}
+        <Button onClick={isClick ? handleEnd : handleSpellCheck}>
+          {isClick ? '종료' : '검사 시작'}
+        </Button>
       </LabelWrapper>
-      <TextArea
-        name={name}
-        value={value}
-        rows={rows}
-        onChange={onChange}
-        placeholder={placeholder}
-        spellCheck={spellCheck}
-        width={width}
-        height={height}
-        maxLength={maxLength}
-      />
+      <TextAreaWrapper width={width} height={height}>
+        <TextArea
+          style={{ display: isClick ? 'none' : 'block' }}
+          name={name}
+          rows={rows}
+          onChange={onChange}
+          placeholder={placeholder}
+          spellCheck={spellCheck}
+          value={value}
+          maxLength={maxLength}
+        />
+        <ErrorWrapper style={{ display: isClick ? 'flex' : 'none' }}>
+          {segments.map((segment, index) => (
+            <div key={index}>
+              {segment.error ? (
+                <Fragment>
+                  <ErrorSegment
+                    text={segment.text}
+                    error={segment.error}
+                    onClick={() => handleSuggestionClick(index)}
+                  />
+                </Fragment>
+              ) : (
+                <div>{segment.text}</div>
+              )}
+            </div>
+          ))}
+        </ErrorWrapper>
+      </TextAreaWrapper>
       {isMapImage && (
         <ImagesContainer>
           {images?.map((item) => (
@@ -113,15 +237,14 @@ const TextAreaInputLabel = styled.div`
   font-weight: 600;
 `;
 
-const TextArea = styled.textarea<{ width?: string; height?: string }>`
+const TextArea = styled.textarea`
   resize: none;
   color: ${({ theme }) => theme.colors.gray[100]};
-  background: ${({ theme }) => theme.colors.gray[30]};
+  background: transparent;
   border: none;
   border-radius: 10px;
-  padding: 15px;
-  width: ${({ width }) => width ?? '100%'};
-  height: ${({ height }) => height ?? '170px'};
+  width: 100%;
+  height: 100%;
 `;
 
 const LabelStyled = styled.label`
@@ -184,4 +307,29 @@ export const Div = styled.div`
   cursor: pointer;
   right: 0;
   top: 0;
+`;
+
+const TextAreaWrapper = styled.div<{ width?: string; height?: string }>`
+  background: ${({ theme }) => theme.colors.gray[30]};
+  border: none;
+  border-radius: 10px;
+  padding: 15px;
+  width: ${({ width }) => width ?? '100%'};
+  height: ${({ height }) => height ?? '170px'};
+`;
+
+const ErrorWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
+const HoverWrapper = styled.div`
+  width: 400px;
+  height: auto;
+  padding: 10px;
+  background-color: ${({ theme }) => theme.colors.gray[60]};
+  color: white;
 `;
