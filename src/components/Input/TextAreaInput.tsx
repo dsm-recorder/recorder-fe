@@ -24,6 +24,7 @@ interface TextAreaType extends HTMLAttributes<HTMLTextAreaElement> {
   height?: string;
   isAddImage?: boolean;
   isMapImage?: boolean;
+  isSpellCheck?: boolean
   images?: string[];
   setImages?: React.Dispatch<React.SetStateAction<string[]>>;
   maxLength?: number;
@@ -36,6 +37,7 @@ export const TextAreaInput = ({
   label,
   isAddImage,
   isMapImage,
+  isSpellCheck,
   width,
   height,
   value,
@@ -91,9 +93,11 @@ export const TextAreaInput = ({
             />
           </LabelStyled>
         )}
-        <Button onClick={isClick ? handleEnd : handleSpellCheck}>
-          {isClick ? '종료' : '검사 시작'}
-        </Button>
+        {isSpellCheck && (
+          <Button onClick={isClick ? handleEnd : handleSpellCheck}>
+            {isClick ? '종료' : '검사 시작'}
+          </Button>
+        )}
       </LabelWrapper>
       <TextAreaWrapper width={width} height={height}>
         <TextArea
@@ -106,12 +110,14 @@ export const TextAreaInput = ({
           value={value}
           maxLength={maxLength}
         />
-        <ErrorDisplay
-          value={value}
-          isClick={isClick}
-          setIsClick={setIsClick}
-          setValue={setValue}
-        />
+        {isSpellCheck && (
+          <ErrorDisplay
+            value={value}
+            isClick={isClick}
+            setIsClick={setIsClick}
+            setValue={setValue}
+          />
+        )}
       </TextAreaWrapper>
       {isMapImage && (
         <ImagesContainer>

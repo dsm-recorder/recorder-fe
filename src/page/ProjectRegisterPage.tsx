@@ -148,6 +148,7 @@ export const ProjectRegisterPage = () => {
             value={project.description}
             setValue={(e) => setProject({ ...project, description: e})}
             onChange={onChangeProject}
+            isSpellCheck={true}
           />
           <RepositoryWrapper>
             <HStack gap={60} align='center'>
