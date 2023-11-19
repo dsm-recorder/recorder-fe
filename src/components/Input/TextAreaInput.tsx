@@ -151,6 +151,7 @@ const TextAreaInputLabel = styled.div`
 const TextArea = styled.textarea`
   resize: none;
   color: ${({ theme }) => theme.colors.gray[100]};
+  font-size: 14px;
   background: transparent;
   border: none;
   border-radius: 10px;
@@ -223,6 +224,7 @@ export const Div = styled.div`
 const TextAreaWrapper = styled.div<{ width?: string; height?: string }>`
   background: ${({ theme }) => theme.colors.gray[30]};
   border: none;
+  overflow: auto;
   border-radius: 10px;
   padding: 15px;
   width: ${({ width }) => width ?? '100%'};

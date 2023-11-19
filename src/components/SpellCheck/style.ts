@@ -20,3 +20,7 @@ export const ErrorWrapper = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
 `;
+
+export const ErrorText = styled.div`
+  font-size: 14px;
+`
