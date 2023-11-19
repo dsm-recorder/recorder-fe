@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 
 export const PRCardWrapper = styled.label`
+  cursor: pointer;
   padding: 15px;
   width: 100%;
   min-width: 210px;
@@ -10,6 +11,7 @@ export const PRCardWrapper = styled.label`
 `;
 
 export const PRTitle = styled.div`
+  width: 300px;
   color: ${({ theme }) => theme.colors.gray[10]};
   font-size: 24px;
   font-weight: 600;
@@ -41,8 +43,8 @@ export const PRProgressBar = styled.div`
   background-color: ${({ theme }) => theme.colors.gray[50]};
 `;
 
-export const PRImport = styled.div<{ percent: number}>`
-  width: ${({percent}) =>  `${percent}%`};
+export const PRImport = styled.div<{ percent: number }>`
+  width: ${({ percent }) => `${percent}%`};
   height: 15px;
   border-radius: 20px;
   background-color: ${({ theme }) => theme.colors.gray[20]};

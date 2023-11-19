@@ -14,6 +14,7 @@ import { IRepoResponse } from '@/api/projects/type';
 import { PostImage } from '@/api/images';
 import { RepositoryCard } from '@/components/RepositoryCard';
 import { useInput } from '@/hook/useInput';
+import { onKeyDownRunfFn } from '@/util/onKeyDownRunfFn';
 
 export const ProjectRegisterPage = () => {
   const [searchRepo, setSearchRepo] = useState('');
@@ -146,7 +147,7 @@ export const ProjectRegisterPage = () => {
             name='description'
             width='100%'
             value={project.description}
-            setValue={(e) => setProject({ ...project, description: e})}
+            setValue={(e) => setProject({ ...project, description: e })}
             onChange={onChangeProject}
             isSpellCheck={true}
           />
@@ -203,7 +204,7 @@ export const ProjectRegisterPage = () => {
                 label='사용 기술'
                 placeholder='사용한 기술을 입력해주세요'
                 value={skillInput}
-                onKeyDown={(e) => e.key === 'Enter' && onAddSkills()}
+                onKeyDown={(e) => onKeyDownRunfFn(e, onAddSkills)}
                 onChange={(e) => {
                   setSkillInput(e.target.value);
                 }}

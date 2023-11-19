@@ -42,7 +42,7 @@ export const TypeBox = styled.div`
   align-items: center;
   justify-content: center;
   height: 30px;
-  width: auto;
+  width: 90px;
   padding: 15px;
   border-radius: 10px;
   color: ${({ theme }) => theme.colors.gray[10]};
@@ -58,6 +58,7 @@ export const Right = styled.div`
 `;
 
 export const ModalLabel = styled.p`
+  width: 340px;
   font-size: 22px;
   font-weight: 600;
 `;

@@ -13,6 +13,7 @@ import { DeleteReport, PatchReport, PostAddReport } from '@/api/daily-reports';
 import { useLocation } from 'react-router-dom';
 import { myProjectResponseType } from '@/api/projects/type';
 import { useInput } from '@/hook/useInput';
+import { onKeyDownRunfFn } from '@/util/onKeyDownRunfFn';
 
 const TodoList = ({ todos }: ITodoList) => {
   const [todoLists, setTodos] = useState<ITodo[]>(todos);
@@ -66,6 +67,7 @@ const TodoList = ({ todos }: ITodoList) => {
           placeholder='해야 할 일을 입력해주세요'
           width='100%'
           value={content}
+          onKeyDown={(e) => onKeyDownRunfFn(e, addTodo)}
           onChange={onChangeContent}
         />
         <Button onClick={addTodo}>추가</Button>
@@ -75,9 +77,9 @@ const TodoList = ({ todos }: ITodoList) => {
           <DropZone title='Todo' accept='todo' onDrop={handleDrop(false)}>
             {todoLists
               .filter((todo) => !todo.complete)
-              .map((todo, index) => (
+              .map((todo) => (
                 <DraggableTodo
-                  key={index}
+                  key={todo.id}
                   onClick={() => deleteTodo(todo.id)}
                   {...todo}
                 />
@@ -86,9 +88,9 @@ const TodoList = ({ todos }: ITodoList) => {
           <DropZone title='Done' accept='todo' onDrop={handleDrop(true)}>
             {todoLists
               .filter((todo) => todo.complete)
-              .map((todo, index) => (
+              .map((todo) => (
                 <DraggableTodo
-                  key={index}
+                  key={todo.id}
                   onClick={() => deleteTodo(todo.id)}
                   {...todo}
                 />

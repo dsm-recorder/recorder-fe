@@ -7,12 +7,7 @@ interface ITodoCardProps extends ITodo {
   onClick: () => void;
 }
 
-const DraggableTodo = ({
-  id,
-  content,
-  complete,
-  onClick,
-}: ITodoCardProps) => {
+const DraggableTodo = ({ id, content, complete, onClick }: ITodoCardProps) => {
   const [{ isDragging }, drag] = useDrag({
     type: 'todo',
     item: { id, content, complete },

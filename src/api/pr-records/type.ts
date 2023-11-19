@@ -30,5 +30,5 @@ export interface IPRRequest {
 }
 
 export interface IPRRequestList {
-  prRecords: IPRRequest[]
+  prRecords: IPRRequest[];
 }

@@ -10,7 +10,9 @@ export const GetUserInfo = () => {
     const { data } = await instance.get<IGetUserInfoResponse>(`${ROUTER}/my`);
     return data;
   };
-  return useQuery(['userInfo'], response);
+  return useQuery(['userInfo'], response, {
+    enabled: !!customCookie.get.accessToken(),
+  });
 };
 
 export const DeleteUser = () => {

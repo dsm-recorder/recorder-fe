@@ -30,36 +30,33 @@ instance.interceptors.response.use(
       const { config } = error;
       const refreshToken = customCookie.get.refreshToken();
       if (
+        error.response.data.status === 403 ||
+        error.response.data.status === 401 ||
         error.response.data.message === 'jwt must be provided' ||
-        error.response.data.message === 'Expired Token' ||
-        error.response.data.message === 'User Not Found'
+        error.response.data.message === 'jwt malformed' ||
+        error.response.data.message === 'RefreshToken NotFound'
       ) {
-        const originalRequest = config;
-
         if (refreshToken) {
           ReissueToken(refreshToken)
             .then((res) => {
               customCookie.set.token(res.accessToken, res.refreshToken);
-              if (originalRequest) {
-                if (originalRequest.headers)
-                  originalRequest.headers[
+              if (config) {
+                if (config.headers)
+                  config.headers[
                     'Authorization'
                   ] = `Bearer ${res?.accessToken}`;
-                return axios(originalRequest);
+                return axios(config);
               }
             })
-            .catch((res: AxiosError<AxiosError>) => {
-              if (
-                res?.response?.data.status === 404 ||
-                res.response?.data.status === 403 ||
-                res.response?.data.message === 'jwt must be provided' ||
-                res?.response?.data.message === 'Expired Token'
-              ) {
-                customCookie.remove.accessToken();
-                customCookie.remove.refreshToken();
-                window.location.replace('http://localhost:3000');
-              }
+            .catch(() => {
+              customCookie.remove.accessToken();
+              customCookie.remove.refreshToken();
+              // window.location.replace('http://localhost:3000');
             });
+        } else {
+          customCookie.remove.accessToken();
+          customCookie.remove.refreshToken();
+          // window.location.replace('http://localhost:3000');
         }
       } else return Promise.reject(error);
     }

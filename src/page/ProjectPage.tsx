@@ -1,16 +1,18 @@
+import { useState } from 'react';
+import styled from 'styled-components';
 import { GetLikedProjects, GetPublishedProjects } from '@/api/projects';
 import { HeartIcon } from '@/asset/icon';
 import BlogCard from '@/components/BlogCard';
 import { Input } from '@/components/Input';
 import { HStack } from '@/components/Stack';
+import useDebounce from '@/hook/useDebounce';
 import { useInput } from '@/hook/useInput';
 import { toLowerCase } from '@/util/toLowerCase';
-import { useState } from 'react';
-import styled from 'styled-components';
 
 const ProjectPage = () => {
   const { form, onChange } = useInput('');
   const [isShowLiked, setIsShowLiked] = useState(false);
+  const debouncedValue = useDebounce(form);
 
   const { data: publishedProjects } = GetPublishedProjects();
   const { data: likedProjects } = GetLikedProjects();
@@ -18,6 +20,10 @@ const ProjectPage = () => {
   const showProjects = isShowLiked
     ? likedProjects?.projects
     : publishedProjects?.projects;
+
+  const filteredProject = showProjects?.filter((project) =>
+    toLowerCase(project.name).includes(toLowerCase(debouncedValue))
+  );
 
   return (
     <Container>
@@ -37,13 +43,9 @@ const ProjectPage = () => {
           />
         </FilterWrapper>
         <HStack wrap='wrap' gap={25}>
-          {showProjects
-            ?.filter((project) =>
-              toLowerCase(project.name).includes(toLowerCase(form))
-            )
-            .map((project) => (
-              <BlogCard key={project.id} {...project} />
-            ))}
+          {filteredProject?.map((project) => (
+            <BlogCard key={project.id} {...project} />
+          ))}
         </HStack>
       </Wrpaper>
     </Container>

@@ -8,19 +8,16 @@ export const PostImage = () => {
   const response = async (param: File) => {
     const formData = new FormData();
     formData.append('image', param);
-
     const config = {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     };
-
     const { data } = await instance.post<IImgResponse>(
       `${ROUTER}`,
       formData,
       config
     );
-
     return data;
   };
 

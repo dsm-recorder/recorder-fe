@@ -19,9 +19,13 @@ const ProjectWritingPage = () => {
   const { data: prLists } = GetPRReport(state.id);
 
   const handleButtonClick = () => {
-    navigate(`/project-writing/${state.name}/sharing`, {
-      state: { id: state.id },
-    });
+    if (prLists?.prRecords.length === 0) {
+      alert('PR을 작성한 뒤 내보내기를 해주세요');
+    } else {
+      navigate(`/project-writing/${state.name}/sharing`, {
+        state: { id: state.id },
+      });
+    }
   };
 
   return (
@@ -37,7 +41,10 @@ const ProjectWritingPage = () => {
           </HStack>
           <Button onClick={handleButtonClick}>프로젝트 종료</Button>
         </ProjectInfoWrapper>
-        <ProjectDescription description={state.description} label='프로젝트 설명'/>
+        <ProjectDescription
+          description={state.description}
+          label='프로젝트 설명'
+        />
         <TodoList todos={todoLists?.todos ?? []} />
         <PRList prRecords={prLists?.prRecords ?? []} />
       </PageWrapper>

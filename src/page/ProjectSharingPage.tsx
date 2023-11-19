@@ -19,7 +19,7 @@ const ProjectSharingPage = () => {
     setForm: setProject,
     onChange: onChangeProject,
   } = useInput({
-    role:'',
+    role: '',
     learned: '',
     prRecordIds: [] as string[],
   });
@@ -75,9 +75,9 @@ const ProjectSharingPage = () => {
           <SlideWrapper>
             <Label>포트폴리오에 들어갈 이슈나 개선사항을 선택해주세요</Label>
             <PRCheckWrapper>
-              {prLists?.prRecords.map((pr, index) => {
+              {prLists?.prRecords.map((pr) => {
                 return (
-                  <PRCard key={index} {...pr}>
+                  <PRCard key={pr.id} {...pr}>
                     <CheckBoxInput
                       name='prRecordIds'
                       value={project.prRecordIds}
@@ -98,13 +98,13 @@ const ProjectSharingPage = () => {
             direction='left'
             size='large'
             onClick={onClickLeftSLide}
-            disabled={slideIdx != 0}
+            disabled={slideIdx == 0}
           />
           <Arrow
             direction='right'
             size='large'
             onClick={onClickRightSLide}
-            disabled={slideIdx != 2}
+            disabled={slideIdx == 2}
           />
         </ButtonWrapper>
       </PageWrapper>

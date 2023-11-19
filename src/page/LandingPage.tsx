@@ -28,13 +28,17 @@ const LandingPage = () => {
       </Container>
       <Container>
         <Title>
-          <img src={CrownIcon} alt='CrownIcon' />
+          <img
+            src={CrownIcon}
+            alt='CrownIcon'
+            style={{ width: '58px', height: '58px' }}
+          />
           <br />
           이달의 포트폴리오
         </Title>
         <HStack gap={40}>
           {monthlyProject?.projects?.map((project) => (
-            <BlogCard {...project} />
+            <BlogCard key={project.id} {...project} />
           ))}
         </HStack>
       </Container>

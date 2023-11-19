@@ -13,6 +13,7 @@ export const BoxWrapper = styled.div`
 `;
 
 export const TodoWrapper = styled.div`
+  cursor: pointer;
   width: 50%;
   display: flex;
   flex-direction: column;
@@ -36,11 +37,11 @@ export const TodoCardWrapper = styled.div`
 
 export const TodoScroll = styled.div`
   gap: 30px;
-  height: 420px;
   max-height: 420px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
+  overflow: scroll;
   background-color: ${({ theme }) => theme.colors.gray[70]};
 `;

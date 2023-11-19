@@ -6,6 +6,7 @@ export const HeartIcon = ({ ...props }: IIconType) => {
       xmlns='http://www.w3.org/2000/svg'
       height='1em'
       viewBox='0 0 512 512'
+      onClick={props.onClick}
       style={{ cursor: props.cursor }}
     >
       <mask

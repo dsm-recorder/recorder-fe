@@ -1,3 +1,3 @@
 export interface IImgResponse {
-  url: string
+  url: string;
 }

@@ -27,8 +27,8 @@ export type myProjectResponseType = {
   isPublished: 0 | 1;
   createdAt: string;
   finishDate: string | null;
-  description: string
-}
+  description: string;
+};
 
 export interface IProjectShare {
   role: string;
@@ -47,7 +47,7 @@ export interface ISharedProjectDetail {
   role: string;
   learned: string;
   isLiked: boolean;
-};
+}
 
 export type projectType = {
   id: string;
