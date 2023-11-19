@@ -22,10 +22,13 @@ const WriteComment = ({ projectId }: { projectId: string }) => {
       <TextAreaInput
         placeholder='댓글을 작성하세요'
         value={comment}
+        setValue={setComment}
         onChange={onChangeComment}
       />
       <div style={{ width: '110px' }}>
-        <Button onClick={onClick}>댓글 작성</Button>
+        <Button onClick={onClick} disabled={comment.trim() === ''}>
+          댓글 작성
+        </Button>
       </div>
     </VStack>
   );
