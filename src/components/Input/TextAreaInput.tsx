@@ -1,16 +1,10 @@
 import styled from 'styled-components';
 import Download from '@/asset/icon/Download.svg';
-import {
-  ChangeEvent,
-  HTMLAttributes,
-  useState,
-  useEffect,
-} from 'react';
+import { ChangeEvent, HTMLAttributes, useState, useEffect } from 'react';
 import { DeleteIcon } from '@/asset/icon/DeleteIcon';
 import { PostImage } from '@/api/images';
-import { Button } from '@/components/Button';
-import { GetspellCheck } from '@/api/spells/index';
 import { ErrorDisplay } from '@/components/SpellCheck';
+import { Button } from '@/components/Button';
 
 export interface ErrorInfo {
   help: string;
@@ -56,36 +50,6 @@ export const TextAreaInput = ({
   const [isClick, setIsClick] = useState<boolean>(false);
 
   const { mutate: ImageMutation, data: imgUrl } = PostImage();
-  const { mutate: GetSpellMutataion, data: rightSpell } = GetspellCheck();
-  const [segments, setSegments] = useState<
-    { text: string; error?: ErrorInfo }[]
-  >([]);
-
-  useEffect(() => {
-    if (rightSpell && rightSpell.errorInfo) {
-      const errorInfo = rightSpell.errorInfo;
-      let lastIndex = 0;
-      const newSegments: { text: string; error?: ErrorInfo }[] = [];
-
-      errorInfo.forEach((error) => {
-        const { start, end, orgStr, candWord } = error;
-        if (start > lastIndex) {
-          newSegments.push({ text: value.slice(lastIndex, start) });
-        }
-        newSegments.push({
-          text: value.slice(start, end),
-          error: { help: error.help, orgStr, candWord },
-        });
-        lastIndex = end;
-      });
-
-      if (lastIndex < value.length) {
-        newSegments.push({ text: value.slice(lastIndex) });
-      }
-
-      setSegments(newSegments);
-    }
-  }, [value, rightSpell]);
 
   const onChangeAddImages = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -107,31 +71,10 @@ export const TextAreaInput = ({
 
   const handleSpellCheck = () => {
     setIsClick(true);
-    GetSpellMutataion(value)
   };
 
   const handleEnd = () => {
-    const updatedSegments = segments.map((segment) =>
-      segment.error ? { text: segment.text } : { text: segment.text }
-    );
-
-    const updatedValue = updatedSegments
-      .map((segment) => segment.text)
-      .join('');
-
-    setValue(updatedValue);
     setIsClick(false);
-  };
-
-  const handleSuggestionClick = (index: number) => {
-    const updatedSegments = segments.map((segment, i) => {
-      if (i === index && segment.error) {
-        return { text: segment.error.candWord };
-      } else {
-        return { text: segment.text, error: segment.error };
-      }
-    });
-    setSegments(updatedSegments);
   };
 
   return (
@@ -140,21 +83,21 @@ export const TextAreaInput = ({
         {label && <TextAreaInputLabel>{label}</TextAreaInputLabel>}
         {isAddImage && (
           <LabelStyled>
-            <img src={Download} alt="DownloadIcon" />
+            <img src={Download} alt='DownloadIcon' />
             <InputStyled
-              accept="image/*"
-              type="file"
+              accept='image/*'
+              type='file'
               onChange={onChangeAddImages}
             />
           </LabelStyled>
         )}
         <Button onClick={isClick ? handleEnd : handleSpellCheck}>
-          {isClick ? "종료" : "검사 시작"}
+          {isClick ? '종료' : '검사 시작'}
         </Button>
       </LabelWrapper>
       <TextAreaWrapper width={width} height={height}>
         <TextArea
-          style={{ display: isClick ? "none" : "block" }}
+          style={{ display: isClick ? 'none' : 'block' }}
           name={name}
           rows={rows}
           onChange={onChange}
@@ -164,16 +107,17 @@ export const TextAreaInput = ({
           maxLength={maxLength}
         />
         <ErrorDisplay
+          value={value}
           isClick={isClick}
-          segments={segments}
-          handleSuggestionClick={handleSuggestionClick}
+          setIsClick={setIsClick}
+          setValue={setValue}
         />
       </TextAreaWrapper>
       {isMapImage && (
         <ImagesContainer>
           {images?.map((item) => (
             <ImageWrapper key={item}>
-              <Img src={item} alt="img" />
+              <Img src={item} alt='img' />
               <Div>
                 <DeleteIconStyled onClick={() => onClickDeleteImage(item)} />
               </Div>
