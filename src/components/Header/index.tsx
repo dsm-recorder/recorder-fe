@@ -35,16 +35,15 @@ const index = () => {
           <_._UserImg src={data?.profileImageUrl} />
         </HStack>
       ) : (
-        <_._LoginWrapper> 
+        <_._LoginWrapper
+          onClick={() =>
+            (window.location.href = `${
+              import.meta.env.VITE_BASE_URL
+            }/auth/oauth/github`)
+          }
+        >
           <GithubIcon />
-          <_._Login
-            onClick={() =>
-              (window.location.href =
-                'http://52.79.89.3:3030/auth/oauth/github')
-            }
-          >
-            로그인 / 회원가입
-          </_._Login>
+          <_._Login>로그인 / 회원가입</_._Login>
         </_._LoginWrapper>
       )}
     </_._Container>
