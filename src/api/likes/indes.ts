@@ -36,7 +36,7 @@ export const PatchLikeProject = (projectId: string) => {
       // 쿼리 함수의 성공하면 -> 기존 선택지 데이터 무효화
       queryClient.invalidateQueries(querykey);
     },
-    onError: (error, _, context) => {
+    onError: (_error, _, context) => {
       queryClient.setQueryData(querykey, context);
     },
   });
