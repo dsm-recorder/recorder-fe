@@ -91,7 +91,7 @@ export const ErrorDisplay = ({
               />
             </Fragment>
           ) : (
-            <div>{segment.text}</div>
+            <_.ErrorText>{segment.text}</_.ErrorText>
           )}
         </div>
       ))}
@@ -119,9 +119,9 @@ const HoverableText = ({
   text: string;
   setHover: React.Dispatch<React.SetStateAction<boolean>>;
 }) => (
-  <div onClick={() => setHover(!hover)} style={{ backgroundColor: 'yellow' }}>
+  <_.ErrorText onClick={() => setHover(!hover)} style={{ backgroundColor: 'yellow' }}>
     {text}
-  </div>
+  </_.ErrorText>
 );
 
 const HoverInfo = ({
