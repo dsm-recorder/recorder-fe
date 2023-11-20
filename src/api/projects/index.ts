@@ -9,6 +9,7 @@ import {
   ISharedProjectDetail,
   myProjectResponseType,
 } from './type';
+import { defaultDomain } from '@/constant/env';
 
 const ROUTER = '/projects';
 
@@ -29,7 +30,7 @@ export const PostProject = () => {
   return useMutation(response, {
     onSuccess: () => {
       alert('등록 성공');
-      window.location.replace('http://localhost:3000/mypage');
+      window.location.replace(`${defaultDomain}/mypage`);
     },
     onError: (e) => {
       alert(e);
@@ -78,7 +79,7 @@ export const PatchShareProject = (id: string) => {
   return useMutation(response, {
     onSuccess: () => {
       alert('공유되었습니다.');
-      window.location.href = 'http://localhost:3000/mypage';
+      window.location.href = `${defaultDomain}/mypage`;
     },
     onError: (e) => {
       alert(e);

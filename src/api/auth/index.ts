@@ -2,6 +2,7 @@ import { instance } from '../axios';
 import { IAuthorizationResponse } from './types';
 import { useMutation } from '@tanstack/react-query';
 import { customCookie } from '@/util/customCookie';
+import { defaultDomain } from '@/constant/env';
 
 const ROUTER = 'auth';
 
@@ -30,7 +31,7 @@ export const PostLogin = () => {
       alert('로그인에 실패하였습니다.');
     },
     onSettled: () => {
-      window.location.href = 'http://localhost:3000';
+      window.location.href = defaultDomain;
     },
   });
 };

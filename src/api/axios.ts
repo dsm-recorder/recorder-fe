@@ -1,6 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import { customCookie } from '@/util/customCookie';
 import { ReissueToken } from './auth';
+import { defaultDomain } from '@/constant/env';
 
 export const instance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -51,12 +52,12 @@ instance.interceptors.response.use(
             .catch(() => {
               customCookie.remove.accessToken();
               customCookie.remove.refreshToken();
-              // window.location.replace('http://localhost:3000');
+              window.location.replace(defaultDomain);
             });
         } else {
           customCookie.remove.accessToken();
           customCookie.remove.refreshToken();
-          // window.location.replace('http://localhost:3000');
+          window.location.replace(defaultDomain);
         }
       } else return Promise.reject(error);
     }

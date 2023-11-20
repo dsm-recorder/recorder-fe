@@ -2,6 +2,7 @@ import { instance } from '../axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { IGetUserInfoResponse } from './type';
 import { customCookie } from '@/util/customCookie';
+import { defaultDomain } from '@/constant/env';
 
 const ROUTER = 'users';
 
@@ -27,7 +28,7 @@ export const DeleteUser = () => {
       alert('계정이 삭제 되었습니다');
       customCookie.remove.accessToken();
       customCookie.remove.refreshToken();
-      window.location.href = 'http://localhost:3000';
+      window.location.href = defaultDomain;
     },
   });
 };
