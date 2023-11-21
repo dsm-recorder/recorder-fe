@@ -6,7 +6,7 @@ import { GetUserInfo } from '@/api/users';
 import { customCookie } from '@/util/customCookie';
 import { TabMenu } from '@/constant/header';
 
-const index = () => {
+const Header = () => {
   const location = useLocation();
   const accessToken = customCookie.get.accessToken();
   const { data } = GetUserInfo();
@@ -50,4 +50,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Header;

@@ -6,7 +6,7 @@ import { HeartIcon } from '@/asset/icon';
 import { GetSharedProjectDetail } from '@/api/projects';
 import { GetSharedPR } from '@/api/pr-records';
 import ProjectDescription from '@/components/DescriptionBox';
-import { PatchLikeProject } from '@/api/likes/indes';
+import { PatchLikeProject } from '@/api/likes';
 import CommentBox from '@/components/ProjectAbout/comment/CommentBox';
 const ProjectAboutPage = () => {
   const location = useLocation();
