@@ -47,7 +47,6 @@ const Modal = ({ pr, onClose }: IModalProps) => {
           <TextAreaInput
             isAddImage={true}
             isMapImage={pr.type !== 'BUG_FIX'}
-            isSpellCheck={true}
             images={attachmentUrls}
             setImages={setAttachmentUrls}
             value={content}
@@ -59,7 +58,6 @@ const Modal = ({ pr, onClose }: IModalProps) => {
             <TextAreaInput
               isAddImage={true}
               isMapImage={true}
-              isSpellCheck={true}
               images={attachmentUrls}
               setImages={setAttachmentUrls}
               value={solution}
