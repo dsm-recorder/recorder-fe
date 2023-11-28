@@ -79,21 +79,19 @@ export const ErrorDisplay = ({
   };
 
   return (
-    <_.ErrorWrapper style={{ display: isClick ? 'flex' : 'none' }}>
+    <_.ErrorWrapper style={{ display: isClick ? 'block' : 'none' }}>
       {segments.map((segment, index) => (
-        <div key={index}>
+        <Fragment key={index}>
           {segment.error ? (
-            <Fragment>
               <ErrorSegment
                 text={segment.text}
                 error={segment.error}
                 onClick={() => handleSuggestionClick(index)}
               />
-            </Fragment>
           ) : (
-            <_.ErrorText>{segment.text}</_.ErrorText>
+              <Fragment>{segment.text}</Fragment>
           )}
-        </div>
+        </Fragment>
       ))}
     </_.ErrorWrapper>
   );

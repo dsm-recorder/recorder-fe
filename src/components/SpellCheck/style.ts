@@ -16,12 +16,9 @@ export const HoverWrapper = styled.div`
 
 export const ErrorWrapper = styled.div`
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
 `;
 
 export const ErrorText = styled.div`
   cursor: pointer;
-  font-size: 14px;
+    font-size: 14px;
 `;
