@@ -15,6 +15,7 @@ import { PostImage } from '@/api/images';
 import { RepositoryCard } from '@/components/RepositoryCard';
 import { useInput } from '@/hook/useInput';
 import { onKeyDownRunfFn } from '@/util/onKeyDownRunfFn';
+import { toLowerCase } from '@/util/toLowerCase';
 
 export const ProjectRegisterPage = () => {
   const [searchRepo, setSearchRepo] = useState('');
@@ -44,7 +45,7 @@ export const ProjectRegisterPage = () => {
   const { mutate: ImageMutation, data: imgUrl } = PostImage();
 
   const FilterRepo = selectRepos?.filter((repoName) =>
-    repoName.name.includes(searchRepo)
+    toLowerCase(repoName.name).includes(toLowerCase(searchRepo))
   );
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
