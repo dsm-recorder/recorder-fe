@@ -9,10 +9,12 @@ import Footer from '@/components/Footer';
 import ProjectSharingPage from '@/page/ProjectSharingPage';
 import ProjectAboutPage from '@/page/ProjectAboutPage';
 import ProjectPage from '@/page/ProjectPage';
+import ScrollToTop from './util/ScrollToTop';
 
 export const Router = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Header />
       <Routes>
         <Route path='/' element={<LandingPage />} />
