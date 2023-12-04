@@ -67,9 +67,9 @@ const ProjectSharingPage = () => {
               setValue={(e) => setProject({ ...project, learned: e })}
               onChange={onChangeProject}
               isSpellCheck={true}
-              label='프로젝트을 통해서 배운점을 입력해주세요'
+              label='프로젝트를 통해서 배운점을 입력해주세요'
               height='280px'
-              placeholder='프로젝트을 통해서 배운점을 입력해주세요'
+              placeholder='프로젝트를 통해서 배운점을 입력해주세요'
             />
           </SlideWrapper>
           <SlideWrapper>

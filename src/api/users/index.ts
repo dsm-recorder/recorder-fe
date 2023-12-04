@@ -17,8 +17,8 @@ export const GetUserInfo = () => {
 };
 
 export const DeleteUser = () => {
-  const response = async () => {
-    return instance.delete(`${ROUTER}`);
+  const response = async (accountId: string) => {
+    return instance.delete(`${ROUTER}`, { data: { accountId } });
   };
   return useMutation(response, {
     onError: () => {

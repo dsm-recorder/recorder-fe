@@ -9,7 +9,7 @@ interface IWithdrawProps {
 }
 
 const Withdraw = ({ accountId }: IWithdrawProps) => {
-  const { form, onChange } = useInput({ accoundId: '' });
+  const { form, onChange } = useInput('');
   const { mutate: deleteUser } = DeleteUser();
   return (
     <Common.ContentWrapper>
@@ -25,13 +25,13 @@ const Withdraw = ({ accountId }: IWithdrawProps) => {
         <_._IdInput
           placeholder={accountId}
           name='accoundId'
-          value={form.accoundId}
+          value={form}
           onChange={onChange}
         />
         <Common.Button
           bgcolor='red'
-          onClick={() => deleteUser()}
-          disabled={form.accoundId !== accountId}
+          onClick={() => deleteUser(form)}
+          disabled={form !== accountId}
         >
           영구적으로 계정 삭제
         </Common.Button>

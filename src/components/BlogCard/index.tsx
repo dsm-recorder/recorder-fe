@@ -3,6 +3,7 @@ import { HStack } from '@/components/Stack';
 import { HeartIcon } from '@/asset/icon';
 import { projectType } from '@/api/projects/type';
 import { useNavigate } from 'react-router-dom';
+import { customCookie } from '@/util/customCookie';
 
 const BlogCard = ({
   id,
@@ -18,9 +19,13 @@ const BlogCard = ({
   const navigate = useNavigate();
 
   const hadleMovePage = () => {
-    navigate(`/project/${name}`, {
-      state: { id },
-    });
+    if (!!customCookie.get.accessToken()) {
+      navigate(`/project/${name}`, {
+        state: { id },
+      });
+    } else {
+      alert('로그인을 먼저 해주세요');
+    }
   };
 
   return (
